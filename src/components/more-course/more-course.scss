@@ -1,0 +1,55 @@
+.banbox {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 4.2%;
+  margin: 20px 0;
+  .swiper-wrapper {
+    li {
+      width: 91.2%;
+      position: relative;
+      a {
+        display: block;
+        width: 100%;
+        .swiper-img {
+          display: block;
+          width: 100%;
+          height: auto;
+          border-radius: 10px;
+        }
+        .mask-bottom {
+          height: 40px;
+          background: rgba(0, 0, 0, .5);
+          border-radius: 0 0 10px 10px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          div {
+            color: #ffffff;
+            display: inline-block;
+            &:first-child {
+              position: absolute;
+              left: 15px;
+              line-height: 40px;
+            }
+            &:last-child {
+              position: absolute;
+              right: 10px;
+              padding: 9px 12px;
+              background: #F69F00;
+              border-radius: 12px;
+              line-height: 12px;
+              top: 4px
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
+

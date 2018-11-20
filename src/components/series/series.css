@@ -1,0 +1,84 @@
+.weui_mask{
+    position: fixed;
+    z-index: 15;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.6);
+}
+.show_mask{opacity: 1;visibility:visible;transition:visibility 0.3s,opacity 0.3s }
+.hide_mask{opacity: 0;visibility: hidden;transition:visibility 0.3s,opacity 0.3s }
+.series-container{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+    background: #fff;
+    border-radius: 1rem 1rem 0 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-bottom: 4.17rem;
+    z-index: 5000;
+}
+.series-container .header {
+    height: 3.83rem;
+    line-height: 3.93rem;
+    border-bottom: .1px solid #e9eaec;
+}
+.series-container .header .title {
+    font-weight: 700;
+    font-size: 1rem;
+}
+.series-container .header img {
+    position: absolute;
+    top: 0.83rem;
+    right: .625rem;
+    width: 2.08rem;
+}
+.series-container .series-body{
+    padding-bottom: 1.875rem;
+    max-height: 26.67rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+.single-course{display: flex;height:8.75rem; align-items: center;justify-content: space-between;border-bottom:1px solid #e9eaec;position: relative}
+.single-course .hasBuy{position: absolute;width: 100%;height: 100%;
+    left: 0;
+    top: 0;background-color: rgba(0,0,0,.5)}
+.single-course .course-img{width: 10rem;height: 7.5rem;background: #ff9f00;margin-left: .83rem;border-radius: .83rem}
+.course-other{width: 20.42rem;height: 3.75rem; display: flex;justify-content: space-between;align-items:center; box-sizing: border-box;padding: 0 1rem;margin-left: 0.33rem;}
+.course-other div:first-child{display: flex;height:100%;flex-direction: column;justify-content: space-between;max-width:11.67rem;}
+.course-other div:first-child b{    text-align: left;
+    font-size: 1.1rem;
+    max-width: 9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;}
+.course-other .pintuanjia{font-size: 1rem;color:#767676;text-align: left}
+.rmb-price,.rmb{ color: red;}
+.line-through{
+    color: #767676;text-decoration: line-through}
+.rmb-price{font-size: 1.5rem;font-weight: 600;}
+.single-course .course-buyStatus{width: 2.5rem;margin-right: 3rem;}
+.hasBought{width: auto;height: 2.17rem;padding:0 .5rem; line-height: 2.17rem;text-align: center;border-radius: 1.08rem;
+    border: 1px solid #767676;font-size: 1.17rem}
+.show-list{transform: translateY(0);transition:transform 0.3s }
+.hide-list{transform: translateY(100%);transition:transform 0.3s}
+@keyframes showSeries {
+    form {
+        transform: translateY(100%);
+    }
+    to{
+        transform: translateY(0);
+    }
+}
+@keyframes hideSeries {
+    form {
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(100%);
+    }
+}

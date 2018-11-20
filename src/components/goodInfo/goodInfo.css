@@ -1,0 +1,136 @@
+.sad-banner {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: .42rem 1.33rem;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  text-align: left;
+  margin-top: .42rem
+}
+
+.sad-banner div {
+  padding: .42rem 0;
+  font-size: 1.08rem;
+  color: #656565
+}
+
+.sad-banner .title {
+  font-size: 1.33rem;
+  color: #000;
+  font-weight: 700;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  -webkit-align-items: center;
+  padding-bottom: 1.25rem
+}
+
+#tag {
+  display: inline-block;
+  font-size: 1rem;
+  color: #656565 !important;
+  width: auto !important;
+  height: 2rem;
+  padding: 0 1rem;
+  line-height: 2rem;
+  border-radius: 2.5rem 0 0 2.5rem;
+  background: #f5f5f5;
+  float: right;
+  margin-right: -1.33rem;
+  border: 1px solid transparent
+}
+
+.sad-banner div {
+  padding: 0 0 .42rem 0;
+  width: 100%
+}
+
+.sad-banner div span.price {
+  position: relative;
+  color: red;
+  font-size: 1.17rem
+}
+
+.sad-banner div span.price strong {
+  color: red;
+  font-size: 2rem;
+  position: relative
+}
+
+.sad-banner div span.sup {
+  display: inline-block;
+  color: red;
+  font-size: 1rem;
+  margin-left: .42rem;
+  -webkit-transform: translateY(-85%);
+  transform: translateY(-85%)
+}
+
+.sad-banner div .originprice {
+  color: #656565;
+  margin-left: 1.25rem
+}
+
+.sad-banner div .del {
+  color: #656565;
+  font-size: 1.25rem;
+  text-decoration: line-through;
+  margin-right: auto;
+}
+
+.goodInfo-div {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+#tag {
+  float: right;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.bonus_entry {
+  width: auto;
+  height: auto;
+  position: absolute;
+  right: 0;
+  top: 3rem;
+  z-index: 15;
+}
+
+.bonus_entry img {
+  width: 6rem
+}
+
+.price-hidden {
+  display: none;
+}

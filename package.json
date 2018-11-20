@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "better-scroll": "^1.13.2",
+    "node-sass": "^4.10.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
+    "react-lazyload": "^2.3.0",
+    "react-scripts": "2.1.1",
+    "swiper": "^4.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,5 +26,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "proxy": "http://ben.wxyx.youban.com"
 }
