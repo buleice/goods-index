@@ -27,5 +27,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://ben.wxyx.youban.com"
+  "proxy": "http://dylan.wxyx.youban.com"
 }

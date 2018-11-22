@@ -2,21 +2,21 @@
   position: relative;
   width: 100%;
   height: auto;
-  padding: .42rem 1.33rem;
+  padding: .315rem .9975rem;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   text-align: left;
-  margin-top: .42rem
+  margin-top: .315rem
 }
 
 .sad-banner div {
-  padding: .42rem 0;
-  font-size: 1.08rem;
+  padding: .315rem 0;
+  font-size: 0.81rem;
   color: #656565
 }
 
 .sad-banner .title {
-  font-size: 1.33rem;
+  font-size: 0.9975rem;
   color: #000;
   font-weight: 700;
   display: -ms-flexbox;
@@ -35,7 +35,7 @@
   align-items: center;
   -webkit-justify-content: space-between;
   -webkit-align-items: center;
-  padding-bottom: 1.25rem
+  padding-bottom: 0.9375rem
 }
 
 #tag {
@@ -43,50 +43,50 @@
   font-size: 1rem;
   color: #656565 !important;
   width: auto !important;
-  height: 2rem;
-  padding: 0 1rem;
-  line-height: 2rem;
-  border-radius: 2.5rem 0 0 2.5rem;
+  height: 1.5rem;
+  padding: 0 0.75rem;
+  line-height: 1.5rem;
+  border-radius: 1.875rem 0 0 1.875rem;
   background: #f5f5f5;
   float: right;
-  margin-right: -1.33rem;
+  margin-right: -0.9975rem;
   border: 1px solid transparent
 }
 
 .sad-banner div {
-  padding: 0 0 .42rem 0;
+  padding: 0 0 .315rem 0;
   width: 100%
 }
 
 .sad-banner div span.price {
   position: relative;
   color: red;
-  font-size: 1.17rem
+  font-size: 0.8875rem
 }
 
 .sad-banner div span.price strong {
   color: red;
-  font-size: 2rem;
+  font-size: 1.5rem;
   position: relative
 }
 
 .sad-banner div span.sup {
   display: inline-block;
   color: red;
-  font-size: 1rem;
-  margin-left: .42rem;
+  font-size: 0.75rem;
+  margin-left: .315rem;
   -webkit-transform: translateY(-85%);
   transform: translateY(-85%)
 }
 
 .sad-banner div .originprice {
   color: #656565;
-  margin-left: 1.25rem
+  margin-left: 0.9375rem
 }
 
 .sad-banner div .del {
   color: #656565;
-  font-size: 1.25rem;
+  font-size: 0.9375rem;
   text-decoration: line-through;
   margin-right: auto;
 }
@@ -123,12 +123,12 @@
   height: auto;
   position: absolute;
   right: 0;
-  top: 3rem;
+  top: 2.25rem;
   z-index: 15;
 }
 
 .bonus_entry img {
-  width: 6rem
+  width: 4.5rem
 }
 
 .price-hidden {

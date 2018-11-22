@@ -30,7 +30,7 @@
           var HTML = document.getElementsByTagName('html')[0];
           var deviceWidth = document.documentElement.clientWidth;
           var scale2 = deviceWidth / 375;
-          var fontSize=(120 * scale2)/10>=30? 30:parseInt((120 * scale2)/10);
+          var fontSize=(160 * scale2)/10>=30? 30:parseInt((160 * scale2)/10);
           fontSize=chk(fontSize)?fontSize:fontSize+1;
           HTML.style.fontSize = fontSize + 'px'; //乘以100的目的是浏览器最小的字体大小为1rem,所以会出现屏幕过小会不执行，这样就可以按照正常的px大小除以100就是rem的值了
       }

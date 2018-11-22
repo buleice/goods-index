@@ -1,0 +1,59 @@
+.buttons {
+  -webkit-box-shadow: -0.125rem 0 0.1875rem 0.1875rem #ededed;
+  box-shadow: -0.125rem 0 0.1875rem 0.1875rem #ededed;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  background: #fff;
+  font-size: 1rem;
+  .btn_left {
+    display: inline-block;
+    width: 30%;
+    height: auto;
+    padding: 0.82rem 0 0.75rem 0;
+    font-size: 1rem;
+    text-align: center;
+    color: #fa4822;
+    margin-left: auto;
+    float: left;
+    a{
+      color: red;
+    }
+  }
+  .b-btn{
+    width: 70%;
+    float: right;
+    text-align: center;
+    .dandugou {
+      background-color: #ff9f00;
+      width: 48%;
+      color: #fff;
+      border-radius: 0;
+      float: left;
+      padding: 0.82rem 0 0.75rem 0;
+      .inline-box {
+        display: inline-block;
+        height: auto;
+        line-height: 1;
+        width: 100%;
+      }
+    }
+    .sanrentuan {
+      background: -webkit-gradient(linear,left top, right top,from(#fe7e33),to(#fa4822));
+      background: linear-gradient(to right,#fe7e33,#fa4822);
+      padding: 0.82rem 0 0.75rem 0;
+      width: 52%;
+      color: #fff;
+      border-radius: 0;
+      float: right;
+      .inline-box {
+        display: inline-block;
+        height: auto;
+        line-height: 1;
+        width: 100%;
+      }
+    }
+  }
+}

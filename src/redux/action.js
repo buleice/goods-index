@@ -24,9 +24,16 @@ var setAsyncSayActionCreator=function(){
         }, 2000)
     }
 }
+const setShowMoreAction=(showStatus)=>{
+    return{
+        type:types.SET_SHOWMORE,
+        showStatus:showStatus
+    }
+}
 
 export{
   setNameActionCreator,
   setAsyncSayActionCreator,
-  addItemActionCreator
+  addItemActionCreator,
+    setShowMoreAction
 }

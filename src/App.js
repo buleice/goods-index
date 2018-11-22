@@ -6,6 +6,11 @@ import Carousel from './components/betterScroll/betterScroll';
 import GoodInfo from './components/goodInfo/goodInfo';
 import ProductsInfo from './components/products-introduction/products-introduction';
 import MoreCourse from './components/more-course/more-course'
+import PeopleInGroup from './components/people-in-group/people-in-group'
+import GuiZe from './components/guize/guize'
+import GroupList from './components/group-list/group-list'
+import GroupBox from './components/group-box/group-box'
+import BuyButtons from './components/buy-buttons/buy-buttons'
 
 class App extends Component {
     constructor() {
@@ -20,6 +25,7 @@ class App extends Component {
 
     componentWillMount() {
         axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
+            console.log(res)
             if (res.status === 200) {
                 let pageData = res.data;
                 this.setState({
@@ -39,6 +45,14 @@ class App extends Component {
                     },
                     recommend:pageData.recommend,
                     Fintros:[res.data.buyingInfo.Fintro1,res.data.buyingInfo.Fintro2,res.data.buyingInfo.Fintro3],
+                    buttonControl:{},
+                    peopleInGroup:{
+                        Fmode:pageData.buyingInfo.Fmode,
+                        nowBuyingCount:pageData.nowBuyingCount,
+                        recent:pageData.recent,
+                        userList:pageData.userList,
+                        tm:pageData.tm
+                    },
                 })
             }
         })
@@ -50,9 +64,12 @@ class App extends Component {
                 <div className="App">
                     <Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
+                    <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
+                    {/*<GuiZe></GuiZe>*/}
+                    {/*<GroupList></GroupList>*/}
                     <MoreCourse lists={this.state.recommend}></MoreCourse>
                     <ProductsInfo Fintros={this.state.Fintros}></ProductsInfo>
-
+                    <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
 
                 </div>
             );

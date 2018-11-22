@@ -1,5 +1,5 @@
 import { createStore, combineReducers,applyMiddleware} from 'redux'
-import {userReducer, itemsReducer,speaker} from './reducer'
+import {userReducer, itemsReducer,speaker,showMoreStatus} from './reducer'
 import {setNameActionCreator,setAsyncSayActionCreator} from './action'
 import {thunkMiddleware} from './middleware'
 
@@ -8,7 +8,8 @@ const finalCreateStore = applyMiddleware(thunkMiddleware)(createStore)
 var reducer = combineReducers({
     user: userReducer,
     items: itemsReducer,
-    speaker:speaker
+    speaker:speaker,
+    showMoreStatus:showMoreStatus
 })
 
 var store = createStore(reducer)

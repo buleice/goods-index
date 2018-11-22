@@ -35,8 +35,20 @@ var speaker= function (state = {}, action) {
                 return state
         }
     }
+const showMoreStatus=(state = {}, action)=>{
+    switch (action.type) {
+        case 'SET_SHOWMORE':
+            return {
+                ...state,
+                showStatus: action.showStatus
+            }
+        default:
+            return state;
+    }
+}
 export{
   userReducer,
   itemsReducer,
-  speaker
+  speaker,
+    showMoreStatus
 }
