@@ -1,0 +1,97 @@
+.groupinfo {
+  padding: 0 .3125rem;
+  height: 4rem;
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  -webkit-align-items: center;
+  border-top: .0625rem solid #dedede;
+  .group_left {
+    width: 70%;
+    height: auto;
+    font-size: .625rem;
+    text-align: left;
+    .avatar {
+      margin-right: .625rem;
+      float: left;
+      height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      justify-content: flex-start;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      img {
+        width: 2.8125rem;
+        height: 2.8125rem;
+        border-radius: 50%;
+      }
+    }
+    .middle {
+      width: auto;
+      display: -ms-flexbox;
+      display: flex;
+      display: -webkit-box;
+      display: -webkit-flex;
+      height: 2.8125rem;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      justify-content: space-around;
+      -webkit-justify-content: space-around;
+      .avater-nick {
+        display: inline-block;
+        max-width: 3.875rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: .3125rem;
+      }
+      .tuan_label {
+        font-style: normal;
+        display: inline;
+        width: auto;
+        max-width: 2.81rem;
+        padding: .25rem .25rem;
+        margin-top: .25rem;
+        line-height: .94rem;
+        text-align: center;
+        background-image: url(//udata.youban.com/webimg/wxyx/youxue/_rentuanbg.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: #fff;
+        font-size: .625rem;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-radius: 4px 4px 4px 0;
+        position: relative;
+        bottom: .25rem;
+      }
+    }
+
+  }
+  a {
+    background: #f69f00;
+    font-size: .9375rem;
+    width: 5rem;
+    height: 2.25rem;
+    line-height: 2.25rem;
+    text-align: center;
+    border-radius: .625rem;
+    color: #fff;
+    float: right;
+    position: relative;
+  }
+}

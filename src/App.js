@@ -11,6 +11,13 @@ import GuiZe from './components/guize/guize'
 import GroupList from './components/group-list/group-list'
 import GroupBox from './components/group-box/group-box'
 import BuyButtons from './components/buy-buttons/buy-buttons'
+import { connect } from 'react-redux';
+import { SetTm } from './actions/index'
+
+const mapDispatchToProps = dispatch => ({
+    setTm: tm => dispatch(SetTm(tm))
+})
+
 
 class App extends Component {
     constructor() {
@@ -25,9 +32,9 @@ class App extends Component {
 
     componentWillMount() {
         axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
-            console.log(res)
             if (res.status === 200) {
                 let pageData = res.data;
+                this.props.dispatch(SetTm(pageData.tm))
                 this.setState({
                     goodInfo: pageData,
                     isRender: true,
@@ -45,7 +52,14 @@ class App extends Component {
                     },
                     recommend:pageData.recommend,
                     Fintros:[res.data.buyingInfo.Fintro1,res.data.buyingInfo.Fintro2,res.data.buyingInfo.Fintro3],
-                    buttonControl:{},
+                    buttonControl:{
+                        bonusPay:pageData.bonusPay,
+                        ForiginalPrice:pageData.buyingInfo.ForiginalPrice,
+                        buttonText:pageData.buyingInfo.buttonText,
+                        Fmode:pageData.buyingInfo.Fmode,
+                        from :pageData.from,
+                        founderPrice:pageData.founderPrice
+                    },
                     peopleInGroup:{
                         Fmode:pageData.buyingInfo.Fmode,
                         nowBuyingCount:pageData.nowBuyingCount,
@@ -65,12 +79,11 @@ class App extends Component {
                     <Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
                     <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
-                    {/*<GuiZe></GuiZe>*/}
+                    <GuiZe></GuiZe>
                     {/*<GroupList></GroupList>*/}
                     <MoreCourse lists={this.state.recommend}></MoreCourse>
                     <ProductsInfo Fintros={this.state.Fintros}></ProductsInfo>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
-
                 </div>
             );
         } else {
@@ -97,5 +110,8 @@ class App extends Component {
         return '';
     }
 }
-
-export default App;
+export default connect(
+    // mapStateToProps,
+    mapDispatchToProps
+)(App)
+// export default App;

@@ -1,7 +1,9 @@
 @import "../../common/css/common.scss";
+
 .cover-mask {
   @include cover-mask;
 }
+
 .guize {
   width: 100%;
   height: 3.125rem;
@@ -9,6 +11,8 @@
   position: relative;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  text-align: left;
+  position: relative;
   div {
     display: inline-block;
     font-size: .875rem;
@@ -30,6 +34,18 @@
       padding-left: 1rem;
       margin-right: 1.25rem
     }
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    top: 50%;
+    right: .625rem;
+    border-top: 1px solid #656565;
+    border-right: 1px solid #656565;
+    transform: translate(-50%, -50%) rotate(45deg);
+    -webkit-transform: translateY(-50%) rotate(45deg);
   }
 }
 

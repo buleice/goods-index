@@ -1,13 +1,20 @@
 import React, {Component} from "react";
 import './people-in-group.scss'
 import GroupBox from "../group-box/group-box";
-
-export default class PeopleInGroup extends Component {
+import { connect } from 'react-redux';
+import {showMoreGroup} from "../../actions";
+const mapStateToProps = state => ({
+    showStatus: state.showMoreGroup
+})
+const mapDispatchToProps = dispatch => ({
+    showMoreGroup: isShowGuide => dispatch(showMoreGroup(isShowGuide))
+})
+class PeopleInGroup extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            userList:props.userList
-        }
+    }
+    componentWillMount(){
+        console.log(this.props)
     }
     render() {
         return (
@@ -17,10 +24,10 @@ export default class PeopleInGroup extends Component {
                         {this.props.peopleInGroup.nowBuyingCount}人正在拼课
                     </div>
                     <div className="six-avatar">
-                        {this.props.peopleInGroup.recent.map((item,index)=> <img src={item} alt="" key={index}/>)}
+                        {Object.values(this.props.peopleInGroup.recent).map((item,index)=> <img src={item} alt="" key={index}/>)}
                         <span className="dot">···</span>
                     </div>
-                    <div className="ri">
+                    <div className="ri" >
                         <span>更多</span>
                     </div>
                 </div>
@@ -29,3 +36,8 @@ export default class PeopleInGroup extends Component {
         )
     }
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PeopleInGroup)

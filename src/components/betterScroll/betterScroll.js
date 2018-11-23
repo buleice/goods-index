@@ -194,7 +194,7 @@ class Carousel extends Component {
                 <div className={`dots ${this.props.showDot ? 'showDots' : 'hideDots'}`}>
                     {
                         this.state.dots.map((dot, index) => <span
-                            className={`dot ${this.state.currentPageIndex == index ? 'active' : ''}`} key={index}></span>)
+                            className={`dot ${this.state.currentPageIndex === index ? 'active' : ''}`} key={index}></span>)
                     }
                 </div>
             </div>
