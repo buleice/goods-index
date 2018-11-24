@@ -7,7 +7,7 @@ import GoodInfo from './components/goodInfo/goodInfo';
 import ProductsInfo from './components/products-introduction/products-introduction';
 import MoreCourse from './components/more-course/more-course'
 import PeopleInGroup from './components/people-in-group/people-in-group'
-import GuiZe from './components/guize/guize'
+import GuiZe from './containers/guize'
 import GroupList from './components/group-list/group-list'
 import GroupBox from './components/group-box/group-box'
 import BuyButtons from './components/buy-buttons/buy-buttons'

@@ -1,32 +1,21 @@
 import React, {Component} from "react";
-import {connect}  from 'react-redux';
-import { showGuide } from '../../actions/index'
+
 import './guize.scss'
 
-const mapStateToProps = (state, ownProps) => ({
-    showStatus: state.showGuide
-})
 
-const mapDispatchToProps = dispatch => ({
-    showGuide: isShowGuide => dispatch(showGuide(isShowGuide))
-})
-
-class GuiZe extends Component {
+export default class GuiZe extends Component {
     constructor(props) {
         super(props);
     }
-    handleShowStatus=(status)=>{
-        console.log("打开规则")
-        this.props.dispatch(showGuide(status))
-    }
     componentDidMount(){
-
+      console.log(this.props)
     }
+
     render() {
         return (
             <div>
                 {/*<div className="cover-mask"></div>*/}
-                <div className="guize" onClick={this.handleShowStatus.bind(this, true)}>
+                <div className="guize" onClick={()=>this.props.onGuizeClick(true)}>
                     <div><img src="//udata.youban.com/webimg/wxyx/puintuan/common/img/rule_icon.png" alt="rule-icon"/>拼成即可上课
                     </div>
                     <div><img src="//udata.youban.com/webimg/wxyx/puintuan/common/img/rule_icon.png" alt="rule-icon"/>拼团失败原路退还
@@ -73,8 +62,3 @@ class GuiZe extends Component {
         )
     }
 }
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(GuiZe)
