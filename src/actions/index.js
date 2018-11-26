@@ -37,3 +37,11 @@ export const showMoreGroup=isShowMoreGroup=>({
     type:types.SET_SHOWMOREGROUP,
     showMoreGroup:isShowMoreGroup
 })
+export const groupData=data=>({
+    type:types.SET_GROUPS,
+        groups:data
+})
+export const freeBuy=isFree=>({
+    type:types.SET_FREEBUY,
+    freeBuy:isFree
+})

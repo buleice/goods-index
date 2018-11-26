@@ -1,8 +1,7 @@
 
 const axios =require('axios');
-const Config =require('./url-config')
 axios.defaults.withCredentials=true;
-const jsSdkConfig = function (shareData) {
+const wxShare = function (shareData) {
     let WXSHDATA = {
         title: shareData.FshareTitle,
         link:`${window.location.href.split("?")[0]}?id=${shareData.buyingId}&shareKey=${shareData.myShareKey}`,
@@ -33,7 +32,7 @@ const jsSdkConfig = function (shareData) {
     // // alert(window.location.href.split('#')[0]);
 
     axios({
-        url: `${Config.ROOT}/weixin/config`,
+        url: `/weixin/config`,
         method: 'post',
         data: {
             url:window.location.href
@@ -75,59 +74,3 @@ const jsSdkConfig = function (shareData) {
         console.log('errors', errors);
     });
 };
-const wxPay=function (url,data) {
-    axios({
-        url: url,
-        method: 'post',
-        data:data,
-        transformRequest: [function (data) {
-            let ret = ''
-            for (let it in data) {
-                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-            }
-            return ret
-        }],
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    }).then(response=>{
-        if(response.status===200){
-             jsSDK(response.data.data);
-        }
-    }).catch(function (errors) {
-        console.log('errors', errors);
-    });
-
-}
-
-const jsSDK = function(params) {
-    if (typeof window.WeixinJSBridge === 'undefined') {
-        if (document.addEventListener) {
-            document.addEventListener('WeixinJSBridgeReady', function () { onBridgeReady(params) }, false)
-        } else if (document.attachEvent) {
-            document.attachEvent('WeixinJSBridgeReady', function () { onBridgeReady(params) })
-            document.attachEvent('onWeixinJSBridgeReady', function () { onBridgeReady(params) })
-        }
-    } else {
-        onBridgeReady(params)
-    }
-}
-
-const onBridgeReady=function (params) {
-    window.WeixinJSBridge.invoke(
-        'getBrandWCPayRequest', params,
-        function(res) {
-            if (res.err_msg === "get_brand_wcpay_request:ok") {
-                alert("支付成功");
-                window.location.reload()
-            } else {
-                alert("支付失败");
-            }
-        }
-    );
-}
-
-export {
-    jsSdkConfig,
-    wxPay
-}

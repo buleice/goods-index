@@ -1,3 +1,5 @@
 export const SET_TM='SET_TM';
 export const SET_SHOWGUIDE='SET_SHOWGUIDE'
 export const SET_SHOWMOREGROUP='SET_SHOWMOREGROUP'
+export const SET_GROUPS='SET_GROUPS'
+export const SET_FREEBUY='SET_FREEBUY'

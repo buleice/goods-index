@@ -9,7 +9,7 @@ const showGuide = (state = false, action) => {
 const showMoreGroup = (state = false, action) => {
     switch (action.type) {
         case 'SET_SHOWMOREGROUP':
-            return action.isShowMoreGroup;
+            return action.showMoreGroup;
         default:
             return state
     }

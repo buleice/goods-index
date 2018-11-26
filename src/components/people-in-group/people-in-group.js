@@ -1,20 +1,10 @@
 import React, {Component} from "react";
 import './people-in-group.scss'
 import GroupBox from "../group-box/group-box";
-import { connect } from 'react-redux';
-import {showMoreGroup} from "../../actions";
-const mapStateToProps = state => ({
-    showStatus: state.showMoreGroup
-})
-const mapDispatchToProps = dispatch => ({
-    showMoreGroup: isShowGuide => dispatch(showMoreGroup(isShowGuide))
-})
-class PeopleInGroup extends Component {
+import {wxPays} from "../../common/js/wxpay";
+export default class PeopleInGroup extends Component {
     constructor(props) {
         super(props);
-    }
-    componentWillMount(){
-        console.log(this.props)
     }
     render() {
         return (
@@ -27,7 +17,7 @@ class PeopleInGroup extends Component {
                         {Object.values(this.props.peopleInGroup.recent).map((item,index)=> <img src={item} alt="" key={index}/>)}
                         <span className="dot">···</span>
                     </div>
-                    <div className="ri" >
+                    <div className="ri" onClick={()=>this.props.onShowMoreGroupClick(true)}>
                         <span>更多</span>
                     </div>
                 </div>
@@ -37,7 +27,3 @@ class PeopleInGroup extends Component {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PeopleInGroup)

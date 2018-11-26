@@ -1,4 +1,4 @@
-@mixin cover-mask{
+@mixin hide-cover-mask{
   position: fixed;
   width: 100%;
   height: 100%;
@@ -6,10 +6,26 @@
   bottom: 0;
   background: rgba(0,0,0,.5);
   z-index: 15;
+  display: none;
+  opacity: 0;
+  transition: opacity .3s;
 }
-@mixin slide-up-position{
+@mixin show-cover-mask{
   position: fixed;
-  bottom: 0rem;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 15;
+  display: block;
+  opacity: 1;
+  transition: opacity .3s;
+}
+@mixin slide-up-hide{
+  position: fixed;
+  bottom: auto;
+  top: 100%;
   width: 100%;
   height: auto;
   background: #fff;
@@ -17,5 +33,23 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0 1rem;
-  z-index: 15;
+  z-index: 1000;
+  transition: top 0.3s,bottom .3s;
+}
+@mixin slide-up-show{
+  position: fixed;
+  bottom: 0;
+  top: auto;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border-radius: 1rem 1rem 0 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  z-index: 1000;
+  transition: top 0.3s,bottom .3s;
+}
+@mixin slide-bottom-hide{
+
 }

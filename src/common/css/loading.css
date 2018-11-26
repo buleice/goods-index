@@ -1,40 +1,17 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 @-webkit-keyframes enter{0%{opacity:0;top:-.83rem}
-  5%{opacity:1;top:0}
-  50.9%{opacity:1;top:0}
-  55.9%{opacity:0;top:.83rem}
+    5%{opacity:1;top:0}
+    50.9%{opacity:1;top:0}
+    55.9%{opacity:0;top:.83rem}
 }
 @keyframes enter{0%{opacity:0;top:-.83rem}
-  5%{opacity:1;top:0}
-  50.9%{opacity:1;top:0}
-  55.9%{opacity:0;top:.83rem}
+    5%{opacity:1;top:0}
+    50.9%{opacity:1;top:0}
+    55.9%{opacity:0;top:.83rem}
 }
 @-moz-keyframes enter{0%{opacity:0;top:-.83rem}
-  5%{opacity:1;top:0}
-  50.9%{opacity:1;top:0}
-  55.9%{opacity:0;top:.83rem}
+    5%{opacity:1;top:0}
+    50.9%{opacity:1;top:0}
+    55.9%{opacity:0;top:.83rem}
 }
 /* body{background:#1fbeca} */
 /* *{margin:0} */

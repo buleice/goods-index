@@ -2,8 +2,11 @@ import React,{Component} from 'react';
 import './single-group.scss';
 import { connect } from 'react-redux';
 import {backTimeString} from '../../common/js/process'
+import {wxPays} from "../../common/js/wxpay";
+
 const mapStateToProps = (state, props) => ({
-    tm: state.tm
+    tm: state.tm,
+    freeBuy:state.freeBuy
 })
 class SingleGroup extends Component{
     constructor(props){
@@ -11,7 +14,9 @@ class SingleGroup extends Component{
         this.state={
             endTime:props.item.endTime,
             remainTime:'',
+            canClick: true
         }
+        this._GetQueryString = this._GetQueryString.bind(this)
     }
     componentDidMount(){
         let endTime=this.state.endTime;
@@ -23,6 +28,27 @@ class SingleGroup extends Component{
             })
             tm++;
         },1000)
+    }
+    processPay(groupid){
+        let isFree=this.props.freeBuy;
+        let buyingid= this._GetQueryString('id');
+        if (this.state.canClick) {
+            this.setState({
+                canClick: false
+            })
+            if(isFree){
+                wxPays.freeJoin('/groupbuying/freejoin.json',{buyingid:buyingid,groupid:groupid});
+            }else {
+                wxPays.join('/pay/weixin/group/prepare.json',{buyingid:buyingid,groupid:groupid});
+            }
+            setTimeout(()=>{
+                this.setState({
+                    canClick: true
+                })
+            },3000)
+        }else{
+            return false
+        }
     }
     render(){
         return(
@@ -40,9 +66,15 @@ class SingleGroup extends Component{
                         </div>
                     </div>
                 </div>
-                <a className="ulink cantuan">去拼团</a>
+                <a className="ulink cantuan" onClick={this.processPay.bind(this,this.props.item.groupid)}>去拼团</a>
             </div>
         )
+    }
+    _GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则
+        if (r != null) return unescape(r[2]);
+        return '';
     }
 }
 

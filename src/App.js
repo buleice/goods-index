@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
-import {axiosPost} from "./common/js/axiosData";
 import axios from 'axios';
-import './App.css';
+import './App.scss';
 import Carousel from './components/betterScroll/betterScroll';
 import GoodInfo from './components/goodInfo/goodInfo';
 import ProductsInfo from './components/products-introduction/products-introduction';
 import MoreCourse from './components/more-course/more-course'
-import PeopleInGroup from './components/people-in-group/people-in-group'
+import PeopleInGroup from './containers/people-in-group'
 import GuiZe from './containers/guize'
-import GroupList from './components/group-list/group-list'
-import GroupBox from './components/group-box/group-box'
+import GroupList from './containers/group-list'
 import BuyButtons from './components/buy-buttons/buy-buttons'
-import { connect } from 'react-redux';
-import { SetTm } from './actions/index'
+import {connect} from 'react-redux';
+import {groupData, SetTm,freeBuy} from './actions/index'
 
 const mapDispatchToProps = dispatch => ({
-    setTm: tm => dispatch(SetTm(tm))
+    setTm: tm => dispatch(SetTm(tm)),
+    setGroups: data => dispatch(groupData(data)),
+    setFreeBuy:isFree=>dispatch(freeBuy(isFree))
 })
 
 
@@ -34,7 +34,10 @@ class App extends Component {
         axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
             if (res.status === 200) {
                 let pageData = res.data;
+                let isBuy=Number(pageData.buyingInfo.Fprice)>0?false:true
                 this.props.dispatch(SetTm(pageData.tm))
+                this.props.dispatch(groupData(pageData.userList))
+                this.props.dispatch(freeBuy(isBuy));
                 this.setState({
                     goodInfo: pageData,
                     isRender: true,
@@ -50,23 +53,30 @@ class App extends Component {
                         Fprice: pageData.buyingInfo.Fprice,
                         ForiginalPrice: pageData.buyingInfo.ForiginalPrice
                     },
-                    recommend:pageData.recommend,
-                    Fintros:[res.data.buyingInfo.Fintro1,res.data.buyingInfo.Fintro2,res.data.buyingInfo.Fintro3],
-                    buttonControl:{
-                        bonusPay:pageData.bonusPay,
-                        ForiginalPrice:pageData.buyingInfo.ForiginalPrice,
-                        buttonText:pageData.buyingInfo.buttonText,
-                        Fmode:pageData.buyingInfo.Fmode,
-                        from :pageData.from,
-                        founderPrice:pageData.founderPrice
+                    recommend: pageData.recommend,
+                    Fintros: [res.data.buyingInfo.Fintro1, res.data.buyingInfo.Fintro2, res.data.buyingInfo.Fintro3],
+                    buttonControl: {
+                        bonusPay: pageData.bonusPay,
+                        ForiginalPrice: pageData.buyingInfo.ForiginalPrice,
+                        buttonText: pageData.buyingInfo.buttonText,
+                        Fmode: pageData.buyingInfo.Fmode,
+                        from: pageData.from,
+                        founderPrice: pageData.founderPrice,
+                        id:this._GetQueryString("id"),
+                        shareKey:this._GetQueryString('shareKey'),
                     },
-                    peopleInGroup:{
-                        Fmode:pageData.buyingInfo.Fmode,
-                        nowBuyingCount:pageData.nowBuyingCount,
-                        recent:pageData.recent,
-                        userList:pageData.userList,
-                        tm:pageData.tm
+                    peopleInGroup: {
+                        Fmode: pageData.buyingInfo.Fmode,
+                        nowBuyingCount: pageData.nowBuyingCount,
+                        recent: pageData.recent,
+                        userList: pageData.userList,
+                        tm: pageData.tm
                     },
+                    groupList: {
+                        Fmode: pageData.buyingInfo.Fmode,
+                        nowBuyingCount: pageData.nowBuyingCount,
+                        id: this._GetQueryString("id")
+                    }
                 })
             }
         })
@@ -80,14 +90,14 @@ class App extends Component {
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
                     <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
                     <GuiZe></GuiZe>
-                    {/*<GroupList></GroupList>*/}
+                    <GroupList groupList={this.state.groupList}></GroupList>
                     <MoreCourse lists={this.state.recommend}></MoreCourse>
                     <ProductsInfo Fintros={this.state.Fintros}></ProductsInfo>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
                 </div>
             );
         } else {
-            return (<div className="loading-mask" id="loadingDiv">
+            return (<div className="loading-mask">
                 <div className="loader">
                     <div className="square"></div>
                     <div className="square"></div>
@@ -110,6 +120,7 @@ class App extends Component {
         return '';
     }
 }
+
 export default connect(
     // mapStateToProps,
     mapDispatchToProps

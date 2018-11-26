@@ -6,7 +6,6 @@ export default class GroupBox extends Component {
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
             <div>
