@@ -38,6 +38,9 @@
         margin-left: -.8125rem;
         float: left;
         border: 1px solid #fff;
+        @media screen and (min-width: 768px) {
+          margin-left: .2rem;
+        }
         &:first-child {
           margin-left: 0
         }

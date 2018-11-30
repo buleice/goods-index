@@ -27,7 +27,9 @@ export default class GroupList extends Component {
                 this.setState({
                     pageNum:1
                 })
-                this.reloadGroupData()
+                this.setState({
+                    loadMoreGroup:false
+                })
             }
             setTimeout(()=>{
                 this.setState({

@@ -190,6 +190,7 @@ class Carousel extends Component {
             <div className="slide wrapper" ref={this.slide}>
                 <div className="slide-group" ref={this.slideGroup}>
                     {this.props.slideItemData.map((item,index)=><img src={item} key={index}/>)}
+                    {this.props.vsrc!=''&&<video id="slider-video" poster="http://p9w8pmwcs.bkt.clouddn.com/20180917/6230160021FqQ8ZoHJqMZ1I9Sl48gVCX-5yidf.png" x5-playsinline="" playsinline="" wekit-playsinline="" src={this.props.vsrc}></video>}
                 </div>
                 <div className={`dots ${this.props.showDot ? 'showDots' : 'hideDots'}`}>
                     {

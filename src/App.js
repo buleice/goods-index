@@ -86,7 +86,7 @@ class App extends Component {
         if (this.state.isRender) {
             return (
                 <div className="App">
-                    <Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>
+                    <Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner} vsrc={this.state.goodInfo.buyingInfo.Fvideo}></Carousel>
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
                     <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
                     <GuiZe></GuiZe>
