@@ -2,43 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d38b519-4a57-4dd1-aa54-e92544d43de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/containers/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/action-types.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/action-types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/css/common.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/css/common.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/js/axiosData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/js/axiosData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/js/process.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/js/process.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/js/wxpay.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/js/wxpay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/js/wxshare.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/js/wxshare.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/betterScroll/betterScroll.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/betterScroll/betterScroll.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/betterScroll/betterScroll.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/betterScroll/betterScroll.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/buy-buttons/buy-buttons.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/buy-buttons/buy-buttons.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/buy-buttons/buybutton.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/buy-buttons/buybutton.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/goodInfo/goodInfo.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/goodInfo/goodInfo.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/group-list/group-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/group-list/group-list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/group-list/group-list.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/group-list/group-list.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/guize/guize.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/guize/guize.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/guize/guize.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/guize/guize.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/more-course/more-course.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/more-course/more-course.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/people-in-group/people-in-group.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/people-in-group/people-in-group.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/products-introduction/products-introduction.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/products-introduction/products-introduction.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/single-group/single-group.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/single-group/single-group.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/toTop/totop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/toTop/totop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configureStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configureStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/group-list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/group-list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/guize.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/guize.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/people-in-group.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/people-in-group.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/enhancers/monitorReducers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/enhancers/monitorReducers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/logger.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/logger.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/showstatus.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/showstatus.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,7 +17,7 @@
     <session id="1000334654">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="10" />
           <entry key="project.open.time.0" value="3" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
@@ -91,6 +55,7 @@
           <entry key="js" value="10616" />
           <entry key="json" value="26" />
           <entry key="scss" value="1604" />
+          <entry key="txt" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -99,6 +64,7 @@
           <entry key="HTML" value="50" />
           <entry key="JSON" value="26" />
           <entry key="JavaScript" value="10616" />
+          <entry key="PLAIN_TEXT" value="6" />
           <entry key="SCSS" value="1604" />
         </counts>
       </usages-collector>
@@ -450,18 +416,26 @@
       <workItem from="1543560875492" duration="3499000" />
       <workItem from="1543579602253" duration="663000" />
       <workItem from="1543801238535" duration="21744000" />
-      <workItem from="1543886911892" duration="14389000" />
+      <workItem from="1543886911892" duration="14439000" />
     </task>
+    <task id="LOCAL-00001" summary="页面重构完成">
+      <created>1543921914013</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1543921914013</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109772000" />
+    <option name="totallyTimeSpent" value="109822000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="373" y="14" width="1934" height="862" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18090717" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18071654" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -486,6 +460,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="页面重构完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="页面重构完成" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/components/loading/loading.js" />
@@ -611,6 +589,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -632,6 +613,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="607">
           <caret line="35" column="45" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="45" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#709#770#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
