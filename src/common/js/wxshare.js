@@ -4,7 +4,7 @@ axios.defaults.withCredentials=true;
 const wxShare = function (shareData) {
     let WXSHDATA = {
         title: shareData.FshareTitle,
-        link:`${window.location.href.split("?")[0]}?id=${shareData.buyingId}&shareKey=${shareData.myShareKey}`,
+        link:`${window.location.href.split("?")[0]}?id=${shareData.buyingId}&shareKey=${shareData.shareKey}`,
         imgUrl: shareData.FshareIcon,
         type: "link",
         dataUrl: "",
@@ -74,3 +74,6 @@ const wxShare = function (shareData) {
         console.log('errors', errors);
     });
 };
+export {
+    wxShare
+}

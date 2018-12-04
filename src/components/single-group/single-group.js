@@ -22,11 +22,16 @@ class SingleGroup extends Component{
         let endTime=this.state.endTime;
         let _this=this;
         let tm=this.props.tm;
-        setInterval(function () {
-            _this.setState({
-                remainTime :backTimeString(endTime,tm)
-            })
-            tm++;
+        let timeloop=setInterval(function () {
+            if(backTimeString(endTime,tm)!==0){
+                _this.setState({
+                    remainTime :backTimeString(endTime,tm)
+                })
+                tm++;
+            }else{
+                clearInterval(timeloop);
+                window.location.reload();
+            }
         },1000)
     }
     processPay(groupid){

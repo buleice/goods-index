@@ -12,7 +12,8 @@ const wxPays= {
         axiosPost(url, Object.assign({}, data, {isFounder: 0})).then(response => {
             if (response.status === 200) {
                 setTimeout(function() {
-                    window.location.href = "/purchase/detail?buyingid=" + buyingid + "&groupid=" + data.groupid
+                    window.location.reload()
+                    // window.location.href = "/purchase/detail?buyingid=" + buyingid + "&groupid=" + data.groupid
                 }, 300);
             }
         }).catch(function (errors) {
@@ -24,7 +25,8 @@ const wxPays= {
             if (response.status === 200) {
                 let groupid=response.data.groupid
                 setTimeout(function() {
-                    window.location.href = "/purchase/detail?buyingid=" + buyingid + "&groupid=" + groupid;
+                    // window.location.href = "/purchase/detail?buyingid=" + buyingid + "&groupid=" + groupid;
+                    window.location.reload()
                 }, 300);
             }
         }).catch(function (errors) {

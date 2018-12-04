@@ -45,3 +45,7 @@ export const freeBuy=isFree=>({
     type:types.SET_FREEBUY,
     freeBuy:isFree
 })
+export const modalOpen=modalopen=>({
+    type:types.SET_MODALOPEN,
+    modalOpen:modalopen
+})

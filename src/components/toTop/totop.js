@@ -1,21 +1,5 @@
 import React,{Component} from 'react';
-import { connect } from 'react-redux'
-import * as actionCreators from '../../redux/action'
 import './toTop.css'
-
-const mapStateToProps=(state,ownProps)=>{
-  return {
-    testName:state.user,
-  }
-}
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onTodoClick: id => {
-//       dispatch(toggleTodo(id))
-//     }
-//   }
-// }
 
  class ScrollTo extends Component{
   constructor(props){
@@ -77,6 +61,5 @@ const mapStateToProps=(state,ownProps)=>{
         });
     }
 }
-const ScrollToTop =connect(mapStateToProps)(ScrollTo)
 
-export default ScrollToTop
+export default ScrollTo

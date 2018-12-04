@@ -52,10 +52,10 @@
   }
 }
 
-.hide-jieshao {
-  @include slide-up-hide;
+.slide {
+  @include slide;
   text-align: left;
-  .header {
+  .header2 {
     padding: .625rem 0;
     border-bottom: .0625rem solid #e9eaec;
     text-align: center;
@@ -106,57 +106,13 @@
     }
   }
 }
-.show-jieshao {
-  @include slide-up-show;
-  text-align: left;
-  .header {
-    padding: .625rem 0;
-    border-bottom: .0625rem solid #e9eaec;
-    text-align: center;
-    img {
-      position: absolute;
-      top: .3125rem;
-      right: .625rem;
-      width: 1.5625rem;
-      height: 1.5625rem
-    }
-    .title {
-      font-weight: 700;
-      font-size: 1rem;
-    }
-  }
-  .jieshao-body {
-    padding-bottom: 1.875rem;
-    max-height: 25rem;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    .jieshao-label {
-      div {
-        margin-top: .9375rem;
-        i {
-          display: inline-block;
-          width: 1.4375rem;
-          height: 1.4375rem;
-          border-radius: 50%;
-          text-align: center;
-          line-height: 1.4375rem;
-          background-color: red;
-          color: #fff;
-          font-style: normal;
-          margin-right: .8125rem;
-        }
-      }
-      p {
-        color: #585858;
-        line-height: 1.25rem;
-        font-size: .75rem;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        padding-left: 2.1875rem;
-        margin-top: .9375rem;
-        margin-bottom: .9375rem
-      }
-    }
-  }
+
+.slide-entering,.slide-entered  {
+  @include slide-entering;
+  transition: all 300ms ease-in-out;
+}
+
+.slide-exiting ,.slide-exited {
+  @include slide-exiting;
+  transition: all 300ms ease-in-out;
 }

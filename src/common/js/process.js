@@ -1,6 +1,15 @@
-const backTimeString=(endTime,nowTime)=>{
+function processDate(time) {
+    var year = parseInt(time.slice(0, 4));
+    var month = parseInt(time.slice(5, 7))-1;
+    var day = parseInt(time.slice(8, 10));
+    var hour = parseInt(time.slice(11, 13));
+    var min = parseInt(time.slice(14, 16));
+    var sec = parseInt(time.substr(17, 2));
+    return new Date(year, month, day, hour, min, sec);
+};
+const backTimeString=(endTimestr,nowTime)=>{
     var curTime = new Date(nowTime*1000);
-    var endTime=new Date(endTime);
+    var endTime=processDate(endTimestr);
     var remainTime = Math.round((endTime.getTime() - curTime.getTime()) / 1000);
     // console.log(curTime,endTime)
     var nextShowTime = remainTime > 0 ?
@@ -21,7 +30,7 @@ const backTimeString=(endTime,nowTime)=>{
         }
         return nextHours+":"+nextMintes+":"+nextSeconds;
     } else {
-        return 0;
+     return 0;
     }
 }
 

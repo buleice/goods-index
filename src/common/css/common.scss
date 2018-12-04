@@ -22,24 +22,10 @@
   opacity: 1;
   transition: opacity .3s;
 }
-@mixin slide-up-hide{
-  position: fixed;
-  bottom: auto;
-  top: 100%;
-  width: 100%;
-  height: auto;
-  background: #fff;
-  border-radius: 1rem 1rem 0 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0 1rem;
-  z-index: 1000;
-  transition: top 0.3s,bottom .3s;
-}
-@mixin slide-up-show{
+
+@mixin slide{
   position: fixed;
   bottom: 0;
-  top: auto;
   width: 100%;
   height: auto;
   background: #fff;
@@ -48,8 +34,12 @@
   box-sizing: border-box;
   padding: 0 1rem;
   z-index: 1000;
-  transition: top 0.3s,bottom .3s;
 }
-@mixin slide-bottom-hide{
-
+@mixin slide-entering{
+  opacity: 1;
+  transform: translateY(0%);
+}
+@mixin slide-exiting{
+  opacity: 0;
+  transform: translateY(100%);
 }

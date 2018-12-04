@@ -8,20 +8,31 @@ export default class Swipers extends Component{
 
     componentDidMount() {
         new Swiper(this.swiperID, {
-            pagination: {
-                el: this.paginateID,
-            },
-            autoplay: true,
+            // pagination: {
+            //     el: this.paginateID,
+            // },
+            // autoplay: true,
+            // lazy: {
+            //     loadPrevNext: true,
+            // },
+            // speed:500,
+            // loop : true,
+            // paginationClickable: true,
+            // spaceBetween: 30,
+            // centeredSlides: true,
+            // autoplayDisableOnInteraction: false,
+            // disableOnInteraction: false
             lazy: {
                 loadPrevNext: true,
             },
             speed:500,
             loop : true,
-            paginationClickable: true,
-            spaceBetween: 30,
-            centeredSlides: true,
-            autoplayDisableOnInteraction: false,
-            disableOnInteraction: false
+            autoplay: {
+                delay: 2000,
+                stopOnLastSlide: false,
+                disableOnInteraction: false
+            }
+
         });
     }
     render(){
@@ -32,7 +43,7 @@ export default class Swipers extends Component{
                         <ul className="swiper-wrapper">
                             {this.props.lists.map(
                                 (list,index)=><li className="swiper-slide" key={index}>
-                                    <a href="#">
+                                    <a href={`/purchase/index?id=${list.id}`}>
                                         <img className="swiper-img" src={list.banner[0]} alt="图片"/>
                                         <div className="mask-bottom">
                                             <div className="course-title">小伴龙数学思维课</div>

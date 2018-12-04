@@ -18,12 +18,16 @@ export default class BuyButtons extends Component {
             this.setState({
                 canClick: false
             })
+        if(Number(this.props.buttonControl.founderPrice)>0){
             switch (type) {
                 case 1:wxPays.found('/pay/weixin/group/prepare.json',{shareKey:shareKey,buyingid:buyingid});break;
                 case 5:wxPays.justPay('/pay/weixin/youxue/prepare.json',{shareKey:shareKey,buyingid:buyingid});break;
                 case 6:wxPays.bonusPay('/bonus/consume.json',{id:buyingid});break;
                 default:return false;break;
             }
+        }else{
+            wxPays.freeFound('/groupbuying/freejoin.json',{id:buyingid});
+        }
             setTimeout(()=>{
                 this.setState({
                     canClick: true
@@ -64,7 +68,7 @@ export default class BuyButtons extends Component {
                                     </div>
                                 </div>)
                                 : (<div className=" dandugou" >
-                                    <div className=" inline-box"><span>奖学金兑换</span></div>
+                                    <div className=" inline-box" onClick={this.processPayment.bind(this,6)}><span>奖学金兑换</span></div>
                                 </div>)}
 
                             <div className="sanrentuan"  onClick={this.processPayment.bind(this,1)}>

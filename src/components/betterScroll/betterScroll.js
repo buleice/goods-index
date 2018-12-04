@@ -4,15 +4,20 @@ import BScroll from 'better-scroll';
 import PropTypes from 'prop-types';
 import './betterScroll.scss'
 
+let silders = '';
+
 class Carousel extends Component {
     constructor(props) {
         super(props);
         this.slide = React.createRef();
         this.slideGroup = React.createRef();
+        this.video = React.createRef();
         this.state = {
             dots: [],
             currentPageIndex: 0,
-            children: undefined
+            children: undefined,
+            vsrc: '',
+            playVideo: false,
         }
         this.update = this.update.bind(this);
         this.init = this.init.bind(this);
@@ -45,13 +50,12 @@ class Carousel extends Component {
     }
 
     componentDidMount() {
-        this.update()
+        this.update();
         window.addEventListener('resize', () => {
             if (!this.carousel || !this.carousel.enabled) {
                 return;
             }
             clearTimeout(this.resizeTimer);
-            console.log(this.carousel)
             this.resizeTimer = setTimeout(() => {
                 if (this.carousel.isInTransition) {
                     this._onScrollEnd()
@@ -62,7 +66,7 @@ class Carousel extends Component {
                 }
                 this.refresh()
 
-            },60)
+            }, 60)
         })
 
     }
@@ -137,16 +141,16 @@ class Carousel extends Component {
                 speed: this.props.speed,
                 easing: {
                     style: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                    fn: function(t) {
+                    fn: function (t) {
                         return t * (2 - t)
                     }
                 }
             },
             bounce: false,
             stopPropagation: true,
-            click: this.props.click
-
+            click: this.props.click,
         })
+        silders = this.carousel;
         this.carousel.on('scrollEnd', this._onScrollEnd)
         this.carousel.on('touchEnd', () => {
             if (this.props.autoPlay) {
@@ -171,9 +175,9 @@ class Carousel extends Component {
     }
 
     _initDots() {
-        let str="0123456789";
+        let str = "0123456789";
         this.setState({
-            dots: str.substr(0,this.slideGroup.current.children.length).split('')
+            dots: str.substr(0, this.slideGroup.current.children.length).split('')
         })
 
     }
@@ -185,19 +189,43 @@ class Carousel extends Component {
         }, this.props.interval)
     }
 
+    handleVideoPlay() {
+        this.setState({
+            playVideo: true
+        })
+        setTimeout(() => {
+            this.video.current.addEventListener('pause,ended', () => {
+                this.setState({
+                    playVideo: false
+                })
+            })
+            this.video.current.autoplay = true;
+        }, 300)
+    }
+
     render() {
         return (
-            <div className="slide wrapper" ref={this.slide}>
+            <div className="slide-banner wrapper" ref={this.slide}>
                 <div className="slide-group" ref={this.slideGroup}>
-                    {this.props.slideItemData.map((item,index)=><img src={item} key={index}/>)}
-                    {this.props.vsrc!=''&&<video id="slider-video" poster="http://p9w8pmwcs.bkt.clouddn.com/20180917/6230160021FqQ8ZoHJqMZ1I9Sl48gVCX-5yidf.png" x5-playsinline="" playsinline="" wekit-playsinline="" src={this.props.vsrc}></video>}
+                    {this.props.slideItemData.map((item, index) => <div key={index}><img src={item}/></div>)}
+                    {this.props.vsrc !== '' && (
+                        <div><img src={this.props.slideItemData[0]} alt=""/><img onClick={() => {
+                            this.handleVideoPlay()
+                        }} className="icon-play" src="//udata.youban.com/webimg/wxyx/puintuan/play.png" alt="播放"/>
+                        </div>)}
                 </div>
                 <div className={`dots ${this.props.showDot ? 'showDots' : 'hideDots'}`}>
                     {
                         this.state.dots.map((dot, index) => <span
-                            className={`dot ${this.state.currentPageIndex === index ? 'active' : ''}`} key={index}></span>)
+                            className={`dot ${this.state.currentPageIndex === index ? 'active' : ''}`}
+                            key={index}></span>)
                     }
                 </div>
+                {this.state.playVideo && <div className='videoPlayer'>
+                    <video preload="auto" controls="controls" ref={this.video} poster={this.props.slideItemData[0]}
+                           src={this.props.vsrc} webkit-playsinline="" playsInline="" x5-playsinline="">
+                    </video>
+                </div>}
             </div>
         )
     }

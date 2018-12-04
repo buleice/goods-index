@@ -1,6 +1,18 @@
 @import "common/css/loading.css";
 .App {
   text-align: center;
+  &.modal-open {
+    position: fixed;
+    width: 100%;
+  }
+  .single-banner{
+    width: 100%;
+    height: auto;
+    img{
+      width: 100%;
+      display: block;
+    }
+  }
 }
 
 

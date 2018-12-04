@@ -1,5 +1,5 @@
 import {connect}  from 'react-redux';
-import {groupData, showMoreGroup} from '../actions/index';
+import {groupData, modalOpen, showMoreGroup} from '../actions/index';
 import GroupList from '../components/group-list/group-list'
 const mapStateToProps = (state, ownProps) => ({
     showMoreGroup: state.showMoreGroup,
@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
     onShowMoreGroupClick: isShowMoreGroup => dispatch(showMoreGroup(isShowMoreGroup)),
-    setGroups: data => dispatch(groupData(data))
+    setGroups: data => dispatch(groupData(data)),
+    setModalOpen:modalopen=>dispatch(modalOpen(modalopen))
 })
 export default connect(
     mapStateToProps,

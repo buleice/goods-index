@@ -8,6 +8,7 @@
   z-index: 999;
   background: #fff;
   font-size: 1rem;
+  height: 3rem;
   .btn_left {
     display: inline-block;
     width: 30%;
@@ -20,19 +21,24 @@
     float: left;
     a{
       color: red;
+      text-decoration: none;
     }
   }
   .b-btn{
     width: 70%;
     float: right;
     text-align: center;
+    height: 3rem;
     .dandugou {
       background-color: #ff9f00;
       width: 48%;
       color: #fff;
       border-radius: 0;
       float: left;
-      padding: 0.82rem 0 0.75rem 0;
+      //padding: 0.82rem 0 0.75rem 0;
+      line-height: 3rem;
+      box-sizing: border-box;
+      height: 100%;
       .inline-box {
         display: inline-block;
         height: auto;
@@ -43,7 +49,10 @@
     .sanrentuan {
       background: -webkit-gradient(linear,left top, right top,from(#fe7e33),to(#fa4822));
       background: linear-gradient(to right,#fe7e33,#fa4822);
-      padding: 0.82rem 0 0.75rem 0;
+      //padding: 0.82rem 0 0.75rem 0;
+      line-height: 3rem;
+      box-sizing: border-box;
+      height: 100%;
       width: 52%;
       color: #fff;
       border-radius: 0;

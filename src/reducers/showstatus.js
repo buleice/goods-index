@@ -1,3 +1,4 @@
+
 const showGuide = (state = false, action) => {
     switch (action.type) {
         case 'SET_SHOWGUIDE':
@@ -14,7 +15,18 @@ const showMoreGroup = (state = false, action) => {
             return state
     }
 }
-export{
+
+const modalOpen = (state = false, action) => {
+    switch (action.type) {
+        case 'SET_MODALOPEN':
+            return action.modalOpen;
+        default:
+            return state
+    }
+}
+
+export {
     showGuide,
-    showMoreGroup
+    showMoreGroup,
+    modalOpen
 }

@@ -24,57 +24,12 @@
   @include show-cover-mask;
 }
 
-.hide-modal {
-  @include slide-up-hide;
+.slide {
+  @include slide;
   .header {
     padding: .625rem 0;
     text-align: center;
-    .title {
-      font-weight: 700;
-      font-size: .875rem;
-    }
-    img {
-      position: absolute;
-      top: .3125rem;
-      right: .625rem;
-      width: 1.5625rem;
-      height: 1.5625rem;
-    }
-  }
-  .modal-layer-body {
-    width: 100%;
-    height: 24.38rem;
-    overflow-y: scroll;
-  }
-  .footer {
-    border-top: .0625rem solid #e9eaec;
-    padding: .625rem 0;
-    color: #9e9e9e;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    img {
-      width: 1.875rem;
-      height: 1.875rem;
-    }
-  }
-}
-
-.show-modal {
-  @include slide-up-show;
-  .header {
-    padding: .625rem 0;
-    text-align: center;
+    border: none;
     .title {
       font-weight: 700;
       font-size: .875rem;
@@ -115,6 +70,16 @@
     }
   }
   .footer-rotate {
-    animation:loadMore .8s ease-in 0s 1 normal
+    animation: loadMore .8s ease-in 0s 1 normal
   }
+}
+
+.slide-entering,.slide-entered  {
+  @include slide-entering;
+  transition: all 300ms ease-in-out;
+}
+
+.slide-exiting ,.slide-exited {
+  @include slide-exiting;
+  transition: all 300ms ease-in-out;
 }

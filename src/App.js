@@ -9,15 +9,8 @@ import PeopleInGroup from './containers/people-in-group'
 import GuiZe from './containers/guize'
 import GroupList from './containers/group-list'
 import BuyButtons from './components/buy-buttons/buy-buttons'
-import {connect} from 'react-redux';
-import {groupData, SetTm,freeBuy} from './actions/index'
-
-const mapDispatchToProps = dispatch => ({
-    setTm: tm => dispatch(SetTm(tm)),
-    setGroups: data => dispatch(groupData(data)),
-    setFreeBuy:isFree=>dispatch(freeBuy(isFree))
-})
-
+import ScroolYToTop from './components/toTop/totop';
+import {wxShare} from "./common/js/wxshare";
 
 class App extends Component {
     constructor() {
@@ -35,10 +28,22 @@ class App extends Component {
             if (res.status === 200) {
                 let pageData = res.data;
                 let isBuy=Number(pageData.buyingInfo.Fprice)>0?false:true
-                this.props.dispatch(SetTm(pageData.tm))
-                this.props.dispatch(groupData(pageData.userList))
-                this.props.dispatch(freeBuy(isBuy));
+                this.props.setTm(pageData.tm)
+                this.props.setGroups(pageData.userList)
+                this.props.setFreeBuy(isBuy);
+                wxShare({
+                    FshareTitle:pageData.buyingInfo.FshareTitle1,
+                    FshareIcon:pageData.buyingInfo.FshareIcon,
+                    FshareContent:pageData.buyingInfo.FshareContent1,
+                    buyingId:this._GetQueryString("id"),
+                    shareKey:pageData.myShareKey,
+                })
                 this.setState({
+                    shareData:{
+                        FshareTitle:pageData.buyingInfo.FshareTitle1,
+                        FshareIcon:pageData.buyingInfo.FshareIcon,
+                        FshareContent:pageData.buyingInfo.FshareContent1
+                    },
                     goodInfo: pageData,
                     isRender: true,
                     goodInfoData: {
@@ -76,17 +81,18 @@ class App extends Component {
                         Fmode: pageData.buyingInfo.Fmode,
                         nowBuyingCount: pageData.nowBuyingCount,
                         id: this._GetQueryString("id")
-                    }
+                    },
                 })
             }
         })
     }
-
     render() {
+
         if (this.state.isRender) {
+            const element=this.state.goodInfo.buyingInfo.Fbanner.map((item,index)=><div key={index}><img src={item}/></div>)
             return (
-                <div className="App">
-                    <Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner} vsrc={this.state.goodInfo.buyingInfo.Fvideo}></Carousel>
+                <div className={`App ${this.props.modalOpen?'modal-open':''}`}>
+                    {this.state.goodInfo.buyingInfo.Fbanner.length>1?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner} vsrc={this.state.goodInfo.buyingInfo.Fvideo}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]}/></div>)}
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
                     <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
                     <GuiZe></GuiZe>
@@ -94,6 +100,7 @@ class App extends Component {
                     <MoreCourse lists={this.state.recommend}></MoreCourse>
                     <ProductsInfo Fintros={this.state.Fintros}></ProductsInfo>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
+                    <ScroolYToTop></ScroolYToTop>
                 </div>
             );
         } else {
@@ -121,8 +128,4 @@ class App extends Component {
     }
 }
 
-export default connect(
-    // mapStateToProps,
-    mapDispatchToProps
-)(App)
-// export default App;
+export default App

@@ -17,7 +17,7 @@ export default class PeopleInGroup extends Component {
                         {Object.values(this.props.peopleInGroup.recent).map((item,index)=> <img src={item} alt="" key={index}/>)}
                         <span className="dot">···</span>
                     </div>
-                    <div className="ri" onClick={()=>this.props.onShowMoreGroupClick(true)}>
+                    <div className="ri" onClick={()=>{this.props.onShowMoreGroupClick(true);this.props.setModalOpen(true)}}>
                         <span>更多</span>
                     </div>
                 </div>

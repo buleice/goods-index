@@ -2,7 +2,7 @@ import {combineReducers} from 'redux'
 import todos from './todos'
 import visibilityFilter from './visibilityFilter'
 import tm from './tm'
-import {showGuide, showMoreGroup} from './showstatus'
+import {showGuide, showMoreGroup,modalOpen} from './showstatus'
 import groups from './groupData'
 import freeBuy from './freeBuy'
 export default combineReducers({
@@ -12,5 +12,6 @@ export default combineReducers({
     showGuide,
     showMoreGroup,
     groups,
-    freeBuy
+    freeBuy,
+    modalOpen
 })
