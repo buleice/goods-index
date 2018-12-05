@@ -5,3 +5,9 @@
 a.chosen{color:#fa4822 !important;font-weight:700}
 .introduction{padding-bottom: 3rem}
 .introduction img{width: 100%;display: block;}
+.qunqrcode{clear:both;height:auto;overflow:hidden;background-color:#f7f7f7}
+.qunqrcodeMain{margin:.625rem;padding:.625rem;height:auto;overflow:hidden;border:1px solid #ccc;border-radius:.625rem;text-align:center}
+.qunqrcodeMain h3{text-align:center;color:#fa4822;line-height:1.85rem}
+.qunqrcodeMain img{width:50%;margin:.625rem auto;height:auto;display:block}
+.qunqrcodeMain p{text-align:center;color:#666}
+

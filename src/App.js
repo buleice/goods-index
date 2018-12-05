@@ -11,6 +11,12 @@ import GroupList from './containers/group-list'
 import BuyButtons from './components/buy-buttons/buy-buttons'
 import ScroolYToTop from './components/toTop/totop';
 import {wxShare} from "./common/js/wxshare";
+import * as Sentry from '@sentry/browser';
+Sentry.init({
+ dsn: "https://f7511a6358f645239345a7cae6f77519@sentry.io/1337784"
+});
+// should have been called before using it here
+// ideally before even rendering your react app
 
 class App extends Component {
     constructor() {
@@ -82,6 +88,7 @@ class App extends Component {
                         nowBuyingCount: pageData.nowBuyingCount,
                         id: this._GetQueryString("id")
                     },
+                    qunQrcode:pageData.Qunlist!==null?pageData.Qunlist.imgcontent[0]:''
                 })
             }
         })
@@ -92,13 +99,13 @@ class App extends Component {
             const element=this.state.goodInfo.buyingInfo.Fbanner.map((item,index)=><div key={index}><img src={item}/></div>)
             return (
                 <div className={`App ${this.props.modalOpen?'modal-open':''}`}>
-                    {this.state.goodInfo.buyingInfo.Fbanner.length>1?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner} vsrc={this.state.goodInfo.buyingInfo.Fvideo}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]}/></div>)}
+                    {this.state.goodInfo.buyingInfo.Fbanner.length>=1&&this.state.goodInfo.buyingInfo.Fvideo!==''?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner} vsrc={this.state.goodInfo.buyingInfo.Fvideo}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]}/></div>)}
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
                     <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
                     <GuiZe></GuiZe>
                     <GroupList groupList={this.state.groupList}></GroupList>
                     <MoreCourse lists={this.state.recommend}></MoreCourse>
-                    <ProductsInfo Fintros={this.state.Fintros}></ProductsInfo>
+                    <ProductsInfo qunQrcode={this.state.qunQrcode} Fintros={this.state.Fintros}></ProductsInfo>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
                     <ScroolYToTop></ScroolYToTop>
                 </div>
