@@ -10,7 +10,7 @@ export default class BuyButtons extends Component {
             canClick: true,
             showPromptDialog: false,
             promptTitle: '',
-            promptDesc: '您可以使用优惠券免费兑换该课程，是否兑换？',
+            promptDesc: '您可以使用奖学金免费兑换该课程，是否兑换？',
             pcancleText: '',
             okText: '',
         }
@@ -97,7 +97,7 @@ export default class BuyButtons extends Component {
 
                             <div className="sanrentuan" onClick={this.processPayment.bind(this, 1)}>
                                 <div className=" inline-box">
-                                    <span>{this.props.buttonControl.Fmode}人拼团:</span>
+                                    <span>{this.props.buttonControl.buttonText}</span>
                                     <span className="sub">￥</span><span
                                     id=" special_price">{this.props.buttonControl.founderPrice}</span>
                                 </div>

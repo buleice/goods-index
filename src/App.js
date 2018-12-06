@@ -69,7 +69,7 @@ class App extends Component {
                     buttonControl: {
                         bonusPay: pageData.bonusPay,
                         ForiginalPrice: pageData.buyingInfo.ForiginalPrice,
-                        buttonText: pageData.buyingInfo.buttonText,
+                        buttonText: pageData.buttonText,
                         Fmode: pageData.buyingInfo.Fmode,
                         from: pageData.from,
                         founderPrice: pageData.founderPrice,
