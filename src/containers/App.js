@@ -1,6 +1,7 @@
 import {connect}  from 'react-redux';
 import App from '../App'
 import {freeBuy, groupData, SetTm} from "../actions";
+
 const mapDispatchToProps = dispatch => ({
     setTm: tm => dispatch(SetTm(tm)),
     setGroups: data => dispatch(groupData(data)),
