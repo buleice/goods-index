@@ -13,6 +13,9 @@ export default class BuyButtons extends Component {
             promptDesc: '您可以使用奖学金免费兑换该课程，是否兑换？',
             pcancleText: '',
             okText: '',
+            canCouponBuy: false,
+            couponBuy: false
+
         }
     }
 
@@ -75,25 +78,30 @@ export default class BuyButtons extends Component {
         } else {
             return (
                 <div>
-                    <div className={'buyStyle-options'}>
-                        <div>您有{}张可用优惠券</div>
-                        <ul className={"coupons-can-select"}>
-                            <li className={'coupon'}>
-                                <ul>
-                                    <li><span>￥</span>10</li>
-                                    <li>满50元可用</li>
-                                </ul>
-                                <ul>
-                                    <li>新用户优惠券</li>
-                                    <li>有效期至</li>
-                                </ul>
-                                <div>
-                                    <span>使用</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <PromptDialog  promptDesc={this.state.promptDesc}
+                    {
+                        this.state.couponBuy && (<div className={'buyStyle-options'}>
+                            <div className={"select-info"}>您有{}张可用优惠券 <img src="//wxyx.youban.com/img/delete.png"
+                                                                           alt="close"/></div>
+                            <ul className={"coupons-can-select"}>
+                                <li className={'coupon'}>
+                                    <ul className={"left"}>
+                                        <li><span>￥</span><span>10</span></li>
+                                        <li>满50元可用</li>
+                                    </ul>
+                                    <ul className={"middle"}>
+                                        <li>新用户优惠券</li>
+                                        {/*<li></li>*/}
+                                        <li>有效期至:2018-12-12</li>
+                                    </ul>
+                                    <div className={"right"}>
+                                        <span>使用</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div className={'coupons-buy'}>直接支付 <span>￥</span><span>99</span></div>
+                        </div>)
+                    }
+                    <PromptDialog promptDesc={this.state.promptDesc}
                                   showPromptDialog={this.state.showPromptDialog} delPOk={this.delPOk.bind(this)}
                                   delPCancle={this.delPCancle.bind(this)}></PromptDialog>
                     <div className=" buttons">
@@ -138,9 +146,10 @@ export default class BuyButtons extends Component {
             showPromptDialog: false
         })
     }
-    delBonusExchange(){
+
+    delBonusExchange() {
         this.setState({
-            showPromptDialog:true
+            showPromptDialog: true
         })
     }
 }
