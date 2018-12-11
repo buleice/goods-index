@@ -88,24 +88,23 @@ class App extends Component {
                         nowBuyingCount: pageData.nowBuyingCount,
                         id: this._GetQueryString("id")
                     },
-                    qunQrcode:pageData.Qunlist!==null?pageData.Qunlist.imgcontent[0]:''
+                    qunQrcode:pageData.Qunlist!==null?pageData.Qunlist.imgcontent[0]:'',
+                    Fvideo:pageData.buyingInfo.Fvideo
                 })
             }
         })
     }
     render() {
-
         if (this.state.isRender) {
-            const element=this.state.goodInfo.buyingInfo.Fbanner.map((item,index)=><div key={index}><img src={item}/></div>)
             return (
                 <div className={`App ${this.props.modalOpen?'modal-open':''}`}>
-                    {this.state.goodInfo.buyingInfo.Fbanner.length>=1&&this.state.goodInfo.buyingInfo.Fvideo!==''?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner} vsrc={this.state.goodInfo.buyingInfo.Fvideo}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]}/></div>)}
+                    {this.state.goodInfo.buyingInfo.Fbanner.length>=1&&this.state.goodInfo.buyingInfo.Fvideo!==''?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner} vsrc={this.state.goodInfo.buyingInfo.Fvideo}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/></div>)}
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
                     <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
                     <GuiZe></GuiZe>
                     <GroupList groupList={this.state.groupList}></GroupList>
                     <MoreCourse lists={this.state.recommend}></MoreCourse>
-                    <ProductsInfo qunQrcode={this.state.qunQrcode} Fintros={this.state.Fintros}></ProductsInfo>
+                    <ProductsInfo Fvideo={this.state.Fvideo} qunQrcode={this.state.qunQrcode} Fintros={this.state.Fintros}></ProductsInfo>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
                     <ScroolYToTop></ScroolYToTop>
                 </div>

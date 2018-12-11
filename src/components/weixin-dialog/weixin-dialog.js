@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
 import './weixin-dialog.scss';
 import PropTypes from 'prop-types';
-import Carousel from "../betterScroll/betterScroll";
 
 class PromptDialog extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             this.props.showPromptDialog ? (<div className={'prompt-dialog'}>
@@ -25,15 +20,11 @@ class PromptDialog extends Component {
         )
     }
 }
-// PromptDialog.proopTypes = {
-//     loop: PropTypes.bool,
-//     autoPlay: PropTypes.bool,
-//     interval: PropTypes.number,
-//     showDot: PropTypes.bool,
-//     click: PropTypes.bool,
-//     threshold: PropTypes.number,
-//     speed: PropTypes.number,
-// }
+PromptDialog.proopTypes = {
+    promptTitle: PropTypes.string,
+    cancleText: PropTypes.string,
+    okText:  PropTypes.string,
+}
 PromptDialog.defaultProps = {
     promptTitle:'温馨提示',
     cancleText: '取消',

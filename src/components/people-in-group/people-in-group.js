@@ -1,11 +1,7 @@
 import React, {Component} from "react";
 import './people-in-group.scss'
 import GroupBox from "../group-box/group-box";
-import {wxPays} from "../../common/js/wxpay";
 export default class PeopleInGroup extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <div className="pinke-block">

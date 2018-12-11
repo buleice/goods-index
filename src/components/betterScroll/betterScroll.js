@@ -221,11 +221,6 @@ class Carousel extends Component {
                             key={index}></span>)
                     }
                 </div>
-                {this.state.playVideo && <div className='videoPlayer'>
-                    <video preload="auto" controls="controls" ref={this.video} poster={this.props.slideItemData[0]}
-                           src={this.props.vsrc} webkit-playsinline="" playsInline="" x5-playsinline="">
-                    </video>
-                </div>}
             </div>
         )
     }

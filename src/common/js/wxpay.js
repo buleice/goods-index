@@ -1,6 +1,4 @@
 import {axiosPost} from "./axiosData";
-let isSingle=false;
-let buyingid,groupid;
 const wxPays= {
     join(url, data) {
         wxPay(url, Object.assign({}, data, {isFounder: 0,urltag:'wxyx_groupbuying'}));
@@ -23,7 +21,6 @@ const wxPays= {
     freeFound(url,data){
         axiosPost(url, Object.assign({}, data, {isFounder: 1})).then(response => {
             if (response.status === 200) {
-                let groupid=response.data.groupid
                 setTimeout(function() {
                     // window.location.href = "/purchase/detail?buyingid=" + buyingid + "&groupid=" + groupid;
                     window.location.reload()

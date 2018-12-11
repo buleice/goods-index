@@ -16,32 +16,28 @@ export default class ProductsInfo extends Component {
     }
 
     render() {
-        const Fintro1 = '<p><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583675_15bc42ebb972a2.png"/><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583678_15bc42ebe441bc.png"/><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583680_15bc42ec09fa7e.png"/><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583807_15bc42f3f40a7c.png"/><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583837_15bc42f5de58d4.png"/><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583840_15bc42f607650d.png"/><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583842_15bc42f62b19e7.png"/><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583844_15bc42f64bbb9a.png"/><img title="" alt="" src="http://wxxbl.oss-cn-shenzhen.aliyuncs.com/busy/2018-10-15/1539583846_15bc42f66e9758.png"/></p>'
         return (
             <div>
-                {this.props.Fintros[2] !== '' && (<nav className="nav" id="nav">
+                {this.props.Fvideo !== "" && (<nav className="nav" id="nav">
                     <ul className="con">
-                        <li onClick={this.handleClick.bind(this, 0)}><a
-                            className={this.state.intro === 0 ? 'chosen' : ''} href="#intro__item__01">课程介绍 </a></li>
-                        <li onClick={this.handleClick.bind(this, 1)}><a
-                            className={this.state.intro === 1 ? 'chosen' : ''} href="#intro__item__02">课程列表</a></li>
-                        <li onClick={this.handleClick.bind(this, 2)}><a
-                            className={this.state.intro === 2 ? 'chosen' : ''} href="#intro__item__03">用户评价</a></li>
+                        <li onClick={this.handleClick.bind(this, 0)} className={this.state.intro === 0 ? 'chosen' : ''}>
+                            <a className={this.state.intro === 0 ? 'chosen' : ''}>课程介绍 </a></li>
+                        <li onClick={this.handleClick.bind(this, 1)} className={this.state.intro === 1 ? 'chosen' : ''}>
+                            <a className={this.state.intro === 1 ? 'chosen' : ''}>免费体验</a></li>
                     </ul>
                 </nav>)}
-
-                <div className="introduction">
-                    <div id="intro__item__01" dangerouslySetInnerHTML={{__html: this.props.Fintros[0]}}></div>
-                    <div id="intro__item__02" dangerouslySetInnerHTML={{__html: this.props.Fintros[1]}}></div>
-                    <div id="intro__item__01" dangerouslySetInnerHTML={{__html: this.props.Fintros[2]}}></div>
-                    {this.props.qunQrcode !== '' && <div className="qunqrcode">
-                        <div className="qunqrcodeMain">
-                            <h3>加入小伴龙优学群<br/>和群友们一起拼团得实惠~</h3>
-                            <img src={this.props.qunQrcode} alt="加入小伴龙优学群"/>
-                            <p>识别二维码，加群一起拼吧~</p>
-                        </div>
-                    </div>}
-                </div>
+                {this.state.intro === 0 ? (<div className="introduction">
+                    <div dangerouslySetInnerHTML={{__html: this.props.Fintros[0]}}></div>
+                    <div dangerouslySetInnerHTML={{__html: this.props.Fintros[1]}}></div>
+                    <div dangerouslySetInnerHTML={{__html: this.props.Fintros[2]}}></div>
+                </div>) : (
+                    <div className="experience">
+                        <video src={this.props.Fvideo}
+                               x5-playsinline=""
+                               webkit-playsinline="" playsInline=""  preload="auto" autoplay
+                               controls="controls" poster={`${this.props.Fvideo}?vframe/jpg/offset/24/w/375/h/180`}></video>
+                    </div>
+                )}
             </div>
         )
     }

@@ -37,7 +37,6 @@ export default class BuyButtons extends Component {
                         break;
                     default:
                         return false;
-                        break;
                 }
             } else {
                 wxPays.freeFound('/groupbuying/freejoin.json', {buyingid: buyingid});
@@ -62,7 +61,7 @@ export default class BuyButtons extends Component {
         if (this.props.buttonControl.Fmode === 1) {
             return (
                 <div className="buttons">
-                    <div className="btn_left" style="width:50%;">
+                    <div className="btn_left">
                         <a className="toindex" href={`/shop/index?from= ${this.props.buttonControl.from}`}>《 更多拼团</a>
                     </div>
                     <div className="dandugou">
