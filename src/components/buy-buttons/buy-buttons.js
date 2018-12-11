@@ -75,6 +75,24 @@ export default class BuyButtons extends Component {
         } else {
             return (
                 <div>
+                    <div className={'buyStyle-options'}>
+                        <div>您有{}张可用优惠券</div>
+                        <ul className={"coupons-can-select"}>
+                            <li className={'coupon'}>
+                                <ul>
+                                    <li><span>￥</span>10</li>
+                                    <li>满50元可用</li>
+                                </ul>
+                                <ul>
+                                    <li>新用户优惠券</li>
+                                    <li>有效期至</li>
+                                </ul>
+                                <div>
+                                    <span>使用</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                     <PromptDialog  promptDesc={this.state.promptDesc}
                                   showPromptDialog={this.state.showPromptDialog} delPOk={this.delPOk.bind(this)}
                                   delPCancle={this.delPCancle.bind(this)}></PromptDialog>
