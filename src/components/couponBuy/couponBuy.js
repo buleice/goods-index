@@ -21,34 +21,32 @@ export default class CouponBuy extends Component {
         let buyingid = this._GetQueryString('id');
         let shareKey = this._GetQueryString('shareKey');
         let groupid = this.props.groupId;
-        let mode=this.props.buyMode;
-        console.log(mode)
-        if (couponid !== undefined && couponid != "") {
-            switch (mode) {
-                case 0:
-                    wxPays.join('/pay/weixin/group/prepare.json', {
-                        buyingid: buyingid,
-                        groupid: groupid,
-                        couponid: couponid
-                    });break;
-                    ;
-                case 1:
-                    wxPays.found('/pay/weixin/group/prepare.json', {
-                        shareKey: shareKey,
-                        buyingid: buyingid,
-                        couponid: couponid
-                    });
-                    break;
-                case 5:
-                    wxPays.justPay('/pay/weixin/youxue/prepare.json', {
-                        shareKey: shareKey,
-                        buyingid: buyingid,
-                        couponid: couponid
-                    });
-                    break;
-                default:
-                    return;
-            }
+        let mode = this.props.buyMode;
+        switch (mode) {
+            case 0:
+                wxPays.join('/pay/weixin/group/prepare.json', {
+                    buyingid: buyingid,
+                    groupid: groupid,
+                    couponid: couponid
+                });
+                break;
+                ;
+            case 1:
+                wxPays.found('/pay/weixin/group/prepare.json', {
+                    shareKey: shareKey,
+                    buyingid: buyingid,
+                    couponid: couponid
+                });
+                break;
+            case 5:
+                wxPays.justPay('/pay/weixin/youxue/prepare.json', {
+                    shareKey: shareKey,
+                    buyingid: buyingid,
+                    couponid: couponid
+                });
+                break;
+            default:
+                return;
         }
     }
 
@@ -57,9 +55,9 @@ export default class CouponBuy extends Component {
     }
 
     payByClickButton() {
-        let id=this.props.userCoupons[0].id;
-        this.processPay(id);
+        this.processPay("");
     }
+
     render() {
         let filteredCoupons = this.props.userCoupons.filter(item => {
             return this.props.couponBuyFilter >= item.spendMoney

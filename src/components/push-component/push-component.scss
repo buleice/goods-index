@@ -1,0 +1,11 @@
+.couponSent{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50%;
+  height: 9.38rem;
+  background: #ec8b89;
+  line-height: 9.38rem;
+  z-index: 5000;
+}

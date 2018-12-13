@@ -12,6 +12,7 @@ import BuyButtons from './containers/buyButtonGroup'
 import CouponBuy from './containers/couponBuy'
 import ScroolYToTop from './components/toTop/totop';
 import {wxShare} from "./common/js/wxshare";
+import AdPush from './components/push-component/push-component'
 import * as Sentry from '@sentry/browser';
 Sentry.init({
  dsn: "https://f7511a6358f645239345a7cae6f77519@sentry.io/1337784"
@@ -94,7 +95,8 @@ class App extends Component {
                     },
                     qunQrcode:pageData.Qunlist!==null?pageData.Qunlist.imgcontent[0]:'',
                     Fvideo:pageData.buyingInfo.Fvideo,
-                    coupons:pageData.coupons
+                    coupons:pageData.coupons,
+                    couponSent:pageData.couponSent
                 })
             }
         })
@@ -113,6 +115,7 @@ class App extends Component {
                     <CouponBuy></CouponBuy>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
                     <ScroolYToTop></ScroolYToTop>
+                    <AdPush couponSent={this.state.couponSent}></AdPush>
                 </div>
             );
         } else {
