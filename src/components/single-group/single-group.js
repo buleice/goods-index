@@ -3,10 +3,20 @@ import './single-group.scss';
 import { connect } from 'react-redux';
 import {backTimeString} from '../../common/js/process'
 import {wxPays} from "../../common/js/wxpay";
+import {couponBuyFilter, showCouponBuy, buyMode, groupId, showMoreGroup} from "../../actions";
 
 const mapStateToProps = (state, props) => ({
     tm: state.tm,
-    freeBuy:state.freeBuy
+    freeBuy:state.freeBuy,
+    userCoupons:state.userCoupons,
+    cantuanPrice:state.cantuanPrice
+})
+const mapDispatchToProps = dispatch => ({
+    setCouponBuyFilter:condition=>dispatch(couponBuyFilter(condition)),
+    setshowCouponBuy:isShow=>dispatch(showCouponBuy(isShow)),
+    setBuyMode:mode=>dispatch(buyMode(mode)),
+    setGroupId:id=>dispatch(groupId(id)),
+    onShowMoreGroupClick: isShowMoreGroup => dispatch(showMoreGroup(isShowMoreGroup)),
 })
 class SingleGroup extends Component{
     constructor(props){
@@ -38,13 +48,24 @@ class SingleGroup extends Component{
         let isFree=this.props.freeBuy;
         let buyingid= this._GetQueryString('id');
         if (this.state.canClick) {
+            this.props.setGroupId(groupid);
+            this.props.setBuyMode(0);
+            this.props.onShowMoreGroupClick(false)
             this.setState({
                 canClick: false
             })
             if(isFree){
                 wxPays.freeJoin('/groupbuying/freejoin.json',{buyingid:buyingid,groupid:groupid});
             }else {
-                wxPays.join('/pay/weixin/group/prepare.json',{buyingid:buyingid,groupid:groupid});
+                let filteredCoupons=this.props.userCoupons.filter(item=>{
+                    return this.props.cantuanPrice>=item.spendMoney
+                });
+                if(filteredCoupons.length>0){
+                    this.props.setshowCouponBuy(true);
+                    this.props.setCouponBuyFilter(this.props.cantuanPrice)
+                    return
+                }
+                wxPays.join('/pay/weixin/group/prepare.json',{buyingid:buyingid,groupid:groupid,couponid:this.props.couponid});
             }
             setTimeout(()=>{
                 this.setState({
@@ -85,4 +106,5 @@ class SingleGroup extends Component{
 
 export default connect(
     mapStateToProps,
+    mapDispatchToProps
 )(SingleGroup)

@@ -8,7 +8,8 @@ import MoreCourse from './components/more-course/more-course'
 import PeopleInGroup from './containers/people-in-group'
 import GuiZe from './containers/guize'
 import GroupList from './containers/group-list'
-import BuyButtons from './components/buy-buttons/buy-buttons'
+import BuyButtons from './containers/buyButtonGroup'
+import CouponBuy from './containers/couponBuy'
 import ScroolYToTop from './components/toTop/totop';
 import {wxShare} from "./common/js/wxshare";
 import * as Sentry from '@sentry/browser';
@@ -37,6 +38,8 @@ class App extends Component {
                 this.props.setTm(pageData.tm)
                 this.props.setGroups(pageData.userList)
                 this.props.setFreeBuy(isBuy);
+                this.props.setUserCoupons(pageData.coupons)
+                this.props.setCantuanPrice(pageData.buyingInfo.Fprice)
                 wxShare({
                     FshareTitle:pageData.buyingInfo.FshareTitle1,
                     FshareIcon:pageData.buyingInfo.FshareIcon,
@@ -75,6 +78,7 @@ class App extends Component {
                         founderPrice: pageData.founderPrice,
                         id:this._GetQueryString("id"),
                         shareKey:this._GetQueryString('shareKey'),
+                        canUseCouon:pageData.coupons.length>0?true:false,
                     },
                     peopleInGroup: {
                         Fmode: pageData.buyingInfo.Fmode,
@@ -89,7 +93,8 @@ class App extends Component {
                         id: this._GetQueryString("id")
                     },
                     qunQrcode:pageData.Qunlist!==null?pageData.Qunlist.imgcontent[0]:'',
-                    Fvideo:pageData.buyingInfo.Fvideo
+                    Fvideo:pageData.buyingInfo.Fvideo,
+                    coupons:pageData.coupons
                 })
             }
         })
@@ -105,6 +110,7 @@ class App extends Component {
                     <GroupList groupList={this.state.groupList}></GroupList>
                     <MoreCourse lists={this.state.recommend}></MoreCourse>
                     <ProductsInfo Fvideo={this.state.Fvideo} qunQrcode={this.state.qunQrcode} Fintros={this.state.Fintros}></ProductsInfo>
+                    <CouponBuy></CouponBuy>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
                     <ScroolYToTop></ScroolYToTop>
                 </div>

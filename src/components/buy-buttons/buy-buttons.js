@@ -13,14 +13,20 @@ export default class BuyButtons extends Component {
             promptDesc: '您可以使用奖学金免费兑换该课程，是否兑换？',
             pcancleText: '',
             okText: '',
-            canCouponBuy: false,
-            couponBuy: false
-
+            canUseCouon:props.buttonControl.canUseCouon
         }
     }
 
-
-    processPayment(type) {
+    processPayment(type,willPayPrice) {
+        let filteredCoupons=this.props.userCoupons.filter(item=>{
+           return willPayPrice>=item.spendMoney
+        });
+        if(this.state.canUseCouon&&filteredCoupons.length>0){
+            this.props.setshowCouponBuy(true);
+            this.props.setCouponBuyFilter(willPayPrice);
+            this.props.setBuyMode(type)
+            return
+        }
         let buyingid = this.props.buttonControl.id
         let shareKey = this.props.buttonControl.shareKey
         if (this.state.canClick) {
@@ -54,84 +60,76 @@ export default class BuyButtons extends Component {
         }
     }
 
-    dandugou() {
+    dandugou(willPayPrice) {
+        let filteredCoupons=this.props.userCoupons.filter(item=>{
+            return willPayPrice>=item.spendMoney
+        });
+        if(this.state.canUseCouon&&filteredCoupons.length>0){
+            this.props.setshowCouponBuy(true);
+            this.props.setCouponBuyFilter(willPayPrice);
+            this.props.setBuyMode(5)
+            return
+        }
         let buyingid = this.props.buttonControl.id
         let shareKey = this.props.buttonControl.shareKey
         wxPays.justPay('/pay/weixin/youxue/prepare.json', {shareKey: shareKey, buyingid: buyingid});
     }
-
     render() {
-        if (this.props.buttonControl.Fmode === 1) {
-            return (
-                <div className="buttons">
-                    <div className="btn_left">
-                        <a className="toindex" href={`/shop/index?from= ${this.props.buttonControl.from}`}>《 更多拼团</a>
-                    </div>
-                    <div className="dandugou">
-                        <div className="inline-box">
-                            <span>去购买 </span><span
-                            className=" sub">￥</span><span>{this.props.buttonControl.ForiginalPrice}</span>
-                        </div>
-                    </div>
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                    {
-                        this.state.couponBuy && (<div className={'buyStyle-options'}>
-                            <div className={"select-info"}>您有{}张可用优惠券 <img src="//wxyx.youban.com/img/delete.png"
-                                                                           alt="close"/></div>
-                            <ul className={"coupons-can-select"}>
-                                <li className={'coupon'}>
-                                    <ul className={"left"}>
-                                        <li><span>￥</span><span>10</span></li>
-                                        <li>满50元可用</li>
-                                    </ul>
-                                    <ul className={"middle"}>
-                                        <li>新用户优惠券</li>
-                                        {/*<li></li>*/}
-                                        <li>有效期至:2018-12-12</li>
-                                    </ul>
-                                    <div className={"right"}>
-                                        <span>使用</span>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div className={'coupons-buy'}>直接支付 <span>￥</span><span>99</span></div>
-                        </div>)
-                    }
-                    <PromptDialog promptDesc={this.state.promptDesc}
-                                  showPromptDialog={this.state.showPromptDialog} delPOk={this.delPOk.bind(this)}
-                                  delPCancle={this.delPCancle.bind(this)}></PromptDialog>
-                    <div className=" buttons">
-                        <div className=" btn_left"><a className=" toindex" href="
-                            /shop/index?from= default">《 更多拼团</a></div>
-                        <div className=" b-btn">
-
-                            {this.props.buttonControl.bonusPay === 1 && Number(this.props.buttonControl.founderPrice) > 0 ?
-                                (<div className=" dandugou">
-                                    <div className=" inline-box" onClick={this.delBonusExchange.bind(this)}>
-                                        <span>奖学金兑换</span></div>
-                                </div>)
-                                : (<div className=" dandugou" onClick={this.dandugou.bind(this)}>
-                                    <div className=" inline-box"><span>单独购买: </span><span
+        return (
+            <div>
+                {
+                    this.props.buttonControl.Fmode === 1 ?
+                        (
+                            <div className="buttons">
+                                <div className="btn_left">
+                                    <a className="toindex" href={`/shop/index?from= ${this.props.buttonControl.from}`}>《
+                                        更多拼团</a>
+                                </div>
+                                <div className="dandugou" >
+                                    <div className="inline-box" onClick={this.dandugou.bind(this,this.props.buttonControl.ForiginalPrice)}>
+                                        <span>去购买 </span><span
                                         className=" sub">￥</span><span>{this.props.buttonControl.ForiginalPrice}</span>
                                     </div>
-                                </div>)}
-
-                            <div className="sanrentuan" onClick={this.processPayment.bind(this, 1)}>
-                                <div className=" inline-box">
-                                    <span>{this.props.buttonControl.buttonText}</span>
-                                    <span className="sub">￥</span><span
-                                    id=" special_price">{this.props.buttonControl.founderPrice}</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
+                        ) :
+                        (
+                            <div>
+                                <PromptDialog promptDesc={this.state.promptDesc}
+                                              showPromptDialog={this.state.showPromptDialog}
+                                              delPOk={this.delPOk.bind(this)}
+                                              delPCancle={this.delPCancle.bind(this)}></PromptDialog>
+                                <div className=" buttons">
+                                    <div className=" btn_left"><a className=" toindex" href="
+                            /shop/index?from= default">《 更多拼团</a></div>
+                                    <div className=" b-btn">
+
+                                        {this.props.buttonControl.bonusPay === 1 && Number(this.props.buttonControl.founderPrice) > 0 ?
+                                            (<div className=" dandugou">
+                                                <div className=" inline-box" onClick={this.delBonusExchange.bind(this)}>
+                                                    <span>奖学金兑换</span></div>
+                                            </div>)
+                                            : (<div className=" dandugou" onClick={this.dandugou.bind(this,this.props.buttonControl.ForiginalPrice)}>
+                                                <div className=" inline-box"><span>单独购买: </span><span
+                                                    className=" sub">￥</span><span>{this.props.buttonControl.ForiginalPrice}</span>
+                                                </div>
+                                            </div>)}
+
+                                        <div className="sanrentuan" onClick={this.processPayment.bind(this, 1,this.props.buttonControl.founderPrice)}>
+                                            <div className=" inline-box">
+                                                <span>{this.props.buttonControl.buttonText}</span>
+                                                <span className="sub">￥</span><span
+                                                id=" special_price">{this.props.buttonControl.founderPrice}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                }
+            </div>
+        )
+
     }
 
     delPOk() {

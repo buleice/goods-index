@@ -49,3 +49,32 @@ export const modalOpen=modalopen=>({
     type:types.SET_MODALOPEN,
     modalOpen:modalopen
 })
+export const showCouponBuy=isShow=>({
+    type:types.SET_SHOWCOUPONBUY,
+    showCouponBuy:isShow,
+})
+export const couponBuyFilter=condition=>({
+    type:types.SET_COUPONBUYFILTER,
+    couponBuyFilter:condition
+})
+export const userCoupons=coupons=>({
+    type:types.SET_COUPONS,
+    userCoupons:coupons
+})
+export const cantuanPrice=price=>({
+    type:types.SET_CANTUANPRICE,
+    cantuanPrice:price
+})
+
+export const buyMode=mode=>({
+    type:types.SET_BUYMODE,
+    buyMode:mode
+})
+export const groupId=id=>({
+    type:types.SET_GROUPID,
+    groupId:id
+})
+export const couponId=id=>({
+    type:types.SET_COUPONID,
+    couponId:id
+})
