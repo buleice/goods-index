@@ -4,7 +4,7 @@ import axios from 'axios'
 import './group-list.scss'
 import Transition from 'react-transition-group/Transition';
 
-//自己简单的封装了一个，该有的参数都由了，可以自行粘贴在自己的代码里面去试试。
+
 
 
 class GroupList extends Component {

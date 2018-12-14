@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './couponBuy.scss'
 import {wxPays} from "../../common/js/wxpay";
 
+
 export default class CouponBuy extends Component {
     constructor(props) {
         super(props);
@@ -64,7 +65,7 @@ export default class CouponBuy extends Component {
         });
         return (
             <div>
-                {this.props.showCouponBuy && <div className="show-cover-mask"></div>}
+                {this.props.showCouponBuy && <div className="show-cover-mask" onClick={()=>{this.props.setshowCouponBuy(false)}}></div>}
                 {
                     this.props.showCouponBuy && (<div className={'buyStyle-options'}>
                         <div className={"select-info"}>您有{filteredCoupons.length}张可用优惠券 <img

@@ -4,12 +4,7 @@ import CSSModules from 'react-css-modules';
 import styles from './series.css'
 
 class Series extends Component{
-    changeShowStatus(){
-        this.setState({
-            show:false
-        })
-    }
-    render(){
+render(){
         return(
             <div>
                 <div onClick={this.props.changeParentStatus} className={`weui_mask ${this.props.show?"show_mask":"hide_mask"}`}></div>
