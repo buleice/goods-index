@@ -72,7 +72,7 @@ const groupId=(state=0,action)=>{
     }
 }
 
-const couponId=(state=0,action)=>{
+const couponId=(state="",action)=>{
     switch (action.type) {
         case 'SET_COUPONID':
             return action.couponId;

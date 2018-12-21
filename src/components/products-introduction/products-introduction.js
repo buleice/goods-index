@@ -30,6 +30,13 @@ export default class ProductsInfo extends Component {
                     <div dangerouslySetInnerHTML={{__html: this.props.Fintros[0]}}></div>
                     <div dangerouslySetInnerHTML={{__html: this.props.Fintros[1]}}></div>
                     <div dangerouslySetInnerHTML={{__html: this.props.Fintros[2]}}></div>
+                    {this.props.qunQrcode !== '' && <div className="qunqrcode">
+                        <div className="qunqrcodeMain">
+                            <h3>加入小伴龙优学群<br/>和群友们一起拼团得实惠~</h3>
+                            <img src={this.props.qunQrcode} alt="加入小伴龙优学群"/>
+                            <p>识别二维码，加群一起拼吧~</p>
+                        </div>
+                    </div>}
                 </div>) : (
                     <div className="experience">
                         <video src={this.props.Fvideo}

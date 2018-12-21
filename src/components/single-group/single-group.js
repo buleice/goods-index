@@ -9,7 +9,8 @@ const mapStateToProps = (state, props) => ({
     tm: state.tm,
     freeBuy:state.freeBuy,
     userCoupons:state.userCoupons,
-    cantuanPrice:state.cantuanPrice
+    cantuanPrice:state.cantuanPrice,
+    couponid:state.couponId
 })
 const mapDispatchToProps = dispatch => ({
     setCouponBuyFilter:condition=>dispatch(couponBuyFilter(condition)),
