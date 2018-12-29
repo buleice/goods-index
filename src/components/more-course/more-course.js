@@ -46,10 +46,10 @@ export default class Swipers extends Component{
                                     <a href={`/purchase/index?id=${list.id}`}>
                                         <img className="swiper-img" src={list.banner[0]} alt="图片"/>
                                         <div className="mask-bottom">
-                                            <div className="course-title">小伴龙数学思维课</div>
+                                            <div className="course-title">{list.title}</div>
                                             <div className="course-price">开团价&nbsp;
                                                 <small>￥</small>
-                                                <span>15.9</span></div>
+                                                <span>{list.price}</span></div>
                                         </div>
                                     </a>
                                 </li>
