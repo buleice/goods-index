@@ -105,7 +105,7 @@ class App extends Component {
         if (this.state.isRender) {
             return (
                 <div className={`App ${this.props.modalOpen?'modal-open':''}`}>
-                    {this.state.goodInfo.buyingInfo.Fbanner.length>=1&&this.state.goodInfo.buyingInfo.Fvideo!==''?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner} vsrc={this.state.goodInfo.buyingInfo.Fvideo}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/></div>)}
+                    {this.state.goodInfo.buyingInfo.Fbanner.length>1?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/></div>)}
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
                     <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
                     <GuiZe></GuiZe>

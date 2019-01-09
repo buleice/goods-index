@@ -16,8 +16,6 @@ class Carousel extends Component {
             dots: [],
             currentPageIndex: 0,
             children: undefined,
-            vsrc: '',
-            playVideo: false,
         }
         this.update = this.update.bind(this);
         this.init = this.init.bind(this);
@@ -189,30 +187,11 @@ class Carousel extends Component {
         }, this.props.interval)
     }
 
-    handleVideoPlay() {
-        this.setState({
-            playVideo: true
-        })
-        setTimeout(() => {
-            this.video.current.addEventListener('pause,ended', () => {
-                this.setState({
-                    playVideo: false
-                })
-            })
-            this.video.current.autoplay = true;
-        }, 300)
-    }
-
     render() {
         return (
             <div className="slide-banner wrapper" ref={this.slide}>
                 <div className="slide-group" ref={this.slideGroup}>
                     {this.props.slideItemData.map((item, index) => <div key={index}><img src={item}/></div>)}
-                    {this.props.vsrc !== '' && (
-                        <div><img src={this.props.slideItemData[0]} alt=""/><img onClick={() => {
-                            this.handleVideoPlay()
-                        }} className="icon-play" src="//udata.youban.com/webimg/wxyx/puintuan/play.png" alt="播放"/>
-                        </div>)}
                 </div>
                 <div className={`dots ${this.props.showDot ? 'showDots' : 'hideDots'}`}>
                     {
