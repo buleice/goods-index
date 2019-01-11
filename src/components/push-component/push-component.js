@@ -1,21 +1,31 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import './push-component.scss';
 
-export default class AdPush extends Component{
-    constructor(props){
+export default class AdPush extends Component {
+    constructor(props) {
         super(props);
-        this.state={
-            showAd:true
+        this.state = {
+            showAd: true
         }
     }
-    render(){
-        return(
+
+    render() {
+        return (
             <div>
-                {this.state.showAd&&this.props.couponSent.length>0?(
-                    <div className={"couponSent"} onClick={()=>{this.setState({showAd:false})}}>
-                        <p>恭喜你获得了{this.props.couponSent.length}张优惠券</p>
+                {this.state.showAd && this.props.couponSent!=undefined&&!this.props.newUser ? (
+                    <div className="coupons" onClick={()=>{this.setState({showAd:false})}}>
+                        <div className="content">
+                            <h3>嗨！{this.props.newUser?"新朋友":"老朋友"}</h3>
+                            <div className="desc">
+                                <span className="shuli">送你</span>
+                                <span>{this.props.couponSent.couponMoney}</span>
+                                <span>元</span>
+                            </div>
+                            <div className="title">{this.props.couponSent.name}</div>
+                        </div>
+                        <div class="close-coupon" onClick={()=>{this.setState({showAd:false})}}></div>
                     </div>
-                ):null}
+                ) : null}
             </div>
         )
     }

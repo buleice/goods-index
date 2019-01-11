@@ -96,7 +96,8 @@ class App extends Component {
                     qunQrcode:pageData.Qunlist!==null?pageData.Qunlist.imgcontent[0]:'',
                     Fvideo:pageData.buyingInfo.Fvideo,
                     coupons:pageData.coupons,
-                    couponSent:pageData.couponSent
+                    couponSent:pageData.couponSent,
+                    newUser:pageData.isNew===1?true:false
                 })
             }
         })
@@ -115,7 +116,7 @@ class App extends Component {
                     <CouponBuy></CouponBuy>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
                     <ScroolYToTop></ScroolYToTop>
-                    <AdPush couponSent={this.state.couponSent}></AdPush>
+                    <AdPush couponSent={this.state.couponSent[0]} newUser={this.state.newUser}></AdPush>
                 </div>
             );
         } else {

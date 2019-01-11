@@ -84,7 +84,7 @@ class SingleGroup extends Component{
                     <span className="avatar"><img className="uimgbox"
                                                   src={this.props.item['headimg']} alt="头像"/></span>
                     <div className="middle">
-                        <h4><span className="avater-nick">{this.props.item['nick']}</span><b className="tuan_label">3人团</b>
+                        <h4><span className="avater-nick">{this.props.item['nick']}</span><b className="tuan_label">{this.props.Fmode}人团</b>
                         </h4>
                         <div>
                             <span>还差</span><span

@@ -37,9 +37,15 @@ const wxPays= {
     bonusPay(url,data){
         axiosPost(url, data).then(response => {
             if (response.status === 200) {
-                setTimeout(function() {
-                    window.location.reload()
-                }, 300);
+                if(response.data.needAddress==1){
+                    setTimeout(function() {
+                        setTimeout(()=>{window.location.href=`/address/index?from=index#/orderpage?id=${_GetQueryString('id')}`},300)
+                    }, 300);
+                }else{
+                    setTimeout(function() {
+                        window.location.reload()
+                    }, 300);
+                }
             }
         }).catch(function (errors) {
             console.log('errors', errors);
@@ -50,7 +56,7 @@ const wxPays= {
 const wxPay=function (url,data) {
     axiosPost(url,data).then(response=>{
         if(response.status===200){
-            needAddress=response.needAddress;
+            needAddress=response.data.needAddress;
             Pay(response.data.data);
         }
     }).catch(function (errors) {
@@ -77,10 +83,10 @@ const onBridgeReady=function (params) {
         'getBrandWCPayRequest', params,
         function(res) {
             if (res.err_msg === "get_brand_wcpay_request:ok") {
-                if(needAddress===0){
-                    window.location.reload()
+                if(needAddress===1){
+                    setTimeout(()=>{window.location.href=`/address/index?from=index#/orderpage?id=${_GetQueryString('id')}`},300)
                 }else{
-                    setTimeout(()=>{window.location.href=`/address/index?#/orderpage?id=${_GetQueryString('id')}`},300)
+                    window.location.reload()
                 }
             } else {
                 alert("支付失败");
