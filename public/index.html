@@ -35,7 +35,6 @@
           var scale = 1 / devicePixelRatio;
           document.querySelector('meta[name="viewport"]').setAttribute('content','initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
       }
-
       function resetHtmlFont() { //改变浏览器字体大小
           var HTML = document.getElementsByTagName('html')[0];
           var deviceWidth = document.documentElement.clientWidth;
@@ -47,7 +46,6 @@
       function chk(num){
           return num%2 ==0 ?true:false;  //判断是否能整除2
       }
-
       function resize() {
           if(window.orientation == 90 || window.orientation == -90) {
               //ipad、iphone竖屏；Andriod横屏
@@ -80,4 +78,3 @@
 <div id="root"></div>
 </body>
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-</html>

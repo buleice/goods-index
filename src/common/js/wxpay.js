@@ -1,11 +1,12 @@
 import {axiosPost} from "./axiosData";
 let needAddress=0;
+let bid='';
 const wxPays= {
     join(url, data) {
         wxPay(url, Object.assign({}, data, {isFounder: 0,urltag:'wxyx_groupbuying'}));
     },
     found(url, data){
-        wxPay(url, Object.assign({}, data, {isFounder: 1}))
+        wxPay(url, Object.assign({}, data, {isFounder: 1,urltag:'wxyx_groupbuying_1'}))
     },
     freeJoin(url, data){
         axiosPost(url, Object.assign({}, data, {isFounder: 0})).then(response => {
@@ -37,9 +38,9 @@ const wxPays= {
     bonusPay(url,data){
         axiosPost(url, data).then(response => {
             if (response.status === 200) {
-                if(response.data.needAddress==1){
+                if(response.data.needAddress===1){
                     setTimeout(function() {
-                        setTimeout(()=>{window.location.href=`/address/index?from=index#/orderpage?id=${_GetQueryString('id')}`},300)
+                        setTimeout(()=>{window.location.href=`/address/index?from=index#/orderpage?id=${response.data.bid}&goodsid=${_GetQueryString('id')}`},300)
                     }, 300);
                 }else{
                     setTimeout(function() {
@@ -57,6 +58,7 @@ const wxPay=function (url,data) {
     axiosPost(url,data).then(response=>{
         if(response.status===200){
             needAddress=response.data.needAddress;
+            bid=response.data.bid;
             Pay(response.data.data);
         }
     }).catch(function (errors) {
@@ -84,7 +86,7 @@ const onBridgeReady=function (params) {
         function(res) {
             if (res.err_msg === "get_brand_wcpay_request:ok") {
                 if(needAddress===1){
-                    setTimeout(()=>{window.location.href=`/address/index?from=index#/orderpage?id=${_GetQueryString('id')}`},300)
+                    setTimeout(()=>{window.location.href=`/address/index?from=index#/orderpage?id=${bid}&goodsid=${_GetQueryString('id')}`},300)
                 }else{
                     window.location.reload()
                 }

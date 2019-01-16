@@ -102,6 +102,14 @@ class App extends Component {
             }
         })
     }
+    componentDidMount() {
+        window.addEventListener('popstate',(state) => {
+            // 监听到返回事件，注意，只有触发了返回才会执行这个方法
+         setTimeout(()=>{
+             window.location.reload()
+         },300)
+        })
+    }
     render() {
         if (this.state.isRender) {
             return (
