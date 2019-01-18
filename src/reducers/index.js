@@ -6,6 +6,7 @@ import {
     showGuide, showMoreGroup, modalOpen, showCouponBuy,
     couponBuyFilter,userCoupons,cantuanPrice,buyMode,groupId,couponId
 } from './showstatus'
+import {pageData} from "./reducer-child";
 import groups from './groupData'
 import freeBuy from './freeBuy'
 
@@ -24,5 +25,6 @@ export default combineReducers({
     cantuanPrice,
     buyMode,
     groupId,
-    couponId
+    couponId,
+    pageData
 })

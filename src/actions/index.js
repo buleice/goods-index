@@ -78,3 +78,8 @@ export const couponId=id=>({
     type:types.SET_COUPONID,
     couponId:id
 })
+
+export const pageData=data=>({
+    type:types.SET_PAGEDATA,
+    pageData:data
+})

@@ -4,7 +4,7 @@ import {couponBuyFilter, showCouponBuy,buyMode} from "../actions";
 const mapStateToProps = (state, ownProps) => ({
     couponBuyFilter: state.couponBuyFilter,
     showCouponBuy:state.showCouponBuy,
-    userCoupons:state.userCoupons
+    userCoupons:state.userCoupons,
 })
 const mapDispatchToProps = dispatch => ({
     setCouponBuyFilter:condition=>dispatch(couponBuyFilter(condition)),

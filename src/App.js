@@ -32,15 +32,73 @@ class App extends Component {
     }
 
     componentWillMount() {
+
+    }
+    componentDidMount() {
+        this._initPageData();
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                this._initPageData();
+            } else {
+                return false;
+            }
+        })
+        // window.addEventListener('popstate',(state) => {
+        //     // 监听到返回事件，注意，只有触发了返回才会执行这个方法
+        //  setTimeout(()=>{
+        //      window.location.reload()
+        //  },300)
+        // })
+    }
+    render() {
+        if (this.state.isRender) {
+            return (
+                <div className={`App ${this.props.modalOpen?'modal-open':''}`}>
+                    {this.state.goodInfo.buyingInfo.Fbanner.length>1?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/></div>)}
+                    <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
+                    <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
+                    <GuiZe></GuiZe>
+                    <GroupList groupList={this.state.groupList}></GroupList>
+                    <MoreCourse lists={this.state.recommend}></MoreCourse>
+                    <ProductsInfo Fvideo={this.state.Fvideo} qunQrcode={this.state.qunQrcode} Fintros={this.state.Fintros}></ProductsInfo>
+                    <CouponBuy></CouponBuy>
+                    <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
+                    <ScroolYToTop></ScroolYToTop>
+                    <AdPush couponSent={this.state.couponSent[0]} newUser={this.state.newUser}></AdPush>
+                </div>
+            );
+        } else {
+            return (<div className="loading-mask">
+                <div className="loader">
+                    <div className="square"></div>
+                    <div className="square"></div>
+                    <div className="square last"></div>
+                    <div className="square clear"></div>
+                    <div className="square"></div>
+                    <div className="square last"></div>
+                    <div className="square clear"></div>
+                    <div className="square "></div>
+                    <div className="square last"></div>
+                </div>
+            </div>)
+        }
+    }
+
+    _initPageData(){
         axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
             if (res.status === 200) {
                 let pageData = res.data;
-                let isBuy=Number(pageData.buyingInfo.Fprice)>0?false:true
+                let isBuy=Number(pageData.buyingInfo.Fprice)>0?false:true;
+                if(isBuy){
+                    window.location.reload();
+                    return;
+                }
                 this.props.setTm(pageData.tm)
                 this.props.setGroups(pageData.userList)
                 this.props.setFreeBuy(isBuy);
                 this.props.setUserCoupons(pageData.coupons)
                 this.props.setCantuanPrice(pageData.buyingInfo.Fprice)
+                this.props.setPageData(pageData);
                 wxShare({
                     FshareTitle:pageData.buyingInfo.FshareTitle1,
                     FshareIcon:pageData.buyingInfo.FshareIcon,
@@ -102,48 +160,6 @@ class App extends Component {
             }
         })
     }
-    componentDidMount() {
-        window.addEventListener('popstate',(state) => {
-            // 监听到返回事件，注意，只有触发了返回才会执行这个方法
-         setTimeout(()=>{
-             window.location.reload()
-         },300)
-        })
-    }
-    render() {
-        if (this.state.isRender) {
-            return (
-                <div className={`App ${this.props.modalOpen?'modal-open':''}`}>
-                    {this.state.goodInfo.buyingInfo.Fbanner.length>1?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/></div>)}
-                    <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
-                    <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
-                    <GuiZe></GuiZe>
-                    <GroupList groupList={this.state.groupList}></GroupList>
-                    <MoreCourse lists={this.state.recommend}></MoreCourse>
-                    <ProductsInfo Fvideo={this.state.Fvideo} qunQrcode={this.state.qunQrcode} Fintros={this.state.Fintros}></ProductsInfo>
-                    <CouponBuy></CouponBuy>
-                    <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
-                    <ScroolYToTop></ScroolYToTop>
-                    <AdPush couponSent={this.state.couponSent[0]} newUser={this.state.newUser}></AdPush>
-                </div>
-            );
-        } else {
-            return (<div className="loading-mask">
-                <div className="loader">
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square last"></div>
-                    <div className="square clear"></div>
-                    <div className="square"></div>
-                    <div className="square last"></div>
-                    <div className="square clear"></div>
-                    <div className="square "></div>
-                    <div className="square last"></div>
-                </div>
-            </div>)
-        }
-    }
-
     _GetQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则

@@ -75,6 +75,7 @@ export default class BuyButtons extends Component {
         wxPays.justPay('/pay/weixin/youxue/prepare.json', {shareKey: shareKey, buyingid: buyingid});
     }
     render() {
+        console.log(this.props.pageData)
         return (
             <div>
                 {
