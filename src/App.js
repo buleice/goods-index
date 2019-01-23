@@ -36,11 +36,10 @@ class App extends Component {
     }
     componentDidMount() {
         this._initPageData();
+        let _this=this;
         window.addEventListener('pageshow', function(event) {
             if (event.persisted) {
-                this._initPageData();
-            } else {
-                return false;
+                _this._initPageData();
             }
         })
         // window.addEventListener('popstate',(state) => {
@@ -89,10 +88,10 @@ class App extends Component {
             if (res.status === 200) {
                 let pageData = res.data;
                 let isBuy=Number(pageData.buyingInfo.Fprice)>0?false:true;
-                if(isBuy){
-                    window.location.reload();
-                    return;
-                }
+                // if(isBuy){
+                //     // window.location.reload();
+                //     return;
+                // }
                 this.props.setTm(pageData.tm)
                 this.props.setGroups(pageData.userList)
                 this.props.setFreeBuy(isBuy);
@@ -138,6 +137,7 @@ class App extends Component {
                         id:this._GetQueryString("id"),
                         shareKey:this._GetQueryString('shareKey'),
                         canUseCouon:pageData.coupons.length>0?true:false,
+                        needAddress:pageData.needAddress
                     },
                     peopleInGroup: {
                         Fmode: pageData.buyingInfo.Fmode,
