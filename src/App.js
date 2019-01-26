@@ -87,14 +87,15 @@ class App extends Component {
         axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
             if (res.status === 200) {
                 let pageData = res.data;
-                let isBuy=Number(pageData.buyingInfo.Fprice)>0?false:true;
-                // if(isBuy){
-                //     // window.location.reload();
-                //     return;
-                // }
+                let isFree=Number(pageData.buyingInfo.Fprice)>0?false:true;
+                let isBuy=pageData.isBUy;
+                if(isBuy){
+                    window.location.reload();
+                    return;
+                }
                 this.props.setTm(pageData.tm)
                 this.props.setGroups(pageData.userList)
-                this.props.setFreeBuy(isBuy);
+                this.props.setFreeBuy(isFree);
                 this.props.setUserCoupons(pageData.coupons)
                 this.props.setCantuanPrice(pageData.buyingInfo.Fprice)
                 this.props.setPageData(pageData);
@@ -123,7 +124,8 @@ class App extends Component {
                         buyPrice: pageData.buyPrice,
                         Fsales: pageData.buyingInfo.Fsales,
                         Fprice: pageData.buyingInfo.Fprice,
-                        ForiginalPrice: pageData.buyingInfo.ForiginalPrice
+                        ForiginalPrice: pageData.buyingInfo.ForiginalPrice,
+                        Fbonus:pageData.bonus
                     },
                     recommend: pageData.recommend,
                     Fintros: [res.data.buyingInfo.Fintro1, res.data.buyingInfo.Fintro2, res.data.buyingInfo.Fintro3],
