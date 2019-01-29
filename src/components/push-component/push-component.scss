@@ -74,4 +74,22 @@
     left: 50%;
     transform: translate(-48%, -50%);
   }
+  .festival-close{
+    background: url('//udata.youban.com/webimg/wxyx/puintuan/close-bg.png') no-repeat;
+    background-size: 100%;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top:20%;
+    right: 3.125rem;
+    transform: translate(-48%, -50%);
+  }
+  .festival{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-48%, -50%);
+    width: 95%;
+    display: block;margin: auto;
+  }
 }
