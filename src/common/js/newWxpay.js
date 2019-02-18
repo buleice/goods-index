@@ -15,6 +15,11 @@ const newWxpay = {
         let params = await
             getPayParams(url, Object.assign({}, data, {issingle: 1, urltag: 'wxyx_groupbuying_single'}))
         return Pay(params.data,{needAddress: params.needAddress,bid:params.bid});
+    },
+    async AJoinPay(url, data){
+        let params = await
+            getPayParams(url, Object.assign({}, data, {urltag: 'activity20190218'}))
+        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid});
     }
 }
 const xblPay = {

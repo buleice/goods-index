@@ -21,7 +21,11 @@ export default class CouponBuy extends Component {
     afterPay(params) {
         setTimeout(() => {
             if (params.needAddress === 1) {
-                window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${this._GetQueryString('id')}`
+                if(params.activity!=undefined&&params.activity!=null){
+                    window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${this._GetQueryString('id')}`
+                }else{
+                    window.location.href = `/address/index?from=index#/orderpage?activity=${params.activity}&id=${params.bid}&goodsid=${this._GetQueryString('id')}`
+                }
             } else {
                 window.location.reload()
             }
@@ -81,6 +85,17 @@ export default class CouponBuy extends Component {
                     window.alert("支付失败")
                 });
                 break;
+            case 99:
+                newWxpay.AJoinPay('/pay/weixin/youxue/prepare.json',{
+                    shareKey: shareKey,
+                    buyingid: buyingid,
+                    couponid: couponid
+                }).then(res=>{
+                    this.afterPay(Object.assign({},res,{activity:20190218}))
+                }).catch(err => {
+                    console.log(err)
+                    window.alert("支付失败")
+                });
             default:
                 return;
         }
