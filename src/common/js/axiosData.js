@@ -1,6 +1,6 @@
 import axios from 'axios';
 if(process.env.NODE_ENV !== 'production'){
-    document.cookie='auth=f22df804067bbb0df21202874c5bc7556daed39a74581bd32daedc274424a1656fc364763ccbce6f4bc6813ce3b9c1d99039fe5e678206d892e697ba4eac6cb90437f71c404d72882fc5fa13dc3ef4e26161ba424a81345a'
+    document.cookie='auth=0e976591067bbb0df21202874c5bc7556daed39a74581bd32daedc274424a1656fc3647686aaf9ac5fdd8265491a0b70edfd8ce03bb93e76d73e931f057185f602f04f58404d72882fc5fa13dc3ef4e26161ba4206e57915'
 }
 const axiosPost =(url,data)=>{
   return new Promise((resolve,reject)=>{

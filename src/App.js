@@ -39,7 +39,7 @@ class App extends Component {
         let _this=this;
         window.addEventListener('pageshow', function(event) {
             if (event.persisted) {
-                _this._initPageData();
+                window.location.reload();
             }
         })
         // window.addEventListener('popstate',(state) => {
@@ -136,10 +136,12 @@ class App extends Component {
                         Fmode: pageData.buyingInfo.Fmode,
                         from: pageData.from,
                         founderPrice: pageData.founderPrice,
+                        Fprice:pageData.buyingInfo.Fprice,
                         id:this._GetQueryString("id"),
                         shareKey:this._GetQueryString('shareKey'),
                         canUseCouon:pageData.coupons.length>0?true:false,
-                        needAddress:pageData.needAddress
+                        needAddress:pageData.needAddress,
+                        isActivity:this._GetQueryString('isactivity')?true:false
                     },
                     peopleInGroup: {
                         Fmode: pageData.buyingInfo.Fmode,
