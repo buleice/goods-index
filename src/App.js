@@ -55,10 +55,15 @@ class App extends Component {
                 <div className={`App ${this.props.modalOpen?'modal-open':''}`}>
                     {this.state.goodInfo.buyingInfo.Fbanner.length>1?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/></div>)}
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
+                     {
+                       !this._GetQueryString('isactivity')?(<div>
                     <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
                     <GuiZe></GuiZe>
                     <GroupList groupList={this.state.groupList}></GroupList>
                     <MoreCourse lists={this.state.recommend}></MoreCourse>
+                  </div>) :null
+                    }
+                    
                     <ProductsInfo Fvideo={this.state.Fvideo} qunQrcode={this.state.qunQrcode} Fintros={this.state.Fintros}></ProductsInfo>
                     <CouponBuy></CouponBuy>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
@@ -84,7 +89,7 @@ class App extends Component {
     }
 
     _initPageData(){
-        axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}&from=${this._GetQueryString("from")}`).then(res => {
+        axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
             if (res.status === 200) {
                 let pageData = res.data;
                 let isFree=Number(pageData.buyingInfo.Fprice)>0?false:true;
