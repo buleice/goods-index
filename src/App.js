@@ -84,7 +84,7 @@ class App extends Component {
     }
 
     _initPageData(){
-        axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
+        axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}&from=${this._GetQueryString("from")}`).then(res => {
             if (res.status === 200) {
                 let pageData = res.data;
                 let isFree=Number(pageData.buyingInfo.Fprice)>0?false:true;
