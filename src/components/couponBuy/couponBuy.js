@@ -20,6 +20,7 @@ export default class CouponBuy extends Component {
     }
     afterPay(params) {
         setTimeout(() => {
+
             if (params.needAddress === 1) {
                 if(params.activity!=undefined&&params.activity!=null){
                     window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${this._GetQueryString('id')}`
@@ -27,7 +28,11 @@ export default class CouponBuy extends Component {
                     window.location.href = `/address/index?from=index#/orderpage?activity=${params.activity}&id=${params.bid}&goodsid=${this._GetQueryString('id')}`
                 }
             } else {
-                window.location.reload()
+                 if(params.activity!=undefined&&params.activity!=null){
+                window.location.href='/purchase/20190218';
+            }else{
+                window.location.reload();
+            }
             }
         }, 300)
     }
