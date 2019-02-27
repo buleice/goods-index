@@ -19,20 +19,25 @@ export default class CouponBuy extends Component {
         return '';
     }
     afterPay(params) {
-        setTimeout(() => {
-
-            if (params.needAddress === 1) {
-                if(params.activity!=undefined&&params.activity!=null){
-                    window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${this._GetQueryString('id')}`
-                }else{
-                    window.location.href = `/address/index?from=index#/orderpage?activity=${params.activity}&id=${params.bid}&goodsid=${this._GetQueryString('id')}`
-                }
-            } else {
-                 if(params.activity!=undefined&&params.activity!=null){
-                window.location.href='/purchase/20190218';
+        const buyingId=this._GetQueryString('id');
+        function toSchedulPage(){
+            if(params.groupid!==''&&params.groupid!==undefined){
+                window.location.href=`/purchase/detail?buyingid=${buyingId}&groupid=${params.groupid}&from=default&purchased=1`
             }else{
-                window.location.reload();
+                window.location.href=`/groupbuying/success?buyingid=${buyingId}&from=default&purchased=1`
             }
+        }
+        setTimeout(() => {
+            if (params.activity != undefined && params.activity != null && params.activity != '') {
+                params.needAddress === 1 ?
+                    window.location.href = `/address/index?from=index#/orderpage?activity=${params.activity}&id=${params.bid}&goodsid=${buyingId}`
+                    :
+                    window.location.href = '/purchase/20190218'
+            } else {
+                params.needAddress === 1 ?
+                    window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${buyingId}`
+                    :
+                    toSchedulPage();
             }
         }, 300)
     }

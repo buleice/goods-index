@@ -49,11 +49,25 @@ class SingleGroup extends Component {
         }, 1000)
     }
     afterPay(params) {
+        const buyingId=this._GetQueryString('id');
+        function toSchedulPage(){
+            if(params.groupid!==''&&params.groupid!==undefined){
+                window.location.href=`/purchase/detail?buyingid=${buyingId}&groupid=${params.groupid}&from=default&purchased=1`
+            }else{
+                window.location.href=`/groupbuying/success?buyingid=${buyingId}&from=default&purchased=1`
+            }
+        }
         setTimeout(() => {
-            if (params.needAddress === 1) {
-                window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${this._GetQueryString('id')}`
+            if (params.activity != undefined && params.activity != null && params.activity != '') {
+                params.needAddress === 1 ?
+                    window.location.href = `/address/index?from=index#/orderpage?activity=${params.activity}&id=${params.bid}&goodsid=${buyingId}`
+                    :
+                    window.location.href = '/purchase/20190218'
             } else {
-                window.location.reload()
+                params.needAddress === 1 ?
+                    window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${buyingId}`
+                    :
+                    toSchedulPage();
             }
         }, 300)
     }
@@ -74,7 +88,13 @@ class SingleGroup extends Component {
                 })
             }, 2000)
             if (isFree) {
-                wxPays.freeJoin('/groupbuying/freejoin.json', {buyingid: buyingid, groupid: groupid});
+                xblPay.freeJoin('/groupbuying/freejoin.json', {buyingid: buyingid, groupid: groupid}).then(res=>{
+                    setTimeout(()=>{
+                        window.location.href=`/purchase/detail?buyingid=${buyingid}&groupid=${groupid}&from=default&purchased=1`
+                    },300)
+                }).catch(err => {
+                    console.log(err)
+                });
             } else {
                 let filteredCoupons = this.props.userCoupons.filter(item => {
                     return this.props.cantuanPrice >= item.spendMoney

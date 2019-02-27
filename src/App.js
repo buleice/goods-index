@@ -13,10 +13,7 @@ import CouponBuy from './containers/couponBuy'
 import ScroolYToTop from './components/toTop/totop';
 import {wxShare} from "./common/js/wxshare";
 import AdPush from './components/push-component/push-component'
-import * as Sentry from '@sentry/browser';
-Sentry.init({
- dsn: "https://f7511a6358f645239345a7cae6f77519@sentry.io/1337784"
-});
+
 // should have been called before using it here
 // ideally before even rendering your react app
 
@@ -34,37 +31,43 @@ class App extends Component {
     componentWillMount() {
 
     }
+
     componentDidMount() {
         this._initPageData();
-        let _this=this;
-        window.addEventListener('pageshow', function(event) {
+        let _this = this;
+        window.addEventListener('pageshow', function (event) {
             if (event.persisted) {
                 window.location.reload();
             }
         })
-        // window.addEventListener('popstate',(state) => {
+        // window.addEventListener('popstate',(event) => {
         //     // 监听到返回事件，注意，只有触发了返回才会执行这个方法
-        //  setTimeout(()=>{
-        //      window.location.reload()
-        //  },300)
+        //     if (event.persisted) {
+        //         window.location.reload();
+        //     }
         // })
     }
+
     render() {
         if (this.state.isRender) {
             return (
-                <div className={`App ${this.props.modalOpen?'modal-open':''}`}>
-                    {this.state.goodInfo.buyingInfo.Fbanner.length>1?(<Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>):(<div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/></div>)}
+                <div className={`App ${this.props.modalOpen ? 'modal-open' : ''}`}>
+                    {this.state.goodInfo.buyingInfo.Fbanner.length > 1 ? (
+                        <Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>) : (
+                        <div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/>
+                        </div>)}
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
-                     {
-                       !this._GetQueryString('isactivity')?(<div>
-                    <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
-                    <GuiZe></GuiZe>
-                    <GroupList groupList={this.state.groupList}></GroupList>
-                    <MoreCourse lists={this.state.recommend}></MoreCourse>
-                  </div>) :null
+                    {
+                        !this._GetQueryString('isactivity') || this.state.buttonControl.Fmode === 9 ? (<div>
+                            <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
+                            <GuiZe></GuiZe>
+                            <GroupList groupList={this.state.groupList}></GroupList>
+                            <MoreCourse lists={this.state.recommend}></MoreCourse>
+                        </div>) : null
                     }
-                    
-                    <ProductsInfo Fvideo={this.state.Fvideo} qunQrcode={this.state.qunQrcode} Fintros={this.state.Fintros}></ProductsInfo>
+
+                    <ProductsInfo Fvideo={this.state.Fvideo} qunQrcode={this.state.qunQrcode}
+                                  Fintros={this.state.Fintros}></ProductsInfo>
                     <CouponBuy></CouponBuy>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
                     <ScroolYToTop></ScroolYToTop>
@@ -88,13 +91,13 @@ class App extends Component {
         }
     }
 
-    _initPageData(){
+    _initPageData() {
         axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
             if (res.status === 200) {
                 let pageData = res.data;
-                let isFree=Number(pageData.buyingInfo.Fprice)>0?false:true;
-                let isBuy=pageData.isBUy;
-                if(isBuy){
+                let isFree = Number(pageData.buyingInfo.Fprice) > 0 ? false : true;
+                let isBuy = pageData.isBUy;
+                if (isBuy) {
                     window.location.reload();
                     return;
                 }
@@ -105,17 +108,17 @@ class App extends Component {
                 this.props.setCantuanPrice(pageData.buyingInfo.Fprice)
                 this.props.setPageData(pageData);
                 wxShare({
-                    FshareTitle:pageData.buyingInfo.FshareTitle1,
-                    FshareIcon:pageData.buyingInfo.FshareIcon,
-                    FshareContent:pageData.buyingInfo.FshareContent1,
-                    buyingId:this._GetQueryString("id"),
-                    shareKey:pageData.myShareKey,
+                    FshareTitle: pageData.buyingInfo.FshareTitle1,
+                    FshareIcon: pageData.buyingInfo.FshareIcon,
+                    FshareContent: pageData.buyingInfo.FshareContent1,
+                    buyingId: this._GetQueryString("id"),
+                    shareKey: pageData.myShareKey,
                 })
                 this.setState({
-                    shareData:{
-                        FshareTitle:pageData.buyingInfo.FshareTitle1,
-                        FshareIcon:pageData.buyingInfo.FshareIcon,
-                        FshareContent:pageData.buyingInfo.FshareContent1
+                    shareData: {
+                        FshareTitle: pageData.buyingInfo.FshareTitle1,
+                        FshareIcon: pageData.buyingInfo.FshareIcon,
+                        FshareContent: pageData.buyingInfo.FshareContent1
                     },
                     goodInfo: pageData,
                     isRender: true,
@@ -130,7 +133,7 @@ class App extends Component {
                         Fsales: pageData.buyingInfo.Fsales,
                         Fprice: pageData.buyingInfo.Fprice,
                         ForiginalPrice: pageData.buyingInfo.ForiginalPrice,
-                        Fbonus:pageData.bonus
+                        Fbonus: window.location.pathname.indexOf('share') > 0 ? false : pageData.bonus
                     },
                     recommend: pageData.recommend,
                     Fintros: [res.data.buyingInfo.Fintro1, res.data.buyingInfo.Fintro2, res.data.buyingInfo.Fintro3],
@@ -138,15 +141,15 @@ class App extends Component {
                         bonusPay: pageData.bonusPay,
                         ForiginalPrice: pageData.buyingInfo.ForiginalPrice,
                         buttonText: pageData.buttonText,
-                        Fmode: pageData.buyingInfo.Fmode,
+                        Fmode: window.location.pathname.indexOf('share') > 0 ? 9 : pageData.buyingInfo.Fmode,
                         from: pageData.from,
                         founderPrice: pageData.founderPrice,
-                        Fprice:pageData.buyingInfo.Fprice,
-                        id:this._GetQueryString("id"),
-                        shareKey:this._GetQueryString('shareKey'),
-                        canUseCouon:pageData.coupons.length>0?true:false,
-                        needAddress:pageData.needAddress,
-                        isActivity:this._GetQueryString('isactivity')?true:false
+                        Fprice: pageData.buyingInfo.Fprice,
+                        id: this._GetQueryString("id"),
+                        shareKey: this._GetQueryString('shareKey'),
+                        canUseCouon: pageData.coupons.length > 0 ? true : false,
+                        needAddress: pageData.needAddress,
+                        isActivity: this._GetQueryString('isactivity') ? true : false
                     },
                     peopleInGroup: {
                         Fmode: pageData.buyingInfo.Fmode,
@@ -160,15 +163,16 @@ class App extends Component {
                         nowBuyingCount: pageData.nowBuyingCount,
                         id: this._GetQueryString("id")
                     },
-                    qunQrcode:pageData.Qunlist!==null?pageData.Qunlist.imgcontent[0]:'',
-                    Fvideo:pageData.buyingInfo.Fvideo,
-                    coupons:pageData.coupons,
-                    couponSent:pageData.couponSent,
-                    newUser:pageData.isNew===1?true:false
+                    qunQrcode: pageData.Qunlist !== null ? pageData.Qunlist.imgcontent[0] : '',
+                    Fvideo: pageData.buyingInfo.Fvideo,
+                    coupons: pageData.coupons,
+                    couponSent: pageData.couponSent,
+                    newUser: pageData.isNew === 1 ? true : false
                 })
             }
         })
     }
+
     _GetQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则

@@ -4,22 +4,22 @@ const newWxpay = {
     async join(url, data) {
         let params = await
             getPayParams(url, Object.assign({}, data, {isFounder: 0, urltag: 'wxyx_groupbuying'}))
-        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid});
+        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid,groupid:params.groupid});
     },
     async found(url, data) {
         let params = await
             getPayParams(url, Object.assign({}, data, {isFounder: 1, urltag: 'wxyx_groupbuying_1'}));
-        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid});
+        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid,groupid:params.groupid});
     },
     async justPay(url, data) {
         let params = await
             getPayParams(url, Object.assign({}, data, {issingle: 1, urltag: 'wxyx_groupbuying_single'}))
-        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid});
+        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid,groupid:""});
     },
     async AJoinPay(url, data){
         let params = await
             getPayParams(url, Object.assign({}, data, {urltag: 'activity20190218'}))
-        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid});
+        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid,groupid:params.groupid});
     }
 }
 const xblPay = {
@@ -27,6 +27,7 @@ const xblPay = {
         return new Promise((resolve, reject) => {
             axiosPost(url, Object.assign({}, data, {isFounder: 0})).then(response => {
                 if (response.status === 200) {
+                    console.log(response)
                     resolve(response.data);
                 }
             }).catch(function (errors) {
@@ -38,6 +39,7 @@ const xblPay = {
         return new Promise((resolve, reject) => {
             axiosPost(url, Object.assign({}, data, {isFounder: 1})).then(response => {
                 if (response.status === 200) {
+                    console.log(response)
                     resolve(response.data);
                 }
             }).catch(function (errors) {

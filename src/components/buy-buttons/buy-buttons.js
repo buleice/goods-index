@@ -26,19 +26,25 @@ export default class BuyButtons extends Component {
     }
 
     afterPay(params) {
-        setTimeout(() => {
-            if (params.needAddress === 1) {
-                if(params.activity!=undefined&&params.activity!=null){
-                    window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${this._GetQueryString('id')}`
-                }else{
-                    window.location.href = `/address/index?from=index#/orderpage?activity=${params.activity}&id=${params.bid}&goodsid=${this._GetQueryString('id')}`
-                }
-            } else {
-                 if(params.activity!=undefined&&params.activity!=null){
-                window.location.href='/purchase/20190218';
+        const buyingId=this._GetQueryString('id');
+        function toSchedulPage(){
+            if(params.groupid!==''&&params.groupid!==undefined){
+                window.location.href=`/purchase/detail?buyingid=${buyingId}&groupid=${params.groupid}&from=default&purchased=1`
             }else{
-                window.location.reload();
+                window.location.href=`/groupbuying/success?buyingid=${buyingId}&from=default&purchased=1`
             }
+        }
+        setTimeout(() => {
+            if (params.activity != undefined && params.activity != null && params.activity != '') {
+                params.needAddress === 1 ?
+                    window.location.href = `/address/index?from=index#/orderpage?activity=${params.activity}&id=${params.bid}&goodsid=${buyingId}`
+                    :
+                    window.location.href = '/purchase/20190218'
+            } else {
+                params.needAddress === 1 ?
+                    window.location.href = `/address/index?from=index#/orderpage?id=${params.bid}&goodsid=${buyingId}`
+            :
+                toSchedulPage();
             }
         }, 300)
     }
@@ -100,21 +106,29 @@ export default class BuyButtons extends Component {
                         // wxPays.bonusPay('/bonus/consume.json', {id: buyingid});
                         break;
                     case 99:
-                        newWxpay.AJoinPay('/pay/weixin/youxue/prepare.json',{
+                        newWxpay.AJoinPay('/pay/weixin/youxue/prepare.json', {
                             shareKey: shareKey,
                             buyingid: buyingid
-                        }).then(res=>{
-                            this.afterPay(Object.assign({},res,{activity:20190218}))
+                        }).then(res => {
+                            this.afterPay(Object.assign({}, res, {activity: 20190218}))
                         }).catch(err => {
                             console.log(err)
                             window.alert("支付失败")
                         });
-
                     default:
                         return false;
                 }
             } else {
-                wxPays.freeFound('/groupbuying/freejoin.json', {buyingid: buyingid});
+                xblPay.freeFound('/groupbuying/freejoin.json', {buyingid: buyingid}).then(res=>{
+                    let buyingId = this.props.buttonControl.id;
+                    if(res.groupid!==''&&res.groupid!==undefined){
+                        window.location.href=`/purchase/detail?buyingid=${buyingId}&groupid=${res.groupid}&from=default&purchased=1`
+                    }else{
+                        window.location.href=`/groupbuying/success?buyingid=${buyingId}&from=default&purchased=1`;
+                    }
+                }).catch(err => {
+                    window.alert(err.msg)
+                });
             }
         } else {
             return false
@@ -133,7 +147,6 @@ export default class BuyButtons extends Component {
         }
         let buyingid = this.props.buttonControl.id
         let shareKey = this.props.buttonControl.shareKey
-        // wxPays.justPay('/pay/weixin/youxue/prepare.json', {shareKey: shareKey, buyingid: buyingid});
         newWxpay.justPay('/pay/weixin/youxue/prepare.json', {shareKey: shareKey, buyingid: buyingid}).then(res => {
             this.afterPay(res)
         }).catch(err => {
@@ -143,8 +156,8 @@ export default class BuyButtons extends Component {
     }
 
     render() {
-        if(this.props.buttonControl.isActivity){
-            return(
+        if (this.props.buttonControl.isActivity) {
+            return (
                 <div className="buttons">
                     <div className="btn_left">
                         <a className="toindex" href={`/shop/index?from= ${this.props.buttonControl.from}`}>《
@@ -159,61 +172,78 @@ export default class BuyButtons extends Component {
                     </div>
                 </div>
             )
-        }else{
+        } else {
             return (
                 <div>
                     {
-                        this.props.buttonControl.Fmode === 1 ?
-                            (
-                                <div className="buttons">
-                                    <div className="btn_left">
-                                        <a className="toindex" href={`/shop/index?from= ${this.props.buttonControl.from}`}>《
-                                            更多拼团</a>
-                                    </div>
-                                    <div className="dandugou">
-                                        <div className="inline-box"
-                                             onClick={this.dandugou.bind(this, this.props.buttonControl.ForiginalPrice)}>
-                                            <span>去购买 </span><span
-                                            className=" sub">￥</span><span>{this.props.buttonControl.ForiginalPrice}</span>
+                        (()=>{
+                            switch(this.props.buttonControl.Fmode){
+                                case 1 :    return                  (
+                                    <div className="buttons">
+                                        <div className="btn_left">
+                                            <a className="toindex"
+                                               href={`/shop/index?from= ${this.props.buttonControl.from}`}>《
+                                                更多拼团</a>
+                                        </div>
+                                        <div className="dandugou">
+                                            <div className="inline-box"
+                                                 onClick={this.dandugou.bind(this, this.props.buttonControl.ForiginalPrice)}>
+                                                <span>去购买 </span><span
+                                                className=" sub">￥</span><span>{this.props.buttonControl.ForiginalPrice}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ) :
-                            (
-                                <div>
-                                    <PromptDialog promptDesc={this.state.promptDesc}
-                                                  showPromptDialog={this.state.showPromptDialog}
-                                                  delPOk={this.delPOk.bind(this)}
-                                                  delPCancle={this.delPCancle.bind(this)}></PromptDialog>
-                                    <div className=" buttons">
-                                        <div className=" btn_left"><a className=" toindex" href="
+                                );
+                                case 9: return(
+                                    <div className="buttons">
+                                        <div className="single-button"
+                                             onClick={this.processPayment.bind(this, 1, this.props.buttonControl.founderPrice)}>
+                                            <div className=" inline-box">
+                                                <span>马上开团</span>
+                                                <span className="sub">￥</span><span
+                                                id=" special_price">{this.props.buttonControl.founderPrice}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                                default:  return                          (
+                                    <div>
+                                        <PromptDialog promptDesc={this.state.promptDesc}
+                                                      showPromptDialog={this.state.showPromptDialog}
+                                                      delPOk={this.delPOk.bind(this)}
+                                                      delPCancle={this.delPCancle.bind(this)}></PromptDialog>
+                                        <div className=" buttons">
+                                            <div className=" btn_left"><a className=" toindex" href="
                             /shop/index?from= default">《 更多拼团</a></div>
-                                        <div className=" b-btn">
+                                            <div className=" b-btn">
 
-                                            {this.props.buttonControl.bonusPay === 1 && Number(this.props.buttonControl.founderPrice) > 0 ?
-                                                (<div className=" dandugou">
-                                                    <div className=" inline-box" onClick={this.delBonusExchange.bind(this)}>
-                                                        <span>奖学金兑换</span></div>
-                                                </div>)
-                                                : (<div className=" dandugou"
-                                                        onClick={this.dandugou.bind(this, this.props.buttonControl.ForiginalPrice)}>
-                                                    <div className=" inline-box"><span>单独购买: </span><span
-                                                        className=" sub">￥</span><span>{this.props.buttonControl.ForiginalPrice}</span>
+                                                {this.props.buttonControl.bonusPay === 1 && Number(this.props.buttonControl.founderPrice) > 0 ?
+                                                    (<div className=" dandugou">
+                                                        <div className=" inline-box"
+                                                             onClick={this.delBonusExchange.bind(this)}>
+                                                            <span>奖学金兑换</span></div>
+                                                    </div>)
+                                                    : (<div className=" dandugou"
+                                                            onClick={this.dandugou.bind(this, this.props.buttonControl.ForiginalPrice)}>
+                                                        <div className=" inline-box"><span>单独购买: </span><span
+                                                            className=" sub">￥</span><span>{this.props.buttonControl.ForiginalPrice}</span>
+                                                        </div>
+                                                    </div>)}
+
+                                                <div className="sanrentuan"
+                                                     onClick={this.processPayment.bind(this, 1, this.props.buttonControl.founderPrice)}>
+                                                    <div className=" inline-box">
+                                                        <span>{this.props.buttonControl.buttonText}</span>
+                                                        <span className="sub">￥</span><span
+                                                        id=" special_price">{this.props.buttonControl.founderPrice}</span>
                                                     </div>
-                                                </div>)}
-
-                                            <div className="sanrentuan"
-                                                 onClick={this.processPayment.bind(this, 1, this.props.buttonControl.founderPrice)}>
-                                                <div className=" inline-box">
-                                                    <span>{this.props.buttonControl.buttonText}</span>
-                                                    <span className="sub">￥</span><span
-                                                    id=" special_price">{this.props.buttonControl.founderPrice}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
+                                )
+                            }
+                        })()
                     }
                 </div>
             )
@@ -225,7 +255,9 @@ export default class BuyButtons extends Component {
         this.setState({
             showPromptDialog: false
         })
-        wxPays.bonusPay('/bonus/consume.json', {id: this.props.buttonControl.id});
+        xblPay.bonusPay('/bonus/consume.json', {id: this.props.buttonControl.id}).then(res=>{
+            this.afterPay(res)
+        })
     }
 
     delPCancle() {

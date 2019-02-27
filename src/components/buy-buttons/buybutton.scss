@@ -26,17 +26,38 @@
       width: 100%;
     }
   }
+  .single-button{
+
+    background: #fa4822;
+    //padding: 0.82rem 0 0.75rem 0;
+    line-height: 3rem;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    border-radius: 0;
+    float: right;
+    .inline-box {
+      display: inline-block;
+      height: auto;
+      line-height: 1;
+      width: 100%;
+    }
+  }
   .btn_left {
     display: inline-block;
     width: 30%;
-    height: auto;
-    padding: 0.82rem 0 0.75rem 0;
+    height: 3rem;
+    //padding: 0.82rem 0 0.75rem 0;
     font-size: 1rem;
+    line-height: 3rem;
     text-align: center;
     color: #fa4822;
     margin-left: auto;
     float: left;
     a {
+      display: inline-block;
+      vertical-align: middle;
       color: red;
       text-decoration: none;
     }
