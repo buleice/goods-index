@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './buybutton.scss';
-import {wxPays} from "../../common/js/wxpay";
-import {newWxpay, xblPay} from "../../common/js/newWxpay";
+import {payRequest, xblPay} from "../../api/payRequest";
 import PromptDialog from '../weixin-dialog/weixin-dialog'
 
 export default class BuyButtons extends Component {
@@ -73,9 +72,10 @@ export default class BuyButtons extends Component {
             if (Number(this.props.buttonControl.founderPrice) > 0) {
                 switch (type) {
                     case 1:
-                        newWxpay.found('/pay/weixin/group/prepare.json', {
+                        payRequest.found('/pay/weixin/group/prepare.json', {
                             shareKey: shareKey,
-                            buyingid: buyingid
+                            buyingid: buyingid,
+                            urltag:window.location.pathname.indexOf('share') < 0?'wxyx_groupbuying_1':'wxyx_groupbuying_share'
                         }).then(res => {
                             this.afterPay(res)
                         }).catch(err => {
@@ -85,7 +85,7 @@ export default class BuyButtons extends Component {
                         // wxPays.found('/pay/weixin/group/prepare.json', {shareKey: shareKey, buyingid: buyingid});
                         break;
                     case 5:
-                        newWxpay.justPay('/pay/weixin/youxue/prepare.json', {
+                        payRequest.justPay('/pay/weixin/youxue/prepare.json', {
                             shareKey: shareKey,
                             buyingid: buyingid
                         }).then(res => {
@@ -106,7 +106,7 @@ export default class BuyButtons extends Component {
                         // wxPays.bonusPay('/bonus/consume.json', {id: buyingid});
                         break;
                     case 99:
-                        newWxpay.AJoinPay('/pay/weixin/youxue/prepare.json', {
+                        payRequest.AJoinPay('/pay/weixin/youxue/prepare.json', {
                             shareKey: shareKey,
                             buyingid: buyingid
                         }).then(res => {
@@ -147,7 +147,7 @@ export default class BuyButtons extends Component {
         }
         let buyingid = this.props.buttonControl.id
         let shareKey = this.props.buttonControl.shareKey
-        newWxpay.justPay('/pay/weixin/youxue/prepare.json', {shareKey: shareKey, buyingid: buyingid}).then(res => {
+        payRequest.justPay('/pay/weixin/youxue/prepare.json', {shareKey: shareKey, buyingid: buyingid}).then(res => {
             this.afterPay(res)
         }).catch(err => {
             console.log(err)
@@ -200,8 +200,8 @@ export default class BuyButtons extends Component {
                                              onClick={this.processPayment.bind(this, 1, this.props.buttonControl.founderPrice)}>
                                             <div className=" inline-box">
                                                 <span>马上开团</span>
-                                                <span className="sub">￥</span><span
-                                                id=" special_price">{this.props.buttonControl.founderPrice}</span>
+                                                <span className="sub"></span><span
+                                                id=" special_price"></span>
                                             </div>
                                         </div>
                                     </div>

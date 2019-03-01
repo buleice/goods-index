@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import './App.scss';
 import Carousel from './components/betterScroll/betterScroll';
 import GoodInfo from './components/goodInfo/goodInfo';
@@ -11,12 +10,9 @@ import GroupList from './containers/group-list'
 import BuyButtons from './containers/buyButtonGroup'
 import CouponBuy from './containers/couponBuy'
 import ScroolYToTop from './components/toTop/totop';
+import AdPush from './components/push-component/push-component';
 import {wxShare} from "./common/js/wxshare";
-import AdPush from './components/push-component/push-component'
-
-// should have been called before using it here
-// ideally before even rendering your react app
-
+import {requestPageData} from './api/requestApis'
 class App extends Component {
     constructor() {
         super();
@@ -27,11 +23,9 @@ class App extends Component {
         }
         this._GetQueryString = this._GetQueryString.bind(this)
     }
-
     componentWillMount() {
 
     }
-
     componentDidMount() {
         this._initPageData();
         let _this = this;
@@ -58,7 +52,7 @@ class App extends Component {
                         </div>)}
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
                     {
-                        !this._GetQueryString('isactivity') || this.state.buttonControl.Fmode === 9 ? (<div>
+                        !this._GetQueryString('isactivity') && this.state.buttonControl.Fmode !== 9 ? (<div>
                             <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
                             <GuiZe></GuiZe>
                             <GroupList groupList={this.state.groupList}></GroupList>
@@ -92,7 +86,7 @@ class App extends Component {
     }
 
     _initPageData() {
-        axios.get(`/purchase/index.json?id=${this._GetQueryString("id")}`).then(res => {
+        requestPageData().then(res => {
             if (res.status === 200) {
                 let pageData = res.data;
                 let isFree = Number(pageData.buyingInfo.Fprice) > 0 ? false : true;
@@ -131,7 +125,7 @@ class App extends Component {
                         origPrice: pageData.origPrice,
                         buyPrice: pageData.buyPrice,
                         Fsales: pageData.buyingInfo.Fsales,
-                        Fprice: pageData.buyingInfo.Fprice,
+                        Fprice: window.location.pathname.indexOf('share') < 0 ? pageData.buyingInfo.Fprice : pageData.founderPrice,
                         ForiginalPrice: pageData.buyingInfo.ForiginalPrice,
                         Fbonus: window.location.pathname.indexOf('share') > 0 ? false : pageData.bonus
                     },
@@ -170,9 +164,10 @@ class App extends Component {
                     newUser: pageData.isNew === 1 ? true : false
                 })
             }
+        }).catch(error=>{
+            console.log(error)
         })
     }
-
     _GetQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则

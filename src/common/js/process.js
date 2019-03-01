@@ -59,7 +59,6 @@ const Calculation=(type, num1, num2)=> {
     // 先判断执行的方式是否是加法，不是的话则执行减法运算
     return type === "add" ? (num1 * a + num2 * a) / a : (num1 * a - num2 * a) / a;
 }
-
 export {
     backTimeString,
     Calculation

@@ -3,8 +3,8 @@ import './single-group.scss';
 import {connect} from 'react-redux';
 import {backTimeString} from '../../common/js/process'
 import {wxPays} from "../../common/js/wxpay";
-import {newWxpay, xblPay} from "../../common/js/newWxpay";
-import {couponBuyFilter, showCouponBuy, buyMode, groupId, showMoreGroup} from "../../actions";
+import {payRequest, xblPay} from "../../api/payRequest";
+import {couponBuyFilter, showCouponBuy, buyMode, groupId, showMoreGroup, modalOpen} from "../../actions";
 
 const mapStateToProps = (state, props) => ({
     tm: state.tm,
@@ -19,6 +19,7 @@ const mapDispatchToProps = dispatch => ({
     setBuyMode: mode => dispatch(buyMode(mode)),
     setGroupId: id => dispatch(groupId(id)),
     onShowMoreGroupClick: isShowMoreGroup => dispatch(showMoreGroup(isShowMoreGroup)),
+    setModalOpen:modalopen=>dispatch(modalOpen(modalopen))
 })
 
 class SingleGroup extends Component {
@@ -73,6 +74,7 @@ class SingleGroup extends Component {
     }
 
     processPay(groupid) {
+        this.props.setModalOpen(false)
         let isFree = this.props.freeBuy;
         let buyingid = this._GetQueryString('id');
         if (this.state.canClick) {
@@ -104,7 +106,7 @@ class SingleGroup extends Component {
                     this.props.setCouponBuyFilter(this.props.cantuanPrice)
                     return
                 }
-                newWxpay.join('/pay/weixin/group/prepare.json', {
+                payRequest.join('/pay/weixin/group/prepare.json', {
                     buyingid: buyingid,
                     groupid: groupid,
                     couponid: this.props.couponid

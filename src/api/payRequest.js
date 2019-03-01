@@ -1,25 +1,32 @@
-import {axiosPost} from "./axiosData";
+import {axiosPost} from "../common/js/axiosData";
+const _GetQueryString=(name)=> {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则
+    if (r != null) return unescape(r[2]);
+    return '';
+}
+const from =_GetQueryString('from')
 
-const newWxpay = {
+const payRequest = {
     async join(url, data) {
         let params = await
-            getPayParams(url, Object.assign({}, data, {isFounder: 0, urltag: 'wxyx_groupbuying'}))
-        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid,groupid:params.groupid});
+            getPayParams(url, Object.assign({}, {isFounder: 0, urltag: 'wxyx_groupbuying',from:from}, data))
+        return Pay(params.data, {needAddress: params.needAddress, bid: params.bid, groupid: params.groupid});
     },
     async found(url, data) {
         let params = await
-            getPayParams(url, Object.assign({}, data, {isFounder: 1, urltag: 'wxyx_groupbuying_1'}));
-        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid,groupid:params.groupid});
+            getPayParams(url, Object.assign({}, {isFounder: 1, urltag: 'wxyx_groupbuying_1',from:from}, data));
+        return Pay(params.data, {needAddress: params.needAddress, bid: params.bid, groupid: params.groupid});
     },
     async justPay(url, data) {
         let params = await
-            getPayParams(url, Object.assign({}, data, {issingle: 1, urltag: 'wxyx_groupbuying_single'}))
-        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid,groupid:""});
+            getPayParams(url, Object.assign({}, {issingle: 1, urltag: 'wxyx_groupbuying_single',from:from}, data))
+        return Pay(params.data, {needAddress: params.needAddress, bid: params.bid, groupid: ""});
     },
-    async AJoinPay(url, data){
+    async AJoinPay(url, data) {
         let params = await
-            getPayParams(url, Object.assign({}, data, {urltag: 'activity20190218'}))
-        return Pay(params.data,{needAddress: params.needAddress,bid:params.bid,groupid:params.groupid});
+            getPayParams(url, Object.assign({}, {urltag: 'activity20190218',from:from}, data))
+        return Pay(params.data, {needAddress: params.needAddress, bid: params.bid, groupid: params.groupid});
     }
 }
 const xblPay = {
@@ -71,7 +78,7 @@ const getPayParams = function (url, data) {
         });
     });
 };
-const Pay = (payJson,other) => {
+const Pay = (payJson, other) => {
     return new Promise((resolve, reject) => {
         window.wx.chooseWXPay({
             timestamp: payJson.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
@@ -93,6 +100,6 @@ const Pay = (payJson,other) => {
 }
 
 export {
-    newWxpay,
+    payRequest,
     xblPay
 }

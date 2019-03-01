@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './couponBuy.scss'
 import {wxPays} from "../../common/js/wxpay";
-import {newWxpay, xblPay} from "../../common/js/newWxpay";
+import {payRequest, xblPay} from "../../api/payRequest";
 
 
 export default class CouponBuy extends Component {
@@ -48,7 +48,7 @@ export default class CouponBuy extends Component {
         let mode = this.props.buyMode;
         switch (mode) {
             case 0:
-                newWxpay.join('/pay/weixin/group/prepare.json', {
+                payRequest.join('/pay/weixin/group/prepare.json', {
                     buyingid: buyingid,
                     groupid: groupid,
                     couponid: couponid
@@ -57,22 +57,13 @@ export default class CouponBuy extends Component {
                 }).catch(err => {
                     window.alert("支付失败")
                 });
-                // wxPays.join('/pay/weixin/group/prepare.json', {
-                //     buyingid: buyingid,
-                //     groupid: groupid,
-                //     couponid: couponid
-                // });
                 break;
             case 1:
-                // wxPays.found('/pay/weixin/group/prepare.json', {
-                //     shareKey: shareKey,
-                //     buyingid: buyingid,
-                //     couponid: couponid
-                // });
-                newWxpay.found('/pay/weixin/group/prepare.json', {
+                payRequest.found('/pay/weixin/group/prepare.json', {
                     shareKey: shareKey,
                     buyingid: buyingid,
-                    couponid: couponid
+                    couponid: couponid,
+                    urltag:window.location.pathname.indexOf('share') < 0?'wxyx_groupbuying_1':'wxyx_groupbuying_share'
                 }).then(res => {
                     this.afterPay(res)
                 }).catch(err => {
@@ -80,15 +71,10 @@ export default class CouponBuy extends Component {
                 });
                 break;
             case 5:
-                // wxPays.justPay('/pay/weixin/youxue/prepare.json', {
-                //     shareKey: shareKey,
-                //     buyingid: buyingid,
-                //     couponid: couponid
-                // });
-                newWxpay.justPay('/pay/weixin/youxue/prepare.json', {
+                payRequest.justPay('/pay/weixin/youxue/prepare.json', {
                     shareKey: shareKey,
                     buyingid: buyingid,
-                    couponid: couponid
+                    couponid: couponid,
                 }).then(res => {
                     this.afterPay(res)
                 }).catch(err => {
@@ -96,7 +82,7 @@ export default class CouponBuy extends Component {
                 });
                 break;
             case 99:
-                newWxpay.AJoinPay('/pay/weixin/youxue/prepare.json',{
+                payRequest.AJoinPay('/pay/weixin/youxue/prepare.json',{
                     shareKey: shareKey,
                     buyingid: buyingid,
                     couponid: couponid

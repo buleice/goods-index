@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import GroupBox from '../group-box/group-box';
-import axios from 'axios'
 import './group-list.scss'
 import Transition from 'react-transition-group/Transition';
-
-
-
+import {getMoreGroup} from '../../api/requestApis'
 
 class GroupList extends Component {
     constructor(props) {
@@ -20,7 +17,7 @@ class GroupList extends Component {
         this.setState({
             loadMoreGroup:true
         })
-        axios.get(`/purchase/index.json?id=${this.props.groupList.id}&page=${this.state.pageNum+1}`).then(res=>{
+        getMoreGroup(this.props.groupList.id,this.state.pageNum+1).then(res=>{
             if(res.data.userList.length>0){
                 this.setState({
                     pageNum:this.state.pageNum+1
