@@ -107,6 +107,7 @@ class SingleGroup extends Component {
                     return
                 }
                 payRequest.join('/pay/weixin/group/prepare.json', {
+                    shareKey: this._GetQueryString('shareKey'),
                     buyingid: buyingid,
                     groupid: groupid,
                     couponid: this.props.couponid
@@ -115,7 +116,6 @@ class SingleGroup extends Component {
                 }).catch(err => {
                     console.log(err)
                 });
-                // wxPays.join('/pay/weixin/group/prepare.json',{buyingid:buyingid,groupid:groupid,couponid:this.props.couponid});
             }
         } else {
             return false
