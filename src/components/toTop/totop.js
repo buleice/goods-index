@@ -4,7 +4,7 @@ import './toTop.css'
  class ScrollTo extends Component{
   constructor(props){
     super(props);
-    this. _throttle=this. _throttle.bind(this)
+    this._throttle=this._throttle.bind(this)
       this._scrollFunction=this._scrollFunction.bind(this)
       this._topFunction=this._topFunction.bind(this)
       this.state={

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import GroupBox from '../group-box/group-box';
 import './group-list.scss'
 import Transition from 'react-transition-group/Transition';
-import {getMoreGroup} from '../../api/requestApis'
+import {getMoreGroup} from '../../apis/requestApis'
 
 class GroupList extends Component {
     constructor(props) {

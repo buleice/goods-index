@@ -5,7 +5,8 @@ export default class ProductsInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            intro: 0
+            intro: 0,
+            sayHello:false
         }
     }
 

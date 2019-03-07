@@ -3,7 +3,7 @@ import './single-group.scss';
 import {connect} from 'react-redux';
 import {backTimeString} from '../../common/js/process'
 import {wxPays} from "../../common/js/wxpay";
-import {payRequest, xblPay} from "../../api/payRequest";
+import {payRequest, xblPay} from "../../apis/payRequest";
 import {couponBuyFilter, showCouponBuy, buyMode, groupId, showMoreGroup, modalOpen} from "../../actions";
 
 const mapStateToProps = (state, props) => ({

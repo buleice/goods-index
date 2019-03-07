@@ -12,7 +12,7 @@ import CouponBuy from './containers/couponBuy'
 import ScroolYToTop from './components/toTop/totop';
 import AdPush from './components/push-component/push-component';
 import {wxShare} from "./common/js/wxshare";
-import {requestPageData} from './api/requestApis'
+import {requestPageData} from './apis/requestApis'
 class App extends Component {
     constructor() {
         super();

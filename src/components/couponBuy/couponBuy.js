@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './couponBuy.scss'
 import {wxPays} from "../../common/js/wxpay";
-import {payRequest, xblPay} from "../../api/payRequest";
+import {payRequest, xblPay} from "../../apis/payRequest";
 
 
 export default class CouponBuy extends Component {

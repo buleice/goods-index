@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './buybutton.scss';
-import {payRequest, xblPay} from "../../api/payRequest";
+import {payRequest, xblPay} from "../../apis/payRequest";
 import PromptDialog from '../weixin-dialog/weixin-dialog'
 
 export default class BuyButtons extends Component {
