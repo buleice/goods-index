@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
-import {showGuide,modalOpen} from '../actions/index';
-import Guize from '../components/guize/guize'
+import {showGuide,modalOpen} from '../actions';
+import Guize from '../../components/guize/guize'
 
 const mapStateToProps = (state, ownProps) => ({
     showStatus: state.showGuide

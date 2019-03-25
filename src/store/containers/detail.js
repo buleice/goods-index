@@ -1,5 +1,5 @@
 import {connect}  from 'react-redux';
-import App from '../App'
+import GoodsDetail from '../../view/default'
 import {freeBuy, groupData, SetTm,userCoupons,cantuanPrice,pageData} from "../actions";
 
 const mapDispatchToProps = dispatch => ({
@@ -16,4 +16,4 @@ const mapStateToProps = (state, ownProps) => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(App)
+)(GoodsDetail)
