@@ -3,6 +3,11 @@ import './weixin-dialog.scss';
 import PropTypes from 'prop-types';
 
 class PromptDialog extends Component {
+  componentWillUnmount() {
+    this.setState = (state, callback) => {
+      return
+    }
+  }
     render() {
         return (
             this.props.showPromptDialog ? (<div className={'prompt-dialog'}>

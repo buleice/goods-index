@@ -1,0 +1,120 @@
+.avatar-box{
+  .avatar {
+  display: -ms-flexbox;
+  display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-around;
+  -webkit-align-items: center;
+  padding-top: 1rem;
+  height: auto;
+  padding-bottom: .625rem;
+
+  .avatar-top {
+    width: 100%;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: space-around;
+    -webkit-align-items: center;
+
+    li {
+      text-align: center;
+      list-style-type: none;
+      height: 6.06rem;
+      width: 14%;
+      max-width: 6.25rem;
+      .default-avatar{
+        background:#ffffff url(/img/what@2x.png) no-repeat center;
+        background-origin: padding-box;
+        background-size:100%;
+        display:inline-block;width:100%;padding-top:100%;border-radius:100%;border:1px solid #fff;
+      }
+
+      .more-icon {
+        background: rgba(0, 0, 0, 0) url(//udata.youban.com/webimg/wxyx/puintuan/more.png) no-repeat center;
+        background-origin: padding-box;
+        background-size: 100%;
+        border: none;
+        display: inline-block;
+        width: 100%;
+        padding-top: 100%;
+        border-radius: 100%;
+        border: 1px solid #fff
+      }
+
+      .avater-nick {
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: .9rem;
+      }
+      @media only screen and (max-width:20rem){
+        .avater-nick {
+          max-width: 3.125rem;
+          display: inline-block;
+          margin-top: .31rem;
+        }
+      }
+
+      &:first-child {
+        position: relative;
+
+        span {
+          &.badges {
+            display: inline-block;
+            vertical-align: middle;
+            position: absolute;
+            background-color: #f69f00;
+            font-size: .75rem;
+            color: #fff;
+            padding: .125rem .5rem;
+            border-radius: .1875rem;
+            top: -.3125rem;
+            right: 0.125rem;
+          }
+        }
+      }
+
+      &:last-child {
+        div {
+          text-align: center;
+          line-height: 3.75rem;
+        }
+      }
+    }
+  }
+}
+
+}
+
+.ad-link {
+  display: block;
+  .adImg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+

@@ -3,7 +3,7 @@
     const ua = navigator.userAgent;
     const matches = ua.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i);
     const isIos = navigator.appVersion.match(/(iphone|ipad|ipod)/gi);
-    const dpr = window.devicePixelRatio || 1;
+    let dpr = window.devicePixelRatio || 1;
     if (!isIos && !(matches && matches[1] > 534)) {
         // 如果非iOS, 非Android4.3以上, dpr设为1;
         dpr = 1;
@@ -27,7 +27,7 @@ window.onresize = window.onorientationchange=function () {
         const ua = navigator.userAgent;
         const matches = ua.match(/Android[\S\s]+AppleWebkit\/(\d{3})/i);
         const isIos = navigator.appVersion.match(/(iphone|ipad|ipod)/gi);
-        const dpr = window.devicePixelRatio || 1;
+        let dpr = window.devicePixelRatio || 1;
         if (!isIos && !(matches && matches[1] > 534)) {
             // 如果非iOS, 非Android4.3以上, dpr设为1;
             dpr = 1;

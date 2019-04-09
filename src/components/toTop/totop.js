@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import './toTop.css'
-
+const dpr = window.devicePixelRatio || 1;
  class ScrollTo extends Component{
   constructor(props){
     super(props);
-    this._throttle=this._throttle.bind(this)
+    this. _throttle=this. _throttle.bind(this)
       this._scrollFunction=this._scrollFunction.bind(this)
       this._topFunction=this._topFunction.bind(this)
       this.state={
@@ -53,7 +53,7 @@ import './toTop.css'
         this.timer = requestAnimationFrame(function fn() {
             var oTop = document.body.scrollTop || document.documentElement.scrollTop;
             if (oTop > 0) {
-                window.scrollTo(0, oTop - 100);
+                window.scrollTo(0, oTop - 100*dpr);
                 _this.timer = requestAnimationFrame(fn);
             } else {
                 cancelAnimationFrame(_this.timer);

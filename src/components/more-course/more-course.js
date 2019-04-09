@@ -35,6 +35,11 @@ export default class Swipers extends Component{
 
         });
     }
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
+    }
     render(){
         return(
             <div className="banbox">

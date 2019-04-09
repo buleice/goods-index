@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import './couponBuy.scss'
-import {wxPays} from "../../common/js/wxpay";
-import {payRequest, xblPay} from "../../apis/payRequest";
+import './couponBuy.scss';
+import {payRequest} from "../../api/payRequest";
 
 
 export default class CouponBuy extends Component {
@@ -11,7 +10,11 @@ export default class CouponBuy extends Component {
             couponBuy: true
         }
     }
-
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
+    }
     _GetQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则
@@ -22,13 +25,15 @@ export default class CouponBuy extends Component {
         const buyingId=this._GetQueryString('id');
         function toSchedulPage(){
             if(params.groupid!==''&&params.groupid!==undefined){
-                window.location.href=`/purchase/detail?buyingid=${buyingId}&groupid=${params.groupid}&from=default&purchased=1`
+                this.props.history.push(`/progress/${buyingId}/${params.groupid}`)
+                // window.location.href=`/purchase/detail?buyingid=${buyingId}&groupid=${params.groupid}&from=default&purchased=1`
             }else{
-                window.location.href=`/groupbuying/success?buyingid=${buyingId}&from=default&purchased=1`
+                this.props.history.push(`/success/${buyingId}/${params.groupid}`)
+                // window.location.href=`/groupbuying/success?buyingid=${buyingId}&from=default&purchased=1`
             }
         }
         setTimeout(() => {
-            if (params.activity != undefined && params.activity != null && params.activity != '') {
+            if (params.activity !== undefined && params.activity !== null && params.activity != '') {
                 params.needAddress === 1 ?
                     window.location.href = `/address/index?from=index#/orderpage?activity=${params.activity}&id=${params.bid}&goodsid=${buyingId}`
                     :
@@ -47,8 +52,9 @@ export default class CouponBuy extends Component {
         let groupid = this.props.groupId;
         let mode = this.props.buyMode;
         switch (mode) {
-            case 0:
+            case 0: //非免费参团
                 payRequest.join('/pay/weixin/group/prepare.json', {
+                    shareKey: shareKey,
                     buyingid: buyingid,
                     groupid: groupid,
                     couponid: couponid
@@ -58,7 +64,7 @@ export default class CouponBuy extends Component {
                     window.alert("支付失败")
                 });
                 break;
-            case 1:
+            case 1: //非免费开团
                 payRequest.found('/pay/weixin/group/prepare.json', {
                     shareKey: shareKey,
                     buyingid: buyingid,
@@ -70,7 +76,7 @@ export default class CouponBuy extends Component {
                     window.alert("支付失败")
                 });
                 break;
-            case 5:
+            case 5: //直接原价购买
                 payRequest.justPay('/pay/weixin/youxue/prepare.json', {
                     shareKey: shareKey,
                     buyingid: buyingid,
@@ -81,17 +87,18 @@ export default class CouponBuy extends Component {
                     window.alert("支付失败")
                 });
                 break;
-            case 99:
+            case 99: //通过运营活动购买
                 payRequest.AJoinPay('/pay/weixin/youxue/prepare.json',{
                     shareKey: shareKey,
                     buyingid: buyingid,
-                    couponid: couponid
+                    couponid: couponid,
                 }).then(res=>{
                     this.afterPay(Object.assign({},res,{activity:20190218}))
                 }).catch(err => {
                     console.log(err)
                     window.alert("支付失败")
                 });
+                break;
             default:
                 return;
         }

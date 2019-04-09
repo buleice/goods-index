@@ -3,6 +3,11 @@ import './group-box.scss';
 import SingleGroup from '../single-group/single-group'
 
 export default class GroupBox extends Component {
+  componentWillUnmount() {
+    this.setState = (state, callback) => {
+      return
+    }
+  }
     render() {
         return (
             <div>

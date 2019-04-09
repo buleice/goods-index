@@ -2,6 +2,11 @@ import React, {Component} from "react";
 import './people-in-group.scss'
 import GroupBox from "../group-box/group-box";
 export default class PeopleInGroup extends Component {
+  componentWillUnmount() {
+    this.setState = (state, callback) => {
+      return
+    }
+  }
     render() {
         return (
             <div className="pinke-block">
@@ -22,4 +27,3 @@ export default class PeopleInGroup extends Component {
         )
     }
 }
-

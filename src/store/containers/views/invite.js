@@ -1,19 +1,20 @@
 import {connect}  from 'react-redux';
-import GoodsDetail from '../../view/default'
-import {freeBuy, groupData, SetTm,userCoupons,cantuanPrice,pageData} from "../actions";
+import InvitePage from '../../../view/invite'
+import {pageData,SetTm,freeBuy,cantuanPrice,userCoupons,groupId} from "../../actions";
 
 const mapDispatchToProps = dispatch => ({
-    setTm: tm => dispatch(SetTm(tm)),
-    setGroups: data => dispatch(groupData(data)),
+    setPageData:data=>dispatch(pageData(data)),
     setFreeBuy:isFree=>dispatch(freeBuy(isFree)),
     setUserCoupons:coupons=>dispatch(userCoupons(coupons)),
     setCantuanPrice:price=>dispatch(cantuanPrice(price)),
-    setPageData:data=>dispatch(pageData(data))
+    setTm: tm => dispatch(SetTm(tm)),
+    setGroupId: id => dispatch(groupId(id))
 })
 const mapStateToProps = (state, ownProps) => ({
     modalOpen: state.modalOpen,
+    couponid: state.couponId,
 })
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(GoodsDetail)
+)(InvitePage)

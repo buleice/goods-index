@@ -19,50 +19,8 @@
   <style>
     *{text-decoration: none;list-style-type: none;margin: 0;padding: 0;-webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-overflow-scrolling:touch;user-select: none}
   </style>
-  <script>
-      function resetHtmlFontAndViewPort() {
-          var scale = 1 / devicePixelRatio;
-          document.querySelector('meta[name="viewport"]').setAttribute('content','initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
-      }
-      function resetHtmlFont() { //改变浏览器字体大小
-          var HTML = document.getElementsByTagName('html')[0];
-          var deviceWidth = document.documentElement.clientWidth;
-          var scale2 = deviceWidth / 375;
-          var fontSize=(160 * scale2)/10>=30? 30:parseInt((160 * scale2)/10);
-          fontSize=chk(fontSize)?fontSize:fontSize+1;
-          HTML.style.fontSize = fontSize + 'px'; //乘以100的目的是浏览器最小的字体大小为1rem,所以会出现屏幕过小会不执行，这样就可以按照正常的px大小除以100就是rem的值了
-      }
-      function chk(num){
-          return num%2 ==0 ?true:false;  //判断是否能整除2
-      }
-      function resize() {
-          if(window.orientation == 90 || window.orientation == -90) {
-              //ipad、iphone竖屏；Andriod横屏
-              // resetHtmlFontAndViewPort()
-              resetHtmlFont()
-              orientation = 'landscape';
-              return false;
-          } else if(window.orientation == 0 || window.orientation == 180) {
-              //ipad、iphone横屏；Andriod竖屏
-              // resetHtmlFontAndViewPort()
-              resetHtmlFont()
-              orientation = 'portrait';
-              return false;
-          }
-      }
-      window.addEventListener("orientationchange",function(){//手机横屏或者竖屏事件
-          resize();
-      });
-      window.onresize = window.onorientationchange = function() {
-          resize();
-          resetHtmlFont()
-      }
-      resize();
-      resetHtmlFont();
-  </script>
   <title>小伴龙优学</title>
 </head>
-
 <body>
 <div id="root"></div>
 </body>

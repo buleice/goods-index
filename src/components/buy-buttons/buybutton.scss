@@ -105,5 +105,46 @@
     }
   }
 }
+.buttons-buy{
+  z-index:999;
+  display:-ms-flexbox;
+  display:flex;display:-webkit-box;
+  display:-webkit-flex;
+  list-style-type:none;
+  position:fixed;bottom:0;
+  width:100%;
+  -webkit-box-shadow:-0.125rem 0 0.1875rem 0.1875rem #ededed;
+  box-shadow:-0.125rem 0 0.1875rem 0.1875rem #ededed;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  -webkit-box-orient:horizontal;
+  -webkit-box-direction:normal;
+  -ms-flex-direction:row;
+  flex-direction:row;
+  -ms-flex-pack:distribute;
+  justify-content:space-around;
+  -webkit-box-align:center;
+  -ms-flex-align:center;
+  align-items:center;
+  -webkit-justify-content:space-around;
+  -webkit-align-items:center;
+  li{
+      text-align: center;
+      height: 3.125rem;
+      line-height: 3.125rem;
+      font-size: 1rem;
+      color: #fff;
+      &.kaituan{
+        width: 40%;
+        background: #fff2be;
+        color: #fb4c23;
+      }
+      &.cantuan{
+        width: 60%;
+        background: -webkit-gradient(linear,left top,right top,from(#fe7f34),to(#fa4420));
+        background: linear-gradient(to right,#fe7f34,#fa4420);
+      }
+  }
+}
 
 

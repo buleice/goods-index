@@ -7,7 +7,11 @@ export default class CourserContainer extends Component{
             courseLists:this.props.courseLists
         }
     }
-
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
+    }
     render(){
         return(
             <div className="course-contatiner">

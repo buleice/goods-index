@@ -16,3 +16,23 @@ export function getMoreGroup(id,page) {
         axiosGet(`/purchase/index.json`,{id:id,page:page}).then(res=>resolve(res)).catch(error=>reject(error))
     })
 }
+
+//进度页接口
+
+export function GET_GROUP_PROGRESS(parmas){
+    return new Promise((resolve,reject)=>{
+        axiosGet(`/purchase/detail.json`,parmas).then(res=>resolve(res))
+    })
+}
+
+export function GET_SUCCESS_BUY(parmas){
+    return new Promise((resolve,reject)=>{
+        axiosGet(`/groupbuying/success.json`,parmas).then(res=>resolve(res))
+    })
+}
+
+export function GET_INVITE_JSON(parmas){
+    return new Promise((resolve,reject)=>{
+        axiosGet(`/purchase/detail.json`,parmas).then(res=>resolve(res))
+    })
+}

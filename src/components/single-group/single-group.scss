@@ -17,8 +17,10 @@
   .group_left {
     width: 70%;
     height: auto;
-    font-size: .625rem;
+font-size: .75rem;
     text-align: left;
+    display: flex;
+align-items: center;
     .avatar {
       margin-right: .625rem;
       float: left;

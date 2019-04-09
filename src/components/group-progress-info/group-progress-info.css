@@ -1,0 +1,39 @@
+.hasJoinPeople {width:18.75rem;margin:auto;text-align:center;font-size:.875rem}
+.hasJoinPeople  span{color:red}
+.timeCount{margin-top:.625rem}
+.timeCount h3{width:18.75rem;margin:auto;text-align:center;font-size:.875rem}
+.timeCount h3 span{color:red}
+.timeCount div{display:-ms-flexbox;display:flex;display:-webkit-box;display:-webkit-flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-pack:distribute;justify-content:space-around;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-justify-content:space-around;-webkit-align-items:center;margin-top:.625rem;font-size:.625rem}
+.timeCount div .hr{width:20%;height:0;border-bottom:.0625rem solid #d3d3d3}
+.timeCount div div span{width:1.5rem;height:1.5rem;border-radius:.1875rem;background-color:#7d7d7d;text-align:center;line-height:1.5rem;color:#fff;margin:0 .125rem}
+.timeCount div div span:first-child{margin-left:.625rem}
+.timeCount div div span:last-child{margin-right:.625rem}
+
+.footer{margin-top:1.5625rem;display:-ms-flexbox;display:flex;display:-webkit-box;display:-webkit-flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-align-items:center}
+.footer span{display:inline-block;text-align:center}
+.footer a{text-decoration:none;display:inline-block;text-align:center;width:14.75rem;height:2.625rem;background:-webkit-gradient(linear,left top, right top,from(#fe7f34),to(#fa4420));background:linear-gradient(to right,#fe7f34,#fa4420);color:#fff;font-size:1.125rem;line-height:2.625rem;border-radius:.625rem}
+.shangke{width:14.75rem;height:2.625rem;background:-webkit-gradient(linear,left top, right top,from(#fe7f34),to(#fa4420));background:linear-gradient(to right,#fe7f34,#fa4420);color:#fff;font-size:1.125rem;line-height:2.625rem;border-radius:.625rem;margin-top:.9375rem}
+
+.more-acourse{
+	display: block;
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    margin-top: .63rem;
+    text-decoration: underline !important;
+    color: #3c3c3c;
+}
+.invite{
+    margin-top:1.5625rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.invite span:first-child{width:14.75rem;height:2.625rem;background:-webkit-gradient(linear,left top, right top,from(#fe7f34),to(#fa4420));background:linear-gradient(to right,#fe7f34,#fa4420);color:#fff;font-size:1.125rem;line-height:2.625rem;border-radius:.625rem}
+.invite span:last-child{margin-top:.5rem;font-size:.875rem;color:#656565}
+.yaoqingka{display:none;position:fixed;width:100%;top:0;bottom:0}
+.banbox{position:relative;width:100%;height:auto;top:0;left:0;z-index:0}
+
+.prompt2{position:fixed;width:100%;top:0;bottom:0;z-index:1;background:rgba(0,0,0,.5)}
+.prompt2-info span{position:absolute; color: #ffffff;display: block;text-align: center;margin: auto;bottom: -1rem;transform: translateX(-40%); }
+.prompt2-info{position:absolute;    width: 60%;left: 40%;height:0;padding-top:60%;background-image:url(///udata.youban.com/webimg/wxyx/poster/shareguide.png?v=1);background-repeat:no-repeat;background-position:right top;background-size:100% auto} 

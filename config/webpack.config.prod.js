@@ -21,6 +21,8 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin-alt');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const CompressionWebpackPlugin = require("compression-webpack-plugin")
+const productionGzipExtensions = ['js', 'css']
 
 
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -59,12 +61,12 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // common function to get style loaders
 const getStyleLoaders = (cssOptions, preProcessor) => {
-  const loaders = [
-    {
+  const loaders = [{
       loader: MiniCssExtractPlugin.loader,
-      options: Object.assign(
-        {},
-        shouldUseRelativeAssetPaths ? { publicPath: '../../' } : undefined
+      options: Object.assign({},
+        shouldUseRelativeAssetPaths ? {
+          publicPath: '../../'
+        } : undefined
       ),
     },
     {
@@ -115,7 +117,7 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the app code.
-  entry: ['babel-polyfill',paths.appIndexJs],
+  entry: ['babel-polyfill', paths.appIndexJs],
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -126,12 +128,12 @@ module.exports = {
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
     // We inferred the "public path" (such as / or /my-project) from homepage.
     // publicPath: publicPath,
-      publicPath: '/wxyx/index/',
+    publicPath: '/wxyx/index/',
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
       path
-        .relative(paths.appSrc, info.absoluteResourcePath)
-        .replace(/\\/g, '/'),
+      .relative(paths.appSrc, info.absoluteResourcePath)
+      .replace(/\\/g, '/'),
   },
   optimization: {
     minimizer: [
@@ -180,16 +182,16 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({
         cssProcessorOptions: {
           parser: safePostCssParser,
-          map: shouldUseSourceMap
-            ? {
-                // `inline: false` forces the sourcemap to be output into a
-                // separate file
-                inline: false,
-                // `annotation: true` appends the sourceMappingURL to the end of
-                // the css file, helping the browser find the sourcemap
-                annotation: true,
-              }
-            : false,
+          map: shouldUseSourceMap ?
+            {
+              // `inline: false` forces the sourcemap to be output into a
+              // separate file
+              inline: false,
+              // `annotation: true` appends the sourceMappingURL to the end of
+              // the css file, helping the browser find the sourcemap
+              annotation: true,
+            } :
+            false,
         },
       }),
     ],
@@ -250,23 +252,25 @@ module.exports = {
     strictExportPresence: true,
     rules: [
       // Disable require.ensure as it's not a standard language feature.
-      { parser: { requireEnsure: false } },
+      {
+        parser: {
+          requireEnsure: false
+        }
+      },
 
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
       {
         test: /\.(js|mjs|jsx)$/,
         enforce: 'pre',
-        use: [
-          {
-            options: {
-              formatter: require.resolve('react-dev-utils/eslintFormatter'),
-              eslintPath: require.resolve('eslint'),
+        use: [{
+          options: {
+            formatter: require.resolve('react-dev-utils/eslintFormatter'),
+            eslintPath: require.resolve('eslint'),
 
-            },
-            loader: require.resolve('eslint-loader'),
           },
-        ],
+          loader: require.resolve('eslint-loader'),
+        }, ],
         include: paths.appSrc,
       },
       {
@@ -327,7 +331,9 @@ module.exports = {
               presets: [
                 [
                   require.resolve('babel-preset-react-app/dependencies'),
-                  { helpers: true },
+                  {
+                    helpers: true
+                  },
                 ],
               ],
               cacheDirectory: true,
@@ -378,8 +384,7 @@ module.exports = {
           {
             test: sassRegex,
             exclude: sassModuleRegex,
-            loader: getStyleLoaders(
-              {
+            loader: getStyleLoaders({
                 importLoaders: 2,
                 sourceMap: shouldUseSourceMap,
               },
@@ -395,8 +400,7 @@ module.exports = {
           // using the extension .module.scss or .module.sass
           {
             test: sassModuleRegex,
-            loader: getStyleLoaders(
-              {
+            loader: getStyleLoaders({
                 importLoaders: 2,
                 sourceMap: shouldUseSourceMap,
                 modules: true,
@@ -428,6 +432,7 @@ module.exports = {
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
+
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -447,7 +452,7 @@ module.exports = {
     // Inlines the webpack runtime script. This script is too small to warrant
     // a network request.
     shouldInlineRuntimeChunk &&
-      new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
+    new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime~.+[.]js/]),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -498,33 +503,40 @@ module.exports = {
     }),
     // TypeScript type checking
     fs.existsSync(paths.appTsConfig) &&
-      new ForkTsCheckerWebpackPlugin({
-        typescript: resolve.sync('typescript', {
-          basedir: paths.appNodeModules,
-        }),
-        async: false,
-        checkSyntacticErrors: true,
-        tsconfig: paths.appTsConfig,
-        compilerOptions: {
-          module: 'esnext',
-          moduleResolution: 'node',
-          resolveJsonModule: true,
-          isolatedModules: true,
-          noEmit: true,
-          jsx: 'preserve',
-        },
-        reportFiles: [
-          '**',
-          '!**/*.json',
-          '!**/__tests__/**',
-          '!**/?(*.)(spec|test).*',
-          '!src/setupProxy.js',
-          '!src/setupTests.*',
-        ],
-        watch: paths.appSrc,
-        silent: true,
-        formatter: typescriptFormatter,
+    new ForkTsCheckerWebpackPlugin({
+      typescript: resolve.sync('typescript', {
+        basedir: paths.appNodeModules,
       }),
+      async: false,
+      checkSyntacticErrors: true,
+      tsconfig: paths.appTsConfig,
+      compilerOptions: {
+        module: 'esnext',
+        moduleResolution: 'node',
+        resolveJsonModule: true,
+        isolatedModules: true,
+        noEmit: true,
+        jsx: 'preserve',
+      },
+      reportFiles: [
+        '**',
+        '!**/*.json',
+        '!**/__tests__/**',
+        '!**/?(*.)(spec|test).*',
+        '!src/setupProxy.js',
+        '!src/setupTests.*',
+      ],
+      watch: paths.appSrc,
+      silent: true,
+      formatter: typescriptFormatter,
+    }),
+    new CompressionWebpackPlugin({
+        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+              algorithm: 'gzip',
+      threshold: 10240,
+      // deleteOriginalAssets:true, //删除源文件，不建议
+      minRatio: 0.8
+      })
   ].filter(Boolean),
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

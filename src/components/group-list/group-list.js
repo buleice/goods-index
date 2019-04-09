@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import GroupBox from '../group-box/group-box';
 import './group-list.scss'
 import Transition from 'react-transition-group/Transition';
-import {getMoreGroup} from '../../apis/requestApis'
+import {getMoreGroup} from '../../api/requestApis'
 
 class GroupList extends Component {
     constructor(props) {
@@ -12,6 +12,11 @@ class GroupList extends Component {
             pageNum:1,
             showLoading:false
         }
+    }
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
     }
     reloadGroupData(){
         this.setState({

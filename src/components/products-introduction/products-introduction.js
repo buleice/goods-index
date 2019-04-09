@@ -5,11 +5,14 @@ export default class ProductsInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            intro: 0,
-            sayHello:false
+            intro: 0
         }
     }
-
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
+    }
     handleClick(index) {
         this.setState({
             intro: index

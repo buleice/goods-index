@@ -5,7 +5,7 @@
   overflow: hidden;
   box-sizing: border-box;
   padding: 0 4.2%;
-  margin: 20px 0;
+  margin: 1.25rem 0;
   .swiper-wrapper {
     li {
       width: 91.2%;
@@ -20,7 +20,7 @@
           border-radius: 10px;
         }
         .mask-bottom {
-          height: 40px;
+          height: 2.5rem;
           background: rgba(0, 0, 0, .5);
           border-radius: 0 0 10px 10px;
           position: absolute;
@@ -32,17 +32,20 @@
             display: inline-block;
             &:first-child {
               position: absolute;
-              left: 15px;
-              line-height: 40px;
+              left: .9rem;
+              line-height: 2.5rem;
+              max-width: 11rem;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
             &:last-child {
               position: absolute;
-              right: 10px;
-              padding: 9px 12px;
+              right: .625rem;
+              padding: .625rem .75rem;
               background: #F69F00;
-              border-radius: 12px;
-              line-height: 12px;
-              top: 4px
+              border-radius:.75rem;
+              line-height: .75rem;
+              top: .25rem
             }
           }
         }

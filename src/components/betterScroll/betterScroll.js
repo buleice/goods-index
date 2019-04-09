@@ -28,7 +28,11 @@ class Carousel extends Component {
         this._initDots = this._initDots.bind(this);
         this._play = this._play.bind(this);
     }
-
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
+    }
     componentWillMount() {
         this.timer = '';
         this.resizeTimer = '';
@@ -48,6 +52,7 @@ class Carousel extends Component {
     }
 
     componentDidMount() {
+
         this.update();
         window.addEventListener('resize', () => {
             if (!this.carousel || !this.carousel.enabled) {

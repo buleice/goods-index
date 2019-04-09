@@ -2,64 +2,89 @@ import React, {Component} from 'react';
 import Carousel from '../components/betterScroll/betterScroll';
 import GoodInfo from '../components/goodInfo/goodInfo';
 import ProductsInfo from '../components/products-introduction/products-introduction';
-import PeopleInGroup from '../store/containers/people-in-group'
-import GuiZe from '../store/containers/guize'
-import GroupList from '../store/containers/group-list'
+import AvatarBox from '../components/avatar/avatar'
+import ScroolYToTop from '../components/toTop/totop';
+import GroupProgress from '../components/group-progress-info/group-progress-info'
 import BuyButtons from '../store/containers/buyButtonGroup'
 import CouponBuy from '../store/containers/couponBuy'
-import ScroolYToTop from '../components/toTop/totop';
 import AdPush from '../components/push-component/push-component';
+import MoreCourse from '../components/more-course/more-course'
 import {wxShare} from "../common/js/wxshare";
-import {requestPageData} from '../api/requestApis'
-class GoodsDetail extends Component {
+import Danmaku from '../components/Danmaku/Danmaku';
+import {GET_INVITE_JSON} from '../api/requestApis';
+import './progress.scss';
+class InvitePage extends Component {
     constructor() {
         super();
         this.state = {
             goodInfo: [],
             isRender: false,
-            goodInfoData: {}
+            goodInfoData: {},
+            showSubscrib:true,
+
         }
         this._GetQueryString = this._GetQueryString.bind(this)
     }
-    componentWillMount() {
-
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
     }
     componentDidMount() {
         this._initPageData();
-        let _this = this;
         window.addEventListener('pageshow', function (event) {
             if (event.persisted) {
                 window.location.reload();
             }
         })
-        // window.addEventListener('popstate',(event) => {
-        //     // 监听到返回事件，注意，只有触发了返回才会执行这个方法
-        //     if (event.persisted) {
-        //         window.location.reload();
-        //     }
-        // })
+    }
+
+    // shouldComponentUpdate(nextProps,nextState){
+    //     if(nextState.showSubscrib === this.state.showSubscrib){
+    //       return false
+    //     }
+    // }
+
+    toggleSubscrib(boo){
+        this.setState({
+            showSubscrib:boo
+        })
     }
 
     render() {
         if (this.state.isRender) {
             return (
                 <div className={`App ${this.props.modalOpen ? 'modal-open' : ''}`}>
-                    {this.state.goodInfo.buyingInfo.Fbanner.length > 1 ? (
-                        <Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>) : (
-                        <div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/>
-                        </div>)}
+                    <div className="slider-banner">
+                        {this.state.goodInfo.buyingInfo.Fbanner.length > 1 ? (
+                            <Carousel slideItemData={this.state.goodInfo.buyingInfo.Fbanner}></Carousel>) : (
+                            <div className='single-banner'><img src={this.state.goodInfo.buyingInfo.Fbanner[0]} alt={"图片"}/>
+                       </div>)}
+                       <Danmaku messageList={this.state.messageList}></Danmaku>
+                       {
+                           this.state.subscribe==0&&this.state.showSubscrib?(
+                            <div className="qrcode-area">
+                                <img className="qrcode" src="//udata.youban.com//webimg/wxyx/puintuan/common/img/join-qrcode2.png" alt="图片"/>
+                                <img className="close-ad" onClick={this.toggleSubscrib.bind(this,false)} src="//udata.youban.com//webimg/wxyx/puintuan/common/img/join-close.png" alt="图片"/>
+                                <div className="content">
+                                    <h4>你还未关注小伴龙优学公众号</h4>
+                                    <p>关注小伴龙优学第一时间掌握优学课程更新以及拼团优惠信息</p>
+                                    <a className="sub-btn"  href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU1Mjc4MzQ4Ng==&scene=126#wechat_redirect">立即关注</a>
+                                </div>
+                            </div>
+                           ):null
+                       }
+                       {
+                        this.state.subscribe==0&&!this.state.showSubscrib? (<img onClick={(e)=>this.toggleSubscrib(true,e)} className="notification" src="//udata.youban.com//webimg/wxyx/puintuan/common/img/join-notification.gif" alt="图片"/>):null
+                       }
+                    </div>
                     <GoodInfo goodInfo={this.state.goodInfoData}></GoodInfo>
-                    {
-                        !this._GetQueryString('isactivity') && this.state.buttonControl.Fmode !== 9 ? (<div>
-                            <PeopleInGroup peopleInGroup={this.state.peopleInGroup}></PeopleInGroup>
-                            <GuiZe></GuiZe>
-                            <GroupList groupList={this.state.groupList}></GroupList>
-                        </div>) : null
-                    }
-
+                    <AvatarBox avatarBoxInfo={this.state.avatarBoxInfo}></AvatarBox>
+                    <GroupProgress progressInfo={this.state.progressInfo} buyingInfo={this.state.buyingInfo}> </GroupProgress>
+                    <MoreCourse lists={this.state.recommend}></MoreCourse>
                     <ProductsInfo Fvideo={this.state.Fvideo} qunQrcode={this.state.qunQrcode}
                                   Fintros={this.state.Fintros}></ProductsInfo>
-                    <CouponBuy></CouponBuy>
+                                                      <CouponBuy></CouponBuy>
                     <BuyButtons buttonControl={this.state.buttonControl}></BuyButtons>
                     <ScroolYToTop></ScroolYToTop>
                     <AdPush couponSent={this.state.couponSent[0]} newUser={this.state.newUser}></AdPush>
@@ -83,21 +108,20 @@ class GoodsDetail extends Component {
     }
 
     _initPageData() {
-        requestPageData().then(res => {
-            if (res.status === 200) {
-                let pageData = res.data;
+        GET_INVITE_JSON({
+          buyingid:this.props.match.params.buyingid,
+          groupid:this.props.match.params.groupid
+        }).then(res=>{
+            const pageData=res.data;
                 let isFree = Number(pageData.buyingInfo.Fprice) > 0 ? false : true;
                 let isBuy = pageData.isBUy;
                 if (isBuy) {
                     window.location.reload();
                     return;
                 }
-                this.props.setTm(pageData.tm)
-                this.props.setGroups(pageData.userList)
-                this.props.setFreeBuy(isFree);
-                this.props.setUserCoupons(pageData.coupons)
-                this.props.setCantuanPrice(pageData.buyingInfo.Fprice)
                 this.props.setPageData(pageData);
+                this.props.setTm(pageData.tm);
+                this.props.setGroupId('20190130190219x018c5664476')//写死了，需要结合react-router做调整
                 wxShare({
                     FshareTitle: pageData.buyingInfo.FshareTitle1,
                     FshareIcon: pageData.buyingInfo.FshareIcon,
@@ -113,6 +137,7 @@ class GoodsDetail extends Component {
                     },
                     goodInfo: pageData,
                     isRender: true,
+                    buyingInfo:pageData.buyingInfo,
                     goodInfoData: {
                         hasBonus: pageData.canGetBonus,
                         id: this._GetQueryString("id"),
@@ -124,15 +149,14 @@ class GoodsDetail extends Component {
                         Fsales: pageData.buyingInfo.Fsales,
                         Fprice: window.location.pathname.indexOf('share') < 0 ? pageData.buyingInfo.Fprice : pageData.founderPrice,
                         ForiginalPrice: pageData.buyingInfo.ForiginalPrice,
-                        Fbonus: window.location.pathname.indexOf('share') > 0 ? false : pageData.bonus
+                        Fbonus: window.location.pathname.indexOf('share') > 0 ? false : pageData.bonus,
+                        showLine3:true,
                     },
-                    recommend: pageData.recommend,
-                    Fintros: [res.data.buyingInfo.Fintro1, res.data.buyingInfo.Fintro2, res.data.buyingInfo.Fintro3],
                     buttonControl: {
                         bonusPay: pageData.bonusPay,
                         ForiginalPrice: pageData.buyingInfo.ForiginalPrice,
                         buttonText: pageData.buttonText,
-                        Fmode: window.location.pathname.indexOf('share') > 0 ? 9 : pageData.buyingInfo.Fmode,
+                        Fmode: 'invite',
                         from: pageData.from,
                         founderPrice: pageData.founderPrice,
                         Fprice: pageData.buyingInfo.Fprice,
@@ -142,26 +166,30 @@ class GoodsDetail extends Component {
                         needAddress: pageData.needAddress,
                         isActivity: this._GetQueryString('isactivity') ? true : false
                     },
-                    peopleInGroup: {
-                        Fmode: pageData.buyingInfo.Fmode,
-                        nowBuyingCount: pageData.nowBuyingCount,
-                        recent: pageData.recent,
-                        userList: pageData.userList,
-                        tm: pageData.tm
-                    },
-                    groupList: {
-                        Fmode: pageData.buyingInfo.Fmode,
-                        nowBuyingCount: pageData.nowBuyingCount,
-                        id: this._GetQueryString("id")
-                    },
+                    recommend: pageData.recommend,
+                    Fintros: [res.data.buyingInfo.Fintro1, res.data.buyingInfo.Fintro2, res.data.buyingInfo.Fintro3],
                     qunQrcode: pageData.Qunlist !== null ? pageData.Qunlist.imgcontent[0] : '',
                     Fvideo: pageData.buyingInfo.Fvideo,
                     coupons: pageData.coupons,
                     couponSent: pageData.couponSent,
-                    newUser: pageData.isNew === 1 ? true : false
+                    newUser: pageData.isNew === 1 ? true : false,
+                    avatarBoxInfo:{
+                     status:pageData.status,
+                     userList:pageData.userList,
+                     limitPeople:pageData.buyingInfo.Fmode,
+                    },
+                    progressInfo:{
+                        endTime:pageData.endTime,
+                        leftCount:pageData.leftCount,
+                        userCount:pageData.userCount,
+                        userList:pageData.userList,
+                        status:pageData.status,
+                        from: this._GetQueryString("from"),
+                    },
+                    subscribe:pageData.subscribe,
+                    messageList:pageData.messageList
                 })
-            }
-        }).catch(error=>{
+            }).catch(error=>{
             console.log(error)
         })
     }
@@ -173,4 +201,4 @@ class GoodsDetail extends Component {
     }
 }
 
-export default GoodsDetail
+export default InvitePage

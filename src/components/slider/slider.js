@@ -24,6 +24,11 @@ export default class Swipers extends Component{
           disableOnInteraction: false
       });
   }
+  componentWillUnmount() {
+    this.setState = (state, callback) => {
+      return
+    }
+  }
   render(){
           return(
               <div className="banbox">

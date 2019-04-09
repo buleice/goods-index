@@ -8,7 +8,11 @@ export default class GuiZe extends Component {
     constructor(props) {
         super(props);
     }
-
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
+    }
     render() {
         const duration=300
         return (

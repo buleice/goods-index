@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import './single-group.scss';
 import {connect} from 'react-redux';
 import {backTimeString} from '../../common/js/process'
-import {wxPays} from "../../common/js/wxpay";
-import {payRequest, xblPay} from "../../apis/payRequest";
-import {couponBuyFilter, showCouponBuy, buyMode, groupId, showMoreGroup, modalOpen} from "../../actions";
+import {payRequest, xblPay} from "../../api/payRequest";
+import {couponBuyFilter, showCouponBuy, buyMode, groupId, showMoreGroup, modalOpen} from "../../store/actions";
 
 const mapStateToProps = (state, props) => ({
     tm: state.tm,
@@ -32,19 +31,25 @@ class SingleGroup extends Component {
         }
         this._GetQueryString = this._GetQueryString.bind(this)
     }
-
+    componentWillUnMount() {
+      this.setState = (state, callback) => {
+        return
+    }
+    console.log(this.timeloop)
+        clearInterval(this.timeloop)
+    }
     componentDidMount() {
         let endTime = this.state.endTime;
         let _this = this;
         let tm = this.props.tm;
-        let timeloop = setInterval(function () {
+         this.timeloop = setInterval(function () {
             if (backTimeString(endTime, tm) !== 0) {
                 _this.setState({
                     remainTime: backTimeString(endTime, tm)
                 })
                 tm++;
             } else {
-                clearInterval(timeloop);
+                clearInterval(this.timeloop);
                 window.location.reload();
             }
         }, 1000)
@@ -53,8 +58,10 @@ class SingleGroup extends Component {
         const buyingId=this._GetQueryString('id');
         function toSchedulPage(){
             if(params.groupid!==''&&params.groupid!==undefined){
+                // this.props.history.push(`/progress/${buyingId}/${params.groupid}`)
                 window.location.href=`/purchase/detail?buyingid=${buyingId}&groupid=${params.groupid}&from=default&purchased=1`
             }else{
+                // this.props.history.push(`/success/${buyingId}/${params.groupid}`)
                 window.location.href=`/groupbuying/success?buyingid=${buyingId}&from=default&purchased=1`
             }
         }
@@ -92,6 +99,7 @@ class SingleGroup extends Component {
             if (isFree) {
                 xblPay.freeJoin('/groupbuying/freejoin.json', {buyingid: buyingid, groupid: groupid}).then(res=>{
                     setTimeout(()=>{
+                        // this.props.history.push(`/progress/${buyingId}/${groupid}`)
                         window.location.href=`/purchase/detail?buyingid=${buyingid}&groupid=${groupid}&from=default&purchased=1`
                     },300)
                 }).catch(err => {
@@ -107,15 +115,16 @@ class SingleGroup extends Component {
                     return
                 }
                 payRequest.join('/pay/weixin/group/prepare.json', {
-                    shareKey: this._GetQueryString('shareKey'),
                     buyingid: buyingid,
                     groupid: groupid,
-                    couponid: this.props.couponid
+                    couponid: this.props.couponid,
+                    shareKey:this._GetQueryString('shareKey')
                 }).then(res => {
                     this.afterPay(res)
                 }).catch(err => {
                     console.log(err)
                 });
+                // wxPays.join('/pay/weixin/group/prepare.json',{buyingid:buyingid,groupid:groupid,couponid:this.props.couponid});
             }
         } else {
             return false

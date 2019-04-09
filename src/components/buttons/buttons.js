@@ -16,6 +16,11 @@ export default class FooterButtons extends Component {
         }
         this.hideAlert = this.hideAlert.bind(this)
     }
+    componentWillUnmount() {
+      this.setState = (state, callback) => {
+        return
+      }
+    }
     render() {
         return (
             <div>

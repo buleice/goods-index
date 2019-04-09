@@ -4,6 +4,11 @@ import CSSModules from 'react-css-modules';
 import styles from './series.css'
 
 class Series extends Component{
+  componentWillUnmount() {
+    this.setState = (state, callback) => {
+      return
+    }
+  }
 render(){
         return(
             <div>
