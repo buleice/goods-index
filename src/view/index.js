@@ -27,9 +27,7 @@ class IndexPage extends Component {
         }
     }
     componentDidMount() {
-      console.log(this.props)
         this._initPageData();
-        let _this = this;
         window.addEventListener('pageshow', function (event) {
             if (event.persisted) {
                 window.location.reload();

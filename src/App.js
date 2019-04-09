@@ -1,11 +1,29 @@
 import React, {Component} from 'react';
 import {Route} from "react-router-dom";
+import loadable from '@loadable/component'
+import Loading from "./components/loading/loading";
 import './App.scss';
-import GoodsDetail from './store/containers/views/index'
-import Series from './view/series'
-import Progress from './store/containers/views/progress'
-import Invite from './store/containers/views/invite'
-import Success from './store/containers/views/success'
+
+const GoodsDetail=  loadable(() => import('./store/containers/views/index'), {
+    fallback: Loading,
+  })
+  const Series=  loadable(() => import('./view/series'), {
+    fallback: Loading,
+  })
+  const Progress=  loadable(() => import('./store/containers/views/progress'), {
+    fallback: Loading,
+  })
+  const Invite=  loadable(() => import('./store/containers/views/invite'), {
+    fallback: Loading,
+  })
+  const Success=  loadable(() => import('./store/containers/views/success'), {
+    fallback: Loading,
+  })
+// import GoodsDetail from './store/containers/views/index'
+// import Series from './view/series'
+// import Progress from './store/containers/views/progress'
+// import Invite from './store/containers/views/invite'
+// import Success from './store/containers/views/success'
 const routes = [
     {
       path: "/",
@@ -42,10 +60,11 @@ class App extends Component{
     render(){
         return(
             <div>
-             <Route cache  exact path='/' component={GoodsDetail}></Route>
-             <Route path='/progress' component={Progress}></Route>
-             <Route path='/invite/:buyingid/:groupid' component={Invite}></Route>
-             <Route path='/success/:buyingid/:groupid' component={Success}></Route>
+             <Route cache  exact path='/purchase/index' component={GoodsDetail}></Route>
+             <Route path='/purchase/index/progress' component={Progress}></Route>
+             <Route path='/purchase/index/invite/:buyingid/:groupid' component={Invite}></Route>
+             <Route path='/purchase/index/success/:buyingid/:groupid' component={Success}></Route>
+             <Route component={GoodsDetail} />
              {/* <Route path='/series' component={Series}></Route> */}
             </div>
         )
